@@ -7,6 +7,7 @@ import Media from "./components/Media";
 import AIAssistant from "./components/AIAssistant";
 import Schedule from "./components/Schedule";
 import About from "./components/About";
+import ChatWidget from "./components/ChatWidget";
 import { Toaster } from "./components/ui/toaster";
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/about" element={<About />} />
         </Routes>
+        
+        {/* Global Chat Widget */}
+        <ChatWidget />
+        
       </BrowserRouter>
       <Toaster />
     </div>

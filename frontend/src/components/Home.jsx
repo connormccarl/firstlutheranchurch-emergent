@@ -35,8 +35,8 @@ const Home = () => {
     {
       icon: MessageCircle,
       title: 'AI Spiritual Assistant',
-      description: 'Get answers to faith questions and spiritual guidance 24/7',
-      link: '/ai-assistant'
+      description: 'Get answers to faith questions and spiritual guidance 24/7 through our chat widget',
+      action: 'Click the chat button below to start'
     },
     {
       icon: Calendar,
@@ -69,11 +69,29 @@ const Home = () => {
           <p className="text-lg mb-8 text-blue-100">- Jeremiah 29:11</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg">
-              <Link to="/ai-assistant">Chat with AI Assistant</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 text-lg">
               <Link to="/schedule">Schedule with Pastor</Link>
             </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 text-lg"
+              onClick={() => {
+                // Scroll down to show the chat widget location
+                window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+                // Add a small delay then show a tooltip or highlight
+                setTimeout(() => {
+                  const chatButton = document.querySelector('[data-chat-button]');
+                  if (chatButton) {
+                    chatButton.style.animation = 'pulse 2s infinite';
+                  }
+                }, 1000);
+              }}
+            >
+              Chat with AI Assistant
+            </Button>
+          </div>
+          <div className="mt-6 text-sm text-blue-200">
+            💬 Look for the floating chat button in the bottom right corner!
           </div>
         </div>
       </section>
@@ -134,9 +152,15 @@ const Home = () => {
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-base mb-4">{feature.description}</CardDescription>
-                    <Button asChild className="w-full bg-blue-900 hover:bg-blue-800">
-                      <Link to={feature.link}>Learn More</Link>
-                    </Button>
+                    {feature.link ? (
+                      <Button asChild className="w-full bg-blue-900 hover:bg-blue-800">
+                        <Link to={feature.link}>Learn More</Link>
+                      </Button>
+                    ) : (
+                      <div className="text-sm text-amber-700 font-medium bg-amber-50 p-2 rounded">
+                        {feature.action}
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               );
@@ -216,9 +240,25 @@ const Home = () => {
                 Whether you're seeking answers, going through challenges, or wanting to grow in your faith, 
                 I'm here to walk alongside you on this journey."
               </p>
-              <Button asChild className="bg-amber-600 hover:bg-amber-700">
-                <Link to="/schedule">Schedule a Meeting</Link>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button asChild className="bg-amber-600 hover:bg-amber-700">
+                  <Link to="/schedule">Schedule a Meeting</Link>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-blue-900"
+                  onClick={() => {
+                    // Show chat widget hint
+                    const tooltip = document.createElement('div');
+                    tooltip.innerHTML = '💬 Click the chat button to start!';
+                    tooltip.style.cssText = 'position: fixed; bottom: 90px; right: 20px; background: #1e40af; color: white; padding: 8px 12px; border-radius: 8px; font-size: 14px; z-index: 1000; animation: fadeIn 0.3s ease-in;';
+                    document.body.appendChild(tooltip);
+                    setTimeout(() => tooltip.remove(), 3000);
+                  }}
+                >
+                  Quick Chat
+                </Button>
+              </div>
             </div>
           </div>
         </div>
