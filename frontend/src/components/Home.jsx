@@ -1,0 +1,232 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Calendar, MapPin, Clock, Phone, Mail, MessageCircle, Users, Heart, BookOpen } from 'lucide-react';
+import { Button } from './ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import Navbar from './Navbar';
+import Footer from './Footer';
+
+const Home = () => {
+  const upcomingEvents = [
+    {
+      id: 1,
+      title: 'Sunday Worship Service',
+      date: '2025-01-19',
+      time: '10:00 AM',
+      location: 'Main Sanctuary'
+    },
+    {
+      id: 2,
+      title: 'Bible Study',
+      date: '2025-01-22',
+      time: '7:00 PM',
+      location: 'Fellowship Hall'
+    },
+    {
+      id: 3,
+      title: 'Community Outreach',
+      date: '2025-01-25',
+      time: '9:00 AM',
+      location: 'Downtown Miami'
+    }
+  ];
+
+  const features = [
+    {
+      icon: MessageCircle,
+      title: 'AI Spiritual Assistant',
+      description: 'Get answers to faith questions and spiritual guidance 24/7',
+      link: '/ai-assistant'
+    },
+    {
+      icon: Calendar,
+      title: 'Schedule 1-on-1',
+      description: 'Book personal sessions with Pastor James Dunham',
+      link: '/schedule'
+    },
+    {
+      icon: Users,
+      title: 'Church Events',
+      description: 'Stay updated with all church activities and programs',
+      link: '/events'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-amber-700 text-white py-20 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Welcome to First Lutheran Church
+            <span className="block text-2xl md:text-3xl text-amber-200 mt-2">of Miami</span>
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+            "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future."
+          </p>
+          <p className="text-lg mb-8 text-blue-100">- Jeremiah 29:11</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg">
+              <Link to="/ai-assistant">Chat with AI Assistant</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 text-lg">
+              <Link to="/schedule">Schedule with Pastor</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Times */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Join Us for Worship</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <Clock className="h-12 w-12 text-amber-600 mx-auto mb-4" />
+                <CardTitle>Sunday Service</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-blue-900">10:00 AM</p>
+                <p className="text-gray-600 mt-2">Traditional Worship with Communion</p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <BookOpen className="h-12 w-12 text-amber-600 mx-auto mb-4" />
+                <CardTitle>Bible Study</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-blue-900">Wednesday 7:00 PM</p>
+                <p className="text-gray-600 mt-2">Deep dive into Scripture together</p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <Heart className="h-12 w-12 text-amber-600 mx-auto mb-4" />
+                <CardTitle>Youth Ministry</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-blue-900">Friday 6:00 PM</p>
+                <p className="text-gray-600 mt-2">Fellowship for teens and young adults</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">How We Can Help You Grow</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
+                  <CardHeader>
+                    <Icon className="h-16 w-16 text-amber-600 mx-auto mb-4" />
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base mb-4">{feature.description}</CardDescription>
+                    <Button asChild className="w-full bg-blue-900 hover:bg-blue-800">
+                      <Link to={feature.link}>Learn More</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Events */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900">Upcoming Events</h2>
+            <Button asChild variant="outline">
+              <Link to="/events">View All Events</Link>
+            </Button>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {upcomingEvents.map((event) => (
+              <Card key={event.id} className="hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                  <CardTitle className="text-lg">{event.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center">
+                      <Calendar className="h-4 w-4 mr-2" />
+                      {new Date(event.date).toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 mr-2" />
+                      {event.time}
+                    </div>
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 mr-2" />
+                      {event.location}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-16 bg-blue-900 text-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <MapPin className="h-5 w-5 mr-3 text-amber-400" />
+                  <span>123 Faith Street, Miami, FL 33101</span>
+                </div>
+                <div className="flex items-center">
+                  <Phone className="h-5 w-5 mr-3 text-amber-400" />
+                  <span>(305) 123-4567</span>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="h-5 w-5 mr-3 text-amber-400" />
+                  <span>info@firstlutheranmiami.org</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-2xl font-bold mb-6">Pastor James Dunham</h3>
+              <p className="text-blue-100 mb-4 leading-relaxed">
+                "My heart is to see every person discover God's amazing plan for their life. 
+                Whether you're seeking answers, going through challenges, or wanting to grow in your faith, 
+                I'm here to walk alongside you on this journey."
+              </p>
+              <Button asChild className="bg-amber-600 hover:bg-amber-700">
+                <Link to="/schedule">Schedule a Meeting</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;
