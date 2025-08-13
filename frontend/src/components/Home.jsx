@@ -220,11 +220,11 @@ const Home = () => {
               <div className="space-y-4">
                 <div className="flex items-center">
                   <MapPin className="h-5 w-5 mr-3 text-amber-400" />
-                  <span>123 Faith Street, Miami, FL 33101</span>
+                  <span>1770 Brickell Avenue, Miami, FL 33129</span>
                 </div>
                 <div className="flex items-center">
                   <Phone className="h-5 w-5 mr-3 text-amber-400" />
-                  <span>(305) 123-4567</span>
+                  <span>(313) 670-3830</span>
                 </div>
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-amber-400" />
@@ -240,6 +240,16 @@ const Home = () => {
                 Whether you're seeking answers, going through challenges, or wanting to grow in your faith, 
                 I'm here to walk alongside you on this journey."
               </p>
+              <div className="space-y-2 text-sm text-blue-100 mb-6">
+                <div className="flex items-center">
+                  <Phone className="h-4 w-4 mr-2 text-amber-400" />
+                  <span>(313) 670-3830</span>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="h-4 w-4 mr-2 text-amber-400" />
+                  <span>pastorjamesdunham@gmail.com</span>
+                </div>
+              </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button asChild className="bg-amber-600 hover:bg-amber-700">
                   <Link to="/schedule">Schedule a Meeting</Link>

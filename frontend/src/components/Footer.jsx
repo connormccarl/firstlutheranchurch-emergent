@@ -23,11 +23,11 @@ const Footer = () => {
             <div className="space-y-2 text-sm text-gray-400">
               <div className="flex items-center">
                 <MapPin className="h-4 w-4 mr-2" />
-                <span>123 Faith Street, Miami, FL 33101</span>
+                <span>1770 Brickell Avenue, Miami, FL 33129</span>
               </div>
               <div className="flex items-center">
                 <Phone className="h-4 w-4 mr-2" />
-                <span>(305) 123-4567</span>
+                <span>(313) 670-3830</span>
               </div>
               <div className="flex items-center">
                 <Mail className="h-4 w-4 mr-2" />
@@ -88,6 +88,19 @@ const Footer = () => {
               <div>
                 <p className="font-medium text-white">Youth Ministry</p>
                 <p>Friday 6:00 PM</p>
+              </div>
+            </div>
+            <div className="mt-6">
+              <h4 className="font-medium text-white mb-2">Pastor James Dunham</h4>
+              <div className="space-y-1 text-xs text-gray-400">
+                <div className="flex items-center">
+                  <Phone className="h-3 w-3 mr-1" />
+                  <span>(313) 670-3830</span>
+                </div>
+                <div className="flex items-center">
+                  <Mail className="h-3 w-3 mr-1" />
+                  <span>pastorjamesdunham@gmail.com</span>
+                </div>
               </div>
             </div>
           </div>

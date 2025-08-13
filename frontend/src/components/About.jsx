@@ -170,11 +170,11 @@ const About = () => {
               <div className="space-y-3 text-gray-700">
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-amber-600" />
-                  <span>pastor@firstlutheranmiami.org</span>
+                  <span>pastorjamesdunham@gmail.com</span>
                 </div>
                 <div className="flex items-center">
                   <Phone className="h-5 w-5 mr-3 text-amber-600" />
-                  <span>(305) 123-4567</span>
+                  <span>(313) 670-3830</span>
                 </div>
               </div>
               <div className="mt-8">
@@ -238,7 +238,7 @@ const About = () => {
               <h3 className="text-2xl font-semibold text-amber-600 mb-4">1975 - First Building</h3>
               <p className="text-gray-700 leading-relaxed">
                 Through the generous donations and volunteer work of the congregation, the church built its first 
-                permanent building on Faith Street. The sanctuary could seat 150 people and included classrooms 
+                permanent building on Brickell Avenue. The sanctuary could seat 150 people and included classrooms 
                 for Sunday school and community gatherings.
               </p>
             </div>
@@ -286,19 +286,19 @@ const About = () => {
             <div className="flex flex-col items-center">
               <MapPin className="h-8 w-8 text-amber-400 mb-2" />
               <h3 className="font-semibold mb-1">Address</h3>
-              <p className="text-blue-100">123 Faith Street<br />Miami, FL 33101</p>
+              <p className="text-blue-100">1770 Brickell Avenue<br />Miami, FL 33129</p>
             </div>
             
             <div className="flex flex-col items-center">
               <Phone className="h-8 w-8 text-amber-400 mb-2" />
               <h3 className="font-semibold mb-1">Phone</h3>
-              <p className="text-blue-100">(305) 123-4567</p>
+              <p className="text-blue-100">(313) 670-3830</p>
             </div>
             
             <div className="flex flex-col items-center">
               <Mail className="h-8 w-8 text-amber-400 mb-2" />
-              <h3 className="font-semibold mb-1">Email</h3>
-              <p className="text-blue-100">info@firstlutheranmiami.org</p>
+              <h3 className="font-semibold mb-1">Pastor Email</h3>
+              <p className="text-blue-100">pastorjamesdunham@gmail.com</p>
             </div>
           </div>
           

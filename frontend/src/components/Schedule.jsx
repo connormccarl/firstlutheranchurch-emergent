@@ -159,11 +159,11 @@ const Schedule = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center text-gray-600">
                     <Phone className="h-4 w-4 mr-2" />
-                    <span>(305) 123-4567</span>
+                    <span>(313) 670-3830</span>
                   </div>
                   <div className="flex items-center text-gray-600">
                     <Mail className="h-4 w-4 mr-2" />
-                    <span>pastor@firstlutheranmiami.org</span>
+                    <span>pastorjamesdunham@gmail.com</span>
                   </div>
                 </div>
               </CardContent>
@@ -318,7 +318,7 @@ const Schedule = () => {
                       type="tel"
                       value={bookingForm.phone}
                       onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
-                      placeholder="(305) 123-4567"
+                      placeholder="(313) 670-3830"
                     />
                   </div>
 
