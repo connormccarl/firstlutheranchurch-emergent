@@ -59,6 +59,13 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-amber-700 text-white py-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
+          <div className="flex justify-center mb-8">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+              alt="First Lutheran Church of Miami Logo" 
+              className="h-24 w-24 md:h-32 md:w-32 object-contain filter drop-shadow-lg"
+            />
+          </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Welcome to First Lutheran Church
             <span className="block text-2xl md:text-3xl text-amber-200 mt-2">of Miami</span>
