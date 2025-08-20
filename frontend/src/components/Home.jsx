@@ -242,7 +242,10 @@ const Home = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">This Sunday's Schedule</h2>
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900">This Sunday's Schedule</h2>
+              <p className="text-lg text-gray-600 mt-2">{formatSundayDate()}</p>
+            </div>
             <Button asChild variant="outline">
               <Link to="/events">View All Events</Link>
             </Button>
