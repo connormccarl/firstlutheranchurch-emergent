@@ -243,7 +243,7 @@ class ChurchAPITester:
         try:
             # Test preflight request
             headers = {
-                'Origin': 'https://church-connect-16.preview.emergentagent.com',
+                'Origin': 'https://lutheran-church-web.preview.emergentagent.com',
                 'Access-Control-Request-Method': 'POST',
                 'Access-Control-Request-Headers': 'Content-Type'
             }
