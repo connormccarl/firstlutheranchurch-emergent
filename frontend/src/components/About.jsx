@@ -173,11 +173,15 @@ const About = () => {
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex items-center justify-center text-sm text-gray-700">
                       <Mail className="h-4 w-4 mr-2 text-blue-600" />
-                      <span>johnrileytechsolutions7@gmail.com</span>
+                      <a href="mailto:johnrileytechsolutions7@gmail.com" className="hover:text-blue-800 transition-colors">
+                        johnrileytechsolutions7@gmail.com
+                      </a>
                     </div>
                     <div className="flex items-center justify-center text-sm text-gray-700">
                       <Phone className="h-4 w-4 mr-2 text-blue-600" />
-                      <span>561.674.3150</span>
+                      <a href="tel:+15616743150" className="hover:text-blue-800 transition-colors">
+                        561.674.3150
+                      </a>
                     </div>
                   </div>
                 </div>
