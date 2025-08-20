@@ -231,15 +231,18 @@ frontend:
 
   - task: "Photo Updates"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/Home.jsx, /app/frontend/src/components/About.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Updated all photos across website with new images from user uploads and Voyagemia article. Replaced old church photos with Eric Williams family, Pastor James with Serena and Boris, and First Easter celebration images."
+        - working: true
+          agent: "testing"
+          comment: "✅ All photos are fully visible and working correctly across all pages. Home page: 3/3 church family photos visible (Eric Williams family, Pastor James with Serena & Boris, First Easter celebration). About page: 8/8 images visible including Pastor James portrait, community photos, leadership team, and John Riley. All photos load properly and display correctly on both desktop and mobile."
 
   - task: "Events Page Updates"
     implemented: true
