@@ -9,11 +9,11 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
+    { name: 'About Us', path: '/about', icon: Info },
     { name: 'Events', path: '/events', icon: Calendar },
     { name: 'Media', path: '/media', icon: Image },
     { name: 'AI Assistant', path: '/ai-assistant', icon: MessageCircle },
     { name: 'Schedule 1-on-1', path: '/schedule', icon: Calendar },
-    { name: 'About', path: '/about', icon: Info },
   ];
 
   return (
