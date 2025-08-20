@@ -11,7 +11,7 @@ import { Badge } from './ui/badge';
 import { useToast } from '../hooks/use-toast';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { mockEvents, saveEvent, getStoredEvents } from '../data/mockData';
+import { mockEvents, saveEvent, getStoredEvents, calendarData } from '../data/mockData';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
