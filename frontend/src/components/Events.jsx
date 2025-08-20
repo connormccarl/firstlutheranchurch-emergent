@@ -414,7 +414,7 @@ const Events = () => {
                 <li>• 1st Sunday: Board of Directors & Family Bible Study</li>
                 <li>• 2nd Sunday: First Communion Classes (ages 8-11)</li>
                 <li>• 3rd Sunday: Catechism Classes (ages 11-13)</li>
-                <li>• Monthly: Dr. Tingting Wu Recitals & Fellowship Meals</li>
+                <li>• Monthly: Fellowship Meals & Community Events</li>
               </ul>
             </div>
           </div>
