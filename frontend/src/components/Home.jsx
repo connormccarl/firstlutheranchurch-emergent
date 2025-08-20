@@ -7,16 +7,24 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Home = () => {
-  // Function to get the next Sunday date
+  // Function to get the current or next Sunday date
   const getNextSunday = (weeksFromNow = 0) => {
     const today = new Date();
     const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
-    const daysUntilSunday = dayOfWeek === 0 ? 7 : 7 - dayOfWeek; // If today is Sunday, get next Sunday
     
-    const nextSunday = new Date(today);
-    nextSunday.setDate(today.getDate() + daysUntilSunday + (weeksFromNow * 7));
+    let daysUntilSunday;
+    if (dayOfWeek === 0) {
+      // If today is Sunday, show today (0 days)
+      daysUntilSunday = 0;
+    } else {
+      // Otherwise, calculate days until next Sunday
+      daysUntilSunday = 7 - dayOfWeek;
+    }
     
-    return nextSunday.toISOString().split('T')[0]; // Return YYYY-MM-DD format
+    const targetSunday = new Date(today);
+    targetSunday.setDate(today.getDate() + daysUntilSunday + (weeksFromNow * 7));
+    
+    return targetSunday.toISOString().split('T')[0]; // Return YYYY-MM-DD format
   };
 
   // Function to format date for display
