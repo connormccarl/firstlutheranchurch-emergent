@@ -118,11 +118,15 @@ const Footer = () => {
                   <span className="text-amber-400">Pastor James Dunham</span>
                   <div className="flex items-center">
                     <Phone className="h-3 w-3 mr-1" />
-                    <span>(313) 670-3830</span>
+                    <a href="tel:+13136703830" className="hover:text-amber-400 transition-colors">
+                      (313) 670-3830
+                    </a>
                   </div>
                   <div className="flex items-center">
                     <Mail className="h-3 w-3 mr-1" />
-                    <span>pastorjamesdunham@gmail.com</span>
+                    <a href="mailto:pastorjamesdunham@gmail.com" className="hover:text-amber-400 transition-colors">
+                      pastorjamesdunham@gmail.com
+                    </a>
                   </div>
                 </div>
                 <div className="mt-2">
