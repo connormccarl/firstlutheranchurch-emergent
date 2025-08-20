@@ -77,7 +77,7 @@ const About = () => {
             <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center p-6">
                 <Globe className="h-12 w-12 mx-auto text-blue-600 mb-4" />
-                <CardTitle className="text-xl">14-Language Classes</CardTitle>
+                <CardTitle className="text-xl">Learn 14 Languages with Pastor James</CardTitle>
               </CardHeader>
               <CardContent className="px-6 pb-6">
                 <p className="text-gray-600 text-center mb-4">
