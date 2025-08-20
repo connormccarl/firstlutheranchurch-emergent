@@ -22,7 +22,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 min-w-0">
-            <Church className="h-8 w-8 text-amber-600 flex-shrink-0" />
+            <img 
+              src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+              alt="First Lutheran Church of Miami Logo" 
+              className="h-10 w-10 flex-shrink-0 object-contain"
+            />
             <div className="flex flex-col min-w-0">
               <span className="text-base sm:text-lg font-bold text-gray-900 leading-tight">
                 First Lutheran Church
