@@ -1,392 +1,197 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar as CalendarIcon, Clock, User, Check, AlertCircle, Phone, Mail } from 'lucide-react';
-import { Button } from './ui/button';
+import React, { useState } from 'react';
+import { InlineWidget } from 'react-calendly';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { Label } from './ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Calendar } from './ui/calendar';
-import { Badge } from './ui/badge';
-import { useToast } from '../hooks/use-toast';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import { mockScheduleSlots, saveScheduleBooking, getStoredBookings } from '../data/mockData';
+import { Calendar, Clock, Mail, Phone, User, MessageSquare } from 'lucide-react';
 
 const Schedule = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedSlot, setSelectedSlot] = useState(null);
-  const [availableSlots, setAvailableSlots] = useState([]);
-  const [bookingForm, setBookingForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    sessionType: '',
-    message: ''
-  });
-  const [myBookings, setMyBookings] = useState([]);
-  const [showBookingForm, setShowBookingForm] = useState(false);
-  const { toast } = useToast();
+  const [showCalendly, setShowCalendly] = useState(false);
 
-  useEffect(() => {
-    setMyBookings(getStoredBookings());
-  }, []);
-
-  useEffect(() => {
-    if (selectedDate) {
-      const dateString = selectedDate.toISOString().split('T')[0];
-      const slots = mockScheduleSlots.filter(slot => slot.date === dateString);
-      setAvailableSlots(slots);
-      setSelectedSlot(null);
-      setShowBookingForm(false);
-    } else {
-      setAvailableSlots([]);
-    }
-  }, [selectedDate]);
-
-  const sessionTypes = [
-    { value: 'counseling', label: 'Pastoral Counseling', description: 'Personal guidance and spiritual counsel' },
-    { value: 'spiritual-guidance', label: 'Spiritual Guidance', description: 'Discussion about faith and spiritual growth' },
-    { value: 'prayer-session', label: 'Prayer Session', description: 'Dedicated time for prayer and spiritual support' },
-    { value: 'general-meeting', label: 'General Meeting', description: 'Casual conversation and getting to know each other' },
-    { value: 'crisis-support', label: 'Crisis Support', description: 'Immediate support during difficult times' }
-  ];
-
-  const handleSlotSelect = (slot) => {
-    if (!slot.available) return;
-    
-    setSelectedSlot(slot);
-    setBookingForm(prev => ({ ...prev, sessionType: slot.type }));
-    setShowBookingForm(true);
-  };
-
-  const handleBooking = () => {
-    if (!bookingForm.name || !bookingForm.email || !selectedSlot) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const booking = {
-      ...bookingForm,
-      slotId: selectedSlot.id,
-      date: selectedSlot.date,
-      time: selectedSlot.time,
-      type: selectedSlot.type
-    };
-
-    const savedBooking = saveScheduleBooking(booking);
-    setMyBookings(prev => [...prev, savedBooking]);
-
-    toast({
-      title: "Meeting Scheduled Successfully!",
-      description: `Your ${sessionTypes.find(t => t.value === selectedSlot.type)?.label} with Pastor James is confirmed for ${new Date(selectedSlot.date).toLocaleDateString()} at ${selectedSlot.time}.`,
-    });
-
-    // Reset form
-    setBookingForm({
-      name: '',
-      email: '',
-      phone: '',
-      sessionType: '',
-      message: ''
-    });
-    setSelectedSlot(null);
-    setSelectedDate(null);
-    setShowBookingForm(false);
-    
-    // Update available slots to mark this one as unavailable
-    setAvailableSlots(prev => 
-      prev.map(slot => 
-        slot.id === selectedSlot.id ? { ...slot, available: false } : slot
-      )
-    );
-  };
-
-  const isDateAvailable = (date) => {
-    const dateString = date.toISOString().split('T')[0];
-    const slotsForDate = mockScheduleSlots.filter(slot => slot.date === dateString);
-    return slotsForDate.some(slot => slot.available);
-  };
-
-  const getSessionTypeInfo = (type) => {
-    return sessionTypes.find(t => t.value === type) || sessionTypes[0];
+  const handleScheduleClick = () => {
+    setShowCalendly(true);
   };
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-blue-900 p-3 rounded-full mr-4">
-              <User className="h-8 w-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Schedule with Pastor James</h1>
-              <p className="text-gray-600 mt-1">Book a personal 1-on-1 session for guidance and support</p>
-            </div>
-          </div>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+            Schedule Time with Pastor James
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Book your personal consultation, spiritual guidance, or counseling session with Pastor James Dunham
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Pastor Info & Calendar */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Pastor Info */}
-            <Card>
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-amber-600 rounded-full flex items-center justify-center">
-                    <User className="h-8 w-8 text-white" />
-                  </div>
-                  <div>
-                    <CardTitle>Pastor James Dunham</CardTitle>
-                    <CardDescription>Senior Pastor</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  "I believe every person has immense value and God has an incredible plan for their life. 
-                  I'm here to walk alongside you through any season - whether you're seeking answers, 
-                  going through challenges, or wanting to grow deeper in your faith."
-                </p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center text-gray-600">
-                    <Phone className="h-4 w-4 mr-2" />
-                    <span>(313) 670-3830</span>
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <Mail className="h-4 w-4 mr-2" />
-                    <span>pastorjamesdunham@gmail.com</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Calendar */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <CalendarIcon className="h-5 w-5 mr-2" />
-                  Select a Date
-                </CardTitle>
-                <CardDescription>
-                  Choose a date to see available time slots
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  disabled={(date) => date < new Date() || !isDateAvailable(date)}
-                  className="rounded-md border"
+        {/* Pastor Info Card */}
+        <div className="mb-12">
+          <Card className="bg-white shadow-xl border-0 overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <img
+                  src="https://voyagemia.com/wp-content/uploads/2025/02/c-1739001069779-personal_1739001564590_1739001564590_pastorjames_dunham_pastor-james-santiago-dunham-first-lutheran-church-of-miami-1-1.jpg"
+                  alt="Pastor James Dunham"
+                  className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
                 />
-                <p className="text-xs text-gray-500 mt-2">
-                  Only dates with available slots are selectable
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Session Types */}
-            {!selectedDate && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Available Session Types</CardTitle>
-                  <CardDescription>Choose the type of meeting that best fits your needs</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {sessionTypes.map((type) => (
-                      <div key={type.value} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                        <h4 className="font-medium text-gray-900 mb-1">{type.label}</h4>
-                        <p className="text-sm text-gray-600">{type.description}</p>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Available Slots */}
-            {selectedDate && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Clock className="h-5 w-5 mr-2" />
-                    Available Times - {selectedDate.toLocaleDateString('en-US', { 
-                      weekday: 'long',
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </CardTitle>
-                  <CardDescription>Click on an available time slot to book</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {availableSlots.length > 0 ? (
-                    <div className="grid md:grid-cols-2 gap-3">
-                      {availableSlots.map((slot) => (
-                        <Button
-                          key={slot.id}
-                          variant={selectedSlot?.id === slot.id ? "default" : "outline"}
-                          className={`h-auto py-3 justify-start ${
-                            !slot.available ? 'opacity-50 cursor-not-allowed' : 
-                            selectedSlot?.id === slot.id ? 'bg-blue-900 hover:bg-blue-800' : ''
-                          }`}
-                          disabled={!slot.available}
-                          onClick={() => handleSlotSelect(slot)}
-                        >
-                          <div className="flex items-center justify-between w-full">
-                            <div className="flex items-center space-x-3">
-                              <Clock className="h-4 w-4" />
-                              <div className="text-left">
-                                <div className="font-medium">{slot.time}</div>
-                                <div className="text-xs opacity-75">
-                                  {getSessionTypeInfo(slot.type).label}
-                                </div>
-                              </div>
-                            </div>
-                            {!slot.available && (
-                              <Badge variant="secondary" className="text-xs">
-                                Booked
-                              </Badge>
-                            )}
-                          </div>
-                        </Button>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                      <p className="text-gray-600">No available slots for this date.</p>
-                      <p className="text-sm text-gray-500">Please select a different date.</p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Booking Form */}
-            {showBookingForm && selectedSlot && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Check className="h-5 w-5 mr-2 text-green-600" />
-                    Complete Your Booking
-                  </CardTitle>
-                  <CardDescription>
-                    {getSessionTypeInfo(selectedSlot.type).label} on {selectedDate.toLocaleDateString()} at {selectedSlot.time}
+                <div className="text-center md:text-left">
+                  <CardTitle className="text-3xl font-bold mb-2">Pastor James (Santiago) Dunham</CardTitle>
+                  <CardDescription className="text-blue-100 text-lg">
+                    MDIV • 25+ Years Experience • Multilingual Ministry
                   </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="name">Full Name *</Label>
-                      <Input
-                        id="name"
-                        value={bookingForm.name}
-                        onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                        placeholder="Enter your full name"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={bookingForm.email}
-                        onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={bookingForm.phone}
-                      onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
-                      placeholder="(313) 670-3830"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message">What would you like to discuss?</Label>
-                    <Textarea
-                      id="message"
-                      value={bookingForm.message}
-                      onChange={(e) => setBookingForm({ ...bookingForm, message: e.target.value })}
-                      placeholder="Share any specific topics you'd like to discuss or questions you have..."
-                      rows={3}
-                    />
-                  </div>
-
-                  <div className="flex justify-end space-x-2">
-                    <Button 
-                      variant="outline" 
-                      onClick={() => {
-                        setShowBookingForm(false);
-                        setSelectedSlot(null);
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                    <Button 
-                      onClick={handleBooking}
-                      className="bg-blue-900 hover:bg-blue-800"
-                    >
-                      Confirm Booking
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* My Bookings */}
-            {myBookings.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>My Upcoming Sessions</CardTitle>
-                  <CardDescription>Your scheduled meetings with Pastor James</CardDescription>
-                </CardHeader>
-                <CardContent>
+                  <p className="text-blue-100 mt-2">
+                    Teaching in 14 languages • Counseling • Spiritual Guidance
+                  </p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="p-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+                    Available Sessions
+                  </h3>
                   <div className="space-y-3">
-                    {myBookings.map((booking) => (
-                      <div key={booking.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                        <div>
-                          <div className="font-medium text-gray-900">
-                            {getSessionTypeInfo(booking.type).label}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            {new Date(booking.date).toLocaleDateString()} at {booking.time}
-                          </div>
-                        </div>
-                        <Badge className="bg-green-100 text-green-800">
-                          {booking.status}
-                        </Badge>
-                      </div>
-                    ))}
+                    <div className="p-4 bg-blue-50 rounded-lg">
+                      <h4 className="font-semibold text-blue-900">30-Minute Consultation</h4>
+                      <p className="text-blue-700 text-sm">Prayer requests, spiritual encouragement, brief guidance</p>
+                    </div>
+                    <div className="p-4 bg-indigo-50 rounded-lg">
+                      <h4 className="font-semibold text-indigo-900">60-Minute Counseling</h4>
+                      <p className="text-indigo-700 text-sm">In-depth spiritual counseling and life guidance</p>
+                    </div>
+                    <div className="p-4 bg-purple-50 rounded-lg">
+                      <h4 className="font-semibold text-purple-900">Marriage Preparation</h4>
+                      <p className="text-purple-700 text-sm">Pre-marital counseling and relationship guidance</p>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <Phone className="h-5 w-5 mr-2 text-blue-600" />
+                    Contact Information
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <Mail className="h-5 w-5 mr-3 text-gray-500" />
+                      <span className="text-gray-700">pastorjamesdunham@gmail.com</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Phone className="h-5 w-5 mr-3 text-gray-500" />
+                      <span className="text-gray-700">(313) 670-3830</span>
+                    </div>
+                    <div className="flex items-start">
+                      <MessageSquare className="h-5 w-5 mr-3 text-gray-500 mt-1" />
+                      <div>
+                        <p className="text-gray-700 text-sm">
+                          Languages Available: Spanish, French, Hebrew, Greek, Portuguese, 
+                          Mandarin Chinese, Japanese, Italian, German, Hindi, Indonesian, 
+                          Vietnamese, Russian, Urdu, English, and ASL
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Calendly Integration */}
+        <div className="mb-12">
+          <Card className="bg-white shadow-xl border-0">
+            <CardHeader className="text-center p-8">
+              <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
+                Schedule Your Appointment Online
+              </CardTitle>
+              <CardDescription className="text-gray-600">
+                Choose your preferred time slot and book instantly with Pastor James
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              {showCalendly ? (
+                <div className="px-8 pb-8">
+                  <InlineWidget
+                    url="https://calendly.com/pastorjamesdunham/30min"
+                    styles={{
+                      height: '700px',
+                      width: '100%'
+                    }}
+                    pageSettings={{
+                      backgroundColor: 'ffffff',
+                      hideEventTypeDetails: false,
+                      hideLandingPageDetails: false,
+                      primaryColor: '2563eb',
+                      textColor: '1f2937'
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="p-8 text-center">
+                  <div className="mb-6">
+                    <img
+                      src="https://voyagemia.com/wp-content/uploads/2025/02/c-1738772057132-1738772551939_pastorjames_dunham_captain-david-whitten-and-pastor-james-1.jpg"
+                      alt="Pastor James with church member"
+                      className="mx-auto w-64 h-48 object-cover rounded-lg shadow-lg mb-4"
+                    />
+                    <p className="text-gray-600 max-w-md mx-auto">
+                      Ready to connect? Click below to access our online scheduling system and 
+                      book your appointment with Pastor James at your convenience.
+                    </p>
+                  </div>
+                  <Button 
+                    onClick={handleScheduleClick}
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 text-lg"
+                  >
+                    <Calendar className="h-5 w-5 mr-2" />
+                    Open Scheduling Calendar
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Alternative Contact */}
+        <div className="text-center">
+          <Card className="bg-gradient-to-r from-gray-50 to-blue-50 border-blue-200">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Prefer to Contact Us Directly?
+              </h3>
+              <p className="text-gray-600 mb-6">
+                If you need immediate assistance or prefer to schedule by phone, please don't hesitate to reach out directly.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button 
+                  variant="outline" 
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  asChild
+                >
+                  <a href="mailto:pastorjamesdunham@gmail.com">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Send Email
+                  </a>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                  asChild
+                >
+                  <a href="tel:+13136703830">
+                    <Phone className="h-4 w-4 mr-2" />
+                    Call (313) 670-3830
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
