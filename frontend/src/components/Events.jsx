@@ -148,6 +148,41 @@ const Events = () => {
       }));
   };
 
+  // Handle event registration
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+    setShowRegistrationDialog(true);
+  };
+
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // In a real app, this would send data to the backend
+      console.log('Registration data:', {
+        event: selectedEvent.title,
+        ...registrationData
+      });
+
+      toast({
+        title: "Registration Successful!",
+        description: `You've successfully registered for ${selectedEvent.title}. We'll send you a confirmation email shortly.`,
+      });
+
+      // Clear form and close dialog
+      setRegistrationData({ name: '', email: '', phone: '', notes: '' });
+      setShowRegistrationDialog(false);
+      setSelectedEvent(null);
+
+    } catch (error) {
+      toast({
+        title: "Registration Failed",
+        description: "There was an error with your registration. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const groupedEvents = groupEventsByMonth(filteredEvents);
 
   return (
