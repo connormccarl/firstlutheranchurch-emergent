@@ -553,6 +553,129 @@ const Events = () => {
           </div>
         )}
 
+        {/* September 2025 Calendar */}
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+            <Calendar className="h-8 w-8 mr-3 text-amber-600" />
+            September 2025 Calendar
+          </h2>
+          <div className="bg-white rounded-lg shadow-lg p-6 border">
+            <div className="grid grid-cols-7 gap-2 mb-4">
+              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                <div key={day} className="text-center font-semibold text-gray-600 py-2">
+                  {day}
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-7 gap-2">
+              {/* First 6 empty cells for September 2025 (starts on Monday) */}
+              {Array.from({ length: 6 }, (_, i) => (
+                <div key={`empty-${i}`} className="h-24 border border-gray-100"></div>
+              ))}
+              
+              {/* September days */}
+              {Array.from({ length: 30 }, (_, i) => {
+                const date = i + 1;
+                const dayEvents = calendarData.september2025.events.find(e => e.date === date);
+                
+                return (
+                  <div 
+                    key={date} 
+                    className={`h-24 border border-gray-200 p-1 ${dayEvents ? 'bg-blue-50' : 'bg-white'} hover:bg-gray-50 transition-colors`}
+                  >
+                    <div className="font-semibold text-sm text-gray-800 mb-1">{date}</div>
+                    {dayEvents && (
+                      <div className="space-y-1">
+                        {dayEvents.events.slice(0, 2).map((event, idx) => (
+                          <div 
+                            key={idx}
+                            className={`text-xs px-1 py-0.5 rounded text-white truncate cursor-pointer ${
+                              event.type === 'worship' ? 'bg-blue-600' :
+                              event.type === 'study' ? 'bg-green-600' :
+                              event.type === 'meeting' ? 'bg-gray-600' :
+                              event.type === 'celebration' ? 'bg-purple-600' :
+                              'bg-amber-600'
+                            }`}
+                            title={`${event.time} - ${event.title}`}
+                          >
+                            {event.title}
+                          </div>
+                        ))}
+                        {dayEvents.events.length > 2 && (
+                          <div className="text-xs text-gray-500">
+                            +{dayEvents.events.length - 2} more
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* October 2025 Calendar */}
+        <div className="mt-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+            <Calendar className="h-8 w-8 mr-3 text-amber-600" />
+            October 2025 Calendar
+          </h2>
+          <div className="bg-white rounded-lg shadow-lg p-6 border">
+            <div className="grid grid-cols-7 gap-2 mb-4">
+              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                <div key={day} className="text-center font-semibold text-gray-600 py-2">
+                  {day}
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-7 gap-2">
+              {/* First 2 empty cells for October 2025 (starts on Wednesday) */}
+              {Array.from({ length: 2 }, (_, i) => (
+                <div key={`empty-oct-${i}`} className="h-24 border border-gray-100"></div>
+              ))}
+              
+              {/* October days */}
+              {Array.from({ length: 31 }, (_, i) => {
+                const date = i + 1;
+                const dayEvents = calendarData.october2025.events.find(e => e.date === date);
+                
+                return (
+                  <div 
+                    key={date} 
+                    className={`h-24 border border-gray-200 p-1 ${dayEvents ? 'bg-blue-50' : 'bg-white'} hover:bg-gray-50 transition-colors`}
+                  >
+                    <div className="font-semibold text-sm text-gray-800 mb-1">{date}</div>
+                    {dayEvents && (
+                      <div className="space-y-1">
+                        {dayEvents.events.slice(0, 2).map((event, idx) => (
+                          <div 
+                            key={idx}
+                            className={`text-xs px-1 py-0.5 rounded text-white truncate cursor-pointer ${
+                              event.type === 'worship' ? 'bg-blue-600' :
+                              event.type === 'study' ? 'bg-green-600' :
+                              event.type === 'fellowship' ? 'bg-orange-600' :
+                              'bg-amber-600'
+                            }`}
+                            title={`${event.time} - ${event.title}`}
+                          >
+                            {event.title}
+                          </div>
+                        ))}
+                        {dayEvents.events.length > 2 && (
+                          <div className="text-xs text-gray-500">
+                            +{dayEvents.events.length - 2} more
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
         {/* Special Notice */}
         <div className="mt-12 bg-gradient-to-r from-amber-50 to-blue-50 p-6 rounded-lg border border-amber-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center">
