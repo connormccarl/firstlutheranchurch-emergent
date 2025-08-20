@@ -310,11 +310,15 @@ const Home = () => {
                 </div>
                 <div className="flex items-center">
                   <Phone className="h-5 w-5 mr-3 text-amber-400" />
-                  <span>(313) 670-3830</span>
+                  <a href="tel:+13136703830" className="hover:text-amber-300 transition-colors">
+                    (313) 670-3830
+                  </a>
                 </div>
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-amber-400" />
-                  <span>pastorjamesdunham@gmail.com</span>
+                  <a href="mailto:pastorjamesdunham@gmail.com" className="hover:text-amber-300 transition-colors">
+                    pastorjamesdunham@gmail.com
+                  </a>
                 </div>
                 <div className="bg-blue-800 p-4 rounded-lg mt-6">
                   <h3 className="font-semibold mb-2 text-amber-400">Sunday Schedule:</h3>
