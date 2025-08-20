@@ -10,7 +10,7 @@ export const mockEvents = [
     location: 'Main Sanctuary',
     description: 'Traditional Lutheran worship with communion, hymns, and inspiring messages.',
     type: 'worship',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
+    image: 'https://voyagemia.com/wp-content/uploads/2025/02/c-1739001069779-personal_1739001564590_1739001564590_pastorjames_dunham_pastor-james-santiago-dunham-first-lutheran-church-of-miami-1-1.jpg',
     pastor: 'Pastor James Dunham'
   },
   {
@@ -51,7 +51,7 @@ export const mockEvents = [
     location: 'First Lutheran Church of Miami',
     description: 'Celebrating 1¼ years of First Lutheran Church of Miami! Join us for this special milestone.',
     type: 'celebration',
-    image: 'https://images.unsplash.com/photo-1520637736862-4d197d17c23a?w=400&h=250&fit=crop'
+    image: 'https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/x121373s_Yay%21%201st%20Easter%20at%20FLC.JPG'
   },
   {
     id: 106,
@@ -62,16 +62,6 @@ export const mockEvents = [
     description: 'Faith instruction for children ages 11-13.',
     type: 'study',
     image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
-  },
-  {
-    id: 107,
-    title: 'Dr. Tingting Wu Recital - Grand Opening of LumiMusic',
-    date: '2025-09-27',
-    time: '7:30 PM',
-    location: 'Main Sanctuary',
-    description: 'Amazing recital by our beloved Music Director Dr. Tingting Wu! Doors open at 7:00 PM. Grand opening of LumiMusic.',
-    type: 'music',
-    image: 'https://images.unsplash.com/photo-1516405885085-c997e5d89baa?w=400&h=250&fit=crop'
   },
   {
     id: 108,
@@ -93,7 +83,7 @@ export const mockEvents = [
     location: 'Main Sanctuary',
     description: 'Traditional Lutheran worship with communion, hymns, and inspiring messages.',
     type: 'worship',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
+    image: 'https://voyagemia.com/wp-content/uploads/2025/02/c-1739001069779-personal_1739001564590_1739001564590_pastorjames_dunham_pastor-james-santiago-dunham-first-lutheran-church-of-miami-1-1.jpg',
     pastor: 'Pastor James Dunham'
   },
   {
@@ -105,16 +95,6 @@ export const mockEvents = [
     description: 'Monthly fellowship meal - join us for sushi and great conversation!',
     type: 'fellowship',
     image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=250&fit=crop'
-  },
-  {
-    id: 203,
-    title: 'Dr. Tingting Wu Student Recital',
-    date: '2025-10-11',
-    time: '3:00 PM',
-    location: 'Main Sanctuary',
-    description: 'Amazing event featuring Dr. Tingting\'s piano students! Come support our young musicians.',
-    type: 'music',
-    image: 'https://images.unsplash.com/photo-1516405885085-c997e5d89baa?w=400&h=250&fit=crop'
   },
   {
     id: 204,
@@ -137,16 +117,6 @@ export const mockEvents = [
     image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
   },
   {
-    id: 206,
-    title: 'Dr. Tingting Wu Recital - LumiMusic Concert #2',
-    date: '2025-10-24',
-    time: '7:30 PM',
-    location: 'Main Sanctuary',
-    description: 'Second LumiMusic concert featuring Dr. Tingting Wu! Doors open at 7:00 PM.',
-    type: 'music',
-    image: 'https://images.unsplash.com/photo-1516405885085-c997e5d89baa?w=400&h=250&fit=crop'
-  },
-  {
     id: 207,
     title: 'Reformation Day Worship',
     date: '2025-10-26',
@@ -154,71 +124,8 @@ export const mockEvents = [
     location: 'Main Sanctuary',
     description: 'Special Reformation Day worship service celebrating our Lutheran heritage.',
     type: 'worship',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
+    image: 'https://voyagemia.com/wp-content/uploads/2025/02/c-1739001069779-personal_1739001564590_1739001564590_pastorjames_dunham_pastor-james-santiago-dunham-first-lutheran-church-of-miami-1-1.jpg',
     pastor: 'Pastor James Dunham'
-  },
-
-  // Current/Ongoing Events
-  {
-    id: 1,
-    title: 'Sunday Worship Service',
-    date: '2025-01-19',
-    time: '1:00 PM',
-    location: 'Main Sanctuary',
-    description: 'Traditional Lutheran worship with communion, hymns, and inspiring messages.',
-    type: 'worship',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
-    pastor: 'Pastor James Dunham'
-  },
-  {
-    id: 2,
-    title: 'Bible Study & Language Classes',
-    date: '2025-01-19',
-    time: '2:00 PM',
-    location: 'Fellowship Hall',
-    description: 'Bible classes (1st Sunday) and language classes in 14 languages taught by Pastor James.',
-    type: 'study',
-    image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=250&fit=crop'
-  },
-  {
-    id: 3,
-    title: 'First Communion Classes',
-    date: '2025-01-26',
-    time: '2:00 PM',
-    location: 'Sunday School Room',
-    description: 'Special classes for children ages 7-11 preparing for First Communion.',
-    type: 'study',
-    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=250&fit=crop'
-  },
-  {
-    id: 4,
-    title: 'Catechism Classes',
-    date: '2025-02-16',
-    time: '2:00 PM',
-    location: 'Sunday School Room',
-    description: 'Faith instruction for children ages 8-11.',
-    type: 'youth',
-    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
-  },
-  {
-    id: 5,
-    title: 'World-Class Musical Event',
-    date: '2025-01-28',
-    time: '7:00 PM',
-    location: 'Main Sanctuary',
-    description: 'Amazing musical performance featuring Dr. Tingting and special guests.',
-    type: 'music',
-    image: 'https://images.unsplash.com/photo-1516405885085-c997e5d89baa?w=400&h=250&fit=crop'
-  },
-  {
-    id: 6,
-    title: 'Fellowship Meal',
-    date: '2025-02-01',
-    time: '6:00 PM',
-    location: 'Local Restaurant',
-    description: 'Monthly fellowship meal at a local restaurant - all are welcome!',
-    type: 'fellowship',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=250&fit=crop'
   }
 ];
 
