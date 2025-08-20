@@ -147,30 +147,30 @@ const Home = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <img 
-                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/evoiorv3_Cristina%20and%20Pastor%20%28Santiago%29%20James.JPG" 
-                alt="Cristina and Pastor James" 
+                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/r8r2porw_Our%20partner%2C%20Localposh%20CEO%2C%20Eric%20Williams%20and%20family%21.JPG" 
+                alt="Eric Williams and family - LocalPosh CEO and church partner" 
                 className="w-full h-64 object-cover rounded-lg shadow-lg mb-4 hover:scale-105 transition-transform duration-300"
               />
-              <h3 className="text-lg font-semibold text-gray-900">Pastor James & Cristina</h3>
+              <h3 className="text-lg font-semibold text-gray-900">Eric Williams & Family</h3>
+              <p className="text-gray-600">LocalPosh CEO & Church Partner</p>
+            </div>
+            <div className="text-center">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hmet117m_Pastor%20James%20with%20Serena%20and%20Boris.jpg" 
+                alt="Pastor James with Serena and Boris" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4 hover:scale-105 transition-transform duration-300"
+              />
+              <h3 className="text-lg font-semibold text-gray-900">Pastor James with Serena & Boris</h3>
               <p className="text-gray-600">Building relationships in our community</p>
             </div>
             <div className="text-center">
               <img 
-                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/v75ihsk4_David%2C%20Pastor%20James%2C%20Tingting.jpg" 
-                alt="David, Pastor James, and Dr. Tingting" 
+                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/x121373s_Yay%21%201st%20Easter%20at%20FLC.JPG" 
+                alt="First Easter celebration at First Lutheran Church" 
                 className="w-full h-64 object-cover rounded-lg shadow-lg mb-4 hover:scale-105 transition-transform duration-300"
               />
-              <h3 className="text-lg font-semibold text-gray-900">David, Pastor James & Dr. Tingting</h3>
-              <p className="text-gray-600">Our leadership team serving together</p>
-            </div>
-            <div className="text-center">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/9x45ghe4_Ketler%2C%20Santiago%2C%20Gigi%202.0%21.jpg" 
-                alt="Ketler, Santiago, and Gigi" 
-                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4 hover:scale-105 transition-transform duration-300"
-              />
-              <h3 className="text-lg font-semibold text-gray-900">Ketler, Santiago & Gigi</h3>
-              <p className="text-gray-600">Young adults growing in faith together</p>
+              <h3 className="text-lg font-semibold text-gray-900">First Easter Celebration</h3>
+              <p className="text-gray-600">Celebrating milestones together</p>
             </div>
           </div>
         </div>
