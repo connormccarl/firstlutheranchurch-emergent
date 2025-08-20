@@ -46,7 +46,7 @@ const Home = () => {
     },
     {
       icon: Globe,
-      title: 'Language Learning',
+      title: 'Learn 14 Languages with Pastor James',
       description: 'Learn any of 14 languages taught by Pastor James, plus Spanish and evangelism classes',
       link: '/about'
     }
