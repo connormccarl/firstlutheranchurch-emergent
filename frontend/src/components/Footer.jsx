@@ -158,13 +158,17 @@ const Footer = () => {
               <div className="text-xs text-gray-400 space-y-1">
                 <div className="flex items-center">
                   <Mail className="h-3 w-3 mr-1" />
-                  <span>pianowtt@gmail.com</span>
+                  <a href="mailto:pianowtt@gmail.com" className="hover:text-purple-400 transition-colors">
+                    pianowtt@gmail.com
+                  </a>
                 </div>
                 <div className="flex items-center">
                   <Phone className="h-3 w-3 mr-1" />
-                  <span>857.264.6097</span>
+                  <a href="tel:+18572646097" className="hover:text-purple-400 transition-colors">
+                    857.264.6097
+                  </a>
                 </div>
-                <a href="https://www.tingtingw.com" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300">
+                <a href="https://www.tingtingw.com" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors">
                   www.tingtingw.com
                 </a>
               </div>
