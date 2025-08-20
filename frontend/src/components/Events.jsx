@@ -19,6 +19,14 @@ const Events = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showRegistrationDialog, setShowRegistrationDialog] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [registrationData, setRegistrationData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    notes: ''
+  });
   const [newEvent, setNewEvent] = useState({
     title: '',
     date: '',
