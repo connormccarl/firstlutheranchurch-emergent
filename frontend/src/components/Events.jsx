@@ -366,19 +366,23 @@ const Events = () => {
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {events.map((event) => (
-                    <Card key={event.id} className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                    <Card 
+                      key={event.id} 
+                      className="hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer group"
+                      onClick={() => handleEventClick(event)}
+                    >
                       {event.image && (
                         <div className="h-48 overflow-hidden">
                           <img 
                             src={event.image} 
                             alt={event.title}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>
                       )}
                       <CardHeader className="pb-2">
                         <div className="flex items-start justify-between">
-                          <CardTitle className="text-lg leading-tight">{event.title}</CardTitle>
+                          <CardTitle className="text-lg leading-tight group-hover:text-blue-600 transition-colors">{event.title}</CardTitle>
                           <Badge className={getEventTypeColor(event.type)} variant="secondary">
                             {event.type}
                           </Badge>
@@ -413,10 +417,17 @@ const Events = () => {
                           </CardDescription>
                         )}
                         {event.pastor && (
-                          <p className="text-sm text-amber-700 font-medium">
+                          <p className="text-sm text-amber-700 font-medium mb-3">
                             Led by {event.pastor}
                           </p>
                         )}
+                        <div className="flex items-center justify-between pt-3 border-t">
+                          <span className="text-xs text-gray-500 flex items-center">
+                            <Users className="h-3 w-3 mr-1" />
+                            Click to register
+                          </span>
+                          <UserPlus className="h-4 w-4 text-blue-600 group-hover:text-blue-800 transition-colors" />
+                        </div>
                       </CardContent>
                     </Card>
                   ))}
