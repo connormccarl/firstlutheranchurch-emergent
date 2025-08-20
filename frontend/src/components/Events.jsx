@@ -113,10 +113,34 @@ const Events = () => {
       outreach: 'bg-amber-100 text-amber-800',
       youth: 'bg-purple-100 text-purple-800',
       music: 'bg-pink-100 text-pink-800',
-      fellowship: 'bg-orange-100 text-orange-800'
+      fellowship: 'bg-orange-100 text-orange-800',
+      meeting: 'bg-gray-100 text-gray-800',
+      celebration: 'bg-yellow-100 text-yellow-800'
     };
     return colors[type] || 'bg-gray-100 text-gray-800';
   };
+
+  // Group events by month for better organization
+  const groupEventsByMonth = (events) => {
+    const grouped = events.reduce((acc, event) => {
+      const date = new Date(event.date);
+      const monthYear = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+      if (!acc[monthYear]) {
+        acc[monthYear] = [];
+      }
+      acc[monthYear].push(event);
+      return acc;
+    }, {});
+
+    return Object.keys(grouped)
+      .sort((a, b) => new Date(grouped[a][0].date) - new Date(grouped[b][0].date))
+      .map(monthYear => ({
+        monthYear,
+        events: grouped[monthYear].sort((a, b) => new Date(a.date) - new Date(b.date))
+      }));
+  };
+
+  const groupedEvents = groupEventsByMonth(filteredEvents);
 
   return (
     <div className="min-h-screen">
@@ -126,8 +150,8 @@ const Events = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Church Events</h1>
-            <p className="text-gray-600">Stay connected with all our church activities and programs</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Church Events & Calendar</h1>
+            <p className="text-gray-600">Stay connected with all our church activities and special programs</p>
           </div>
           
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
@@ -169,6 +193,8 @@ const Events = () => {
                         <SelectItem value="youth">Youth Ministry</SelectItem>
                         <SelectItem value="music">Musical Event</SelectItem>
                         <SelectItem value="fellowship">Fellowship</SelectItem>
+                        <SelectItem value="meeting">Meeting</SelectItem>
+                        <SelectItem value="celebration">Celebration</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -277,75 +303,85 @@ const Events = () => {
                 <SelectItem value="all">All Events</SelectItem>
                 <SelectItem value="worship">Worship</SelectItem>
                 <SelectItem value="study">Bible Study</SelectItem>
-                <SelectItem value="outreach">Outreach</SelectItem>
-                <SelectItem value="youth">Youth</SelectItem>
                 <SelectItem value="music">Musical Events</SelectItem>
                 <SelectItem value="fellowship">Fellowship</SelectItem>
+                <SelectItem value="celebration">Celebrations</SelectItem>
+                <SelectItem value="meeting">Meetings</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
 
-        {/* Events Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEvents.map((event) => (
-            <Card key={event.id} className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-              {event.image && (
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src={event.image} 
-                    alt={event.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
+        {/* Events by Month */}
+        {groupedEvents.length > 0 ? (
+          <div className="space-y-12">
+            {groupedEvents.map(({ monthYear, events }) => (
+              <div key={monthYear}>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                  <Calendar className="h-6 w-6 mr-2 text-amber-600" />
+                  {monthYear}
+                </h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {events.map((event) => (
+                    <Card key={event.id} className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                      {event.image && (
+                        <div className="h-48 overflow-hidden">
+                          <img 
+                            src={event.image} 
+                            alt={event.title}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      <CardHeader className="pb-2">
+                        <div className="flex items-start justify-between">
+                          <CardTitle className="text-lg leading-tight">{event.title}</CardTitle>
+                          <Badge className={getEventTypeColor(event.type)} variant="secondary">
+                            {event.type}
+                          </Badge>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-2 text-sm text-gray-600 mb-3">
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 mr-2" />
+                            {new Date(event.date).toLocaleDateString('en-US', { 
+                              weekday: 'long', 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })}
+                          </div>
+                          <div className="flex items-center">
+                            <Clock className="h-4 w-4 mr-2" />
+                            {event.time}
+                          </div>
+                          {event.location && (
+                            <div className="flex items-center">
+                              <MapPin className="h-4 w-4 mr-2" />
+                              {event.location}
+                            </div>
+                          )}
+                        </div>
+                        {event.description && (
+                          <CardDescription className="text-sm mb-3">
+                            {event.description.substring(0, 100)}
+                            {event.description.length > 100 && '...'}
+                          </CardDescription>
+                        )}
+                        {event.pastor && (
+                          <p className="text-sm text-amber-700 font-medium">
+                            Led by {event.pastor}
+                          </p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
-              )}
-              <CardHeader className="pb-2">
-                <div className="flex items-start justify-between">
-                  <CardTitle className="text-lg leading-tight">{event.title}</CardTitle>
-                  <Badge className={getEventTypeColor(event.type)} variant="secondary">
-                    {event.type}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm text-gray-600 mb-3">
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {new Date(event.date).toLocaleDateString('en-US', { 
-                      weekday: 'long', 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-2" />
-                    {event.time}
-                  </div>
-                  {event.location && (
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-2" />
-                      {event.location}
-                    </div>
-                  )}
-                </div>
-                {event.description && (
-                  <CardDescription className="text-sm mb-3">
-                    {event.description.substring(0, 100)}
-                    {event.description.length > 100 && '...'}
-                  </CardDescription>
-                )}
-                {event.pastor && (
-                  <p className="text-sm text-amber-700 font-medium">
-                    Led by {event.pastor}
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {filteredEvents.length === 0 && (
+              </div>
+            ))}
+          </div>
+        ) : (
           <div className="text-center py-12">
             <Calendar className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No events found</h3>
@@ -357,6 +393,32 @@ const Events = () => {
             </p>
           </div>
         )}
+
+        {/* Special Notice */}
+        <div className="mt-12 bg-gradient-to-r from-amber-50 to-blue-50 p-6 rounded-lg border border-amber-200">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center">
+            <Calendar className="h-5 w-5 mr-2 text-amber-600" />
+            Monthly Events Schedule
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+            <div>
+              <h4 className="font-medium text-blue-900 mb-1">Every Sunday:</h4>
+              <ul className="space-y-1">
+                <li>• 1:00-2:00 PM: Traditional Worship Service</li>
+                <li>• 2:00-2:45 PM: Bible Classes & Language Learning</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-purple-900 mb-1">Special Programs:</h4>
+              <ul className="space-y-1">
+                <li>• 1st Sunday: Board of Directors & Family Bible Study</li>
+                <li>• 2nd Sunday: First Communion Classes (ages 8-11)</li>
+                <li>• 3rd Sunday: Catechism Classes (ages 11-13)</li>
+                <li>• Monthly: Dr. Tingting Wu Recitals & Fellowship Meals</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Footer />

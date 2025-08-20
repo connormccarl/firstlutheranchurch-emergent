@@ -21,16 +21,20 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <Church className="h-8 w-8 text-amber-600" />
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-gray-900">First Lutheran Church</span>
-              <span className="text-sm text-amber-600 -mt-1">of Miami</span>
+          <Link to="/" className="flex items-center space-x-3 min-w-0">
+            <Church className="h-8 w-8 text-amber-600 flex-shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="text-base sm:text-lg font-bold text-gray-900 leading-tight">
+                First Lutheran Church
+              </span>
+              <span className="text-sm sm:text-base text-amber-600 -mt-0.5 leading-tight">
+                of Miami
+              </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -44,7 +48,31 @@ const Navbar = () => {
                   }`}
                 >
                   <Icon className="h-4 w-4" />
-                  <span>{item.name}</span>
+                  <span className="hidden xl:inline">{item.name}</span>
+                  <span className="xl:hidden">
+                    {item.name.includes('Schedule') ? 'Schedule' : item.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Medium screens navigation - simplified */}
+          <div className="hidden md:flex lg:hidden items-center space-x-4">
+            {navItems.slice(0, 4).map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex items-center justify-center p-2 rounded-md transition-colors duration-200 ${
+                    location.pathname === item.path
+                      ? 'bg-amber-100 text-amber-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-amber-600'
+                  }`}
+                  title={item.name}
+                >
+                  <Icon className="h-5 w-5" />
                 </Link>
               );
             })}

@@ -1,13 +1,171 @@
 // Mock data for First Lutheran Church of Miami
 
 export const mockEvents = [
+  // September 2025 Events
+  {
+    id: 101,
+    title: 'Sunday Worship Service',
+    date: '2025-09-07',
+    time: '1:00 PM',
+    location: 'Main Sanctuary',
+    description: 'Traditional Lutheran worship with communion, hymns, and inspiring messages.',
+    type: 'worship',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
+    pastor: 'Pastor James Dunham'
+  },
+  {
+    id: 102,
+    title: 'Board of Directors Meeting',
+    date: '2025-09-07',
+    time: '2:05 PM',
+    location: 'Conference Room',
+    description: 'Monthly board meeting for church leadership and planning.',
+    type: 'meeting',
+    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
+  },
+  {
+    id: 103,
+    title: 'Family Bible Study',
+    date: '2025-09-07',
+    time: '2:10 PM',
+    location: 'Fellowship Hall',
+    description: 'Open discussions and Bible study for the whole family.',
+    type: 'study',
+    image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=250&fit=crop'
+  },
+  {
+    id: 104,
+    title: 'First Communion Classes',
+    date: '2025-09-14',
+    time: '2:00 PM',
+    location: 'Sunday School Room',
+    description: 'Special preparation classes for children ages 8-11.',
+    type: 'study',
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=250&fit=crop'
+  },
+  {
+    id: 105,
+    title: '1¼ Year Anniversary Celebration',
+    date: '2025-09-17',
+    time: 'All Day',
+    location: 'First Lutheran Church of Miami',
+    description: 'Celebrating 1¼ years of First Lutheran Church of Miami! Join us for this special milestone.',
+    type: 'celebration',
+    image: 'https://images.unsplash.com/photo-1520637736862-4d197d17c23a?w=400&h=250&fit=crop'
+  },
+  {
+    id: 106,
+    title: 'Catechism Classes',
+    date: '2025-09-21',
+    time: '2:00 PM',
+    location: 'Sunday School Room',
+    description: 'Faith instruction for children ages 11-13.',
+    type: 'study',
+    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
+  },
+  {
+    id: 107,
+    title: 'Dr. Tingting Wu Recital - Grand Opening of LumiMusic',
+    date: '2025-09-27',
+    time: '7:30 PM',
+    location: 'Main Sanctuary',
+    description: 'Amazing recital by our beloved Music Director Dr. Tingting Wu! Doors open at 7:00 PM. Grand opening of LumiMusic.',
+    type: 'music',
+    image: 'https://images.unsplash.com/photo-1516405885085-c997e5d89baa?w=400&h=250&fit=crop'
+  },
+  {
+    id: 108,
+    title: 'Spanish and Evangelism Classes',
+    date: '2025-09-28',
+    time: '2:00 PM',
+    location: 'Fellowship Hall',
+    description: 'Learn Spanish and evangelism techniques with Pastor James.',
+    type: 'study',
+    image: 'https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=400&h=250&fit=crop'
+  },
+
+  // October 2025 Events
+  {
+    id: 201,
+    title: 'Sunday Worship Service',
+    date: '2025-10-05',
+    time: '1:00 PM',
+    location: 'Main Sanctuary',
+    description: 'Traditional Lutheran worship with communion, hymns, and inspiring messages.',
+    type: 'worship',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
+    pastor: 'Pastor James Dunham'
+  },
+  {
+    id: 202,
+    title: 'Sushi Night Fellowship',
+    date: '2025-10-04',
+    time: '7:00 PM',
+    location: 'Local Sushi Restaurant',
+    description: 'Monthly fellowship meal - join us for sushi and great conversation!',
+    type: 'fellowship',
+    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=250&fit=crop'
+  },
+  {
+    id: 203,
+    title: 'Dr. Tingting Wu Student Recital',
+    date: '2025-10-11',
+    time: '3:00 PM',
+    location: 'Main Sanctuary',
+    description: 'Amazing event featuring Dr. Tingting\'s piano students! Come support our young musicians.',
+    type: 'music',
+    image: 'https://images.unsplash.com/photo-1516405885085-c997e5d89baa?w=400&h=250&fit=crop'
+  },
+  {
+    id: 204,
+    title: 'First Communion Classes',
+    date: '2025-10-12',
+    time: '2:00 PM',
+    location: 'Sunday School Room',
+    description: 'Special preparation classes for children ages 8-11.',
+    type: 'study',
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=250&fit=crop'
+  },
+  {
+    id: 205,
+    title: 'Catechism Classes',
+    date: '2025-10-19',
+    time: '2:00 PM',
+    location: 'Sunday School Room',
+    description: 'Faith instruction for children ages 11-13.',
+    type: 'study',
+    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
+  },
+  {
+    id: 206,
+    title: 'Dr. Tingting Wu Recital - LumiMusic Concert #2',
+    date: '2025-10-24',
+    time: '7:30 PM',
+    location: 'Main Sanctuary',
+    description: 'Second LumiMusic concert featuring Dr. Tingting Wu! Doors open at 7:00 PM.',
+    type: 'music',
+    image: 'https://images.unsplash.com/photo-1516405885085-c997e5d89baa?w=400&h=250&fit=crop'
+  },
+  {
+    id: 207,
+    title: 'Reformation Day Worship',
+    date: '2025-10-26',
+    time: '1:00 PM',
+    location: 'Main Sanctuary',
+    description: 'Special Reformation Day worship service celebrating our Lutheran heritage.',
+    type: 'worship',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
+    pastor: 'Pastor James Dunham'
+  },
+
+  // Current/Ongoing Events
   {
     id: 1,
     title: 'Sunday Worship Service',
     date: '2025-01-19',
     time: '1:00 PM',
     location: 'Main Sanctuary',
-    description: 'Join us for traditional Lutheran worship with communion, hymns, and inspiring messages.',
+    description: 'Traditional Lutheran worship with communion, hymns, and inspiring messages.',
     type: 'worship',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop',
     pastor: 'Pastor James Dunham'
