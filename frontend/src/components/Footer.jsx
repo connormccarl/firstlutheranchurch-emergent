@@ -83,29 +83,29 @@ const Footer = () => {
 
           {/* Service Times & Programs */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-400">Sunday Schedule</h3>
-            <div className="space-y-3 text-sm text-gray-400">
+            <h3 className="text-lg font-semibold mb-4 text-amber-400">Service Times</h3>
+            <div className="space-y-3 text-sm">
               <div>
-                <p className="font-medium text-white flex items-center">
+                <p className="font-bold text-white flex items-center">
                   <Church className="h-3 w-3 mr-2" />
-                  Worship Service
+                  Sunday Worship
                 </p>
-                <p>Sunday 1:00 PM</p>
+                <p className="text-white font-medium">1:00 PM - 2:00 PM</p>
               </div>
               <div>
-                <p className="font-medium text-white flex items-center">
+                <p className="font-bold text-white flex items-center">
                   <Globe className="h-3 w-3 mr-2" />
-                  Bible & Language Classes
+                  Bible & Language Classes  
                 </p>
-                <p>Sunday 2:00 PM</p>
+                <p className="text-white font-medium">2:00 PM - 2:45 PM</p>
               </div>
               <div>
-                <p className="font-medium text-white flex items-center">
+                <p className="font-bold text-white flex items-center">
                   <Music className="h-3 w-3 mr-2" />
                   Piano Lessons - Dr. Tingting
                 </p>
-                <p>World class pianist and instructor!</p>
-                <div className="text-xs mt-1">
+                <p className="text-white font-medium">World class pianist and instructor!</p>
+                <div className="text-xs mt-1 text-white font-medium">
                   <span>pianowtt@gmail.com | 857.264.6097</span>
                 </div>
               </div>
