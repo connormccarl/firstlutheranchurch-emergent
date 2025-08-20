@@ -81,16 +81,47 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    // Hide Google Translate banner and elements
+    // Enhanced CSS to hide Google Translate elements and ensure proper styling
     const style = document.createElement('style');
     style.innerHTML = `
-      .goog-te-banner-frame { display: none !important; }
-      .goog-te-menu-frame { display: none !important; }
-      body { top: 0px !important; }
-      #google_translate_element { display: none !important; }
-      .goog-tooltip { display: none !important; }
-      .goog-tooltip:hover { display: none !important; }
-      .goog-text-highlight { background: none !important; box-shadow: none !important; }
+      .goog-te-banner-frame { 
+        display: none !important; 
+      }
+      .goog-te-menu-frame { 
+        display: none !important; 
+      }
+      body { 
+        top: 0px !important; 
+        position: static !important;
+      }
+      #google_translate_element { 
+        display: none !important; 
+      }
+      .goog-tooltip { 
+        display: none !important; 
+      }
+      .goog-tooltip:hover { 
+        display: none !important; 
+      }
+      .goog-text-highlight { 
+        background: none !important; 
+        box-shadow: none !important; 
+      }
+      .goog-te-gadget { 
+        display: none !important; 
+      }
+      .goog-te-combo {
+        display: none !important;
+      }
+      iframe.goog-te-menu-frame {
+        display: none !important;
+      }
+      .goog-te-ftab {
+        display: none !important;
+      }
+      .goog-te-button {
+        display: none !important;
+      }
     `;
     document.head.appendChild(style);
     
