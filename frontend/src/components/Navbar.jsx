@@ -5,7 +5,80 @@ import { Button } from './ui/button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState('English');
   const location = useLocation();
+
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'zh', name: 'Mandarin', flag: '🇨🇳' },
+    { code: 'es', name: 'Spanish', flag: '🇪🇸' },
+    { code: 'fr', name: 'Creole/French', flag: '🇭🇹' },
+    { code: 'it', name: 'Italian', flag: '🇮🇹' },
+    { code: 'ja', name: 'Japanese', flag: '🇯🇵' },
+  ];
+
+  const translatePage = (languageCode, languageName) => {
+    setCurrentLanguage(languageName);
+    setLanguageOpen(false);
+    
+    if (languageCode === 'en') {
+      // Remove any existing Google Translate elements
+      const translateElements = document.querySelectorAll('.goog-te-banner-frame, .skiptranslate');
+      translateElements.forEach(el => el.remove());
+      document.body.style.top = '0px';
+      window.location.reload();
+      return;
+    }
+
+    // Load Google Translate if not already loaded
+    if (!window.google || !window.google.translate) {
+      const script = document.createElement('script');
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.head.appendChild(script);
+      
+      window.googleTranslateElementInit = () => {
+        new window.google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'zh,es,fr,it,ja',
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+        
+        // Trigger translation after a short delay
+        setTimeout(() => {
+          const selectElement = document.querySelector('#google_translate_element select');
+          if (selectElement) {
+            selectElement.value = languageCode;
+            selectElement.dispatchEvent(new Event('change'));
+          }
+        }, 1000);
+      };
+    } else {
+      // Google Translate is already loaded, just change language
+      const selectElement = document.querySelector('#google_translate_element select');
+      if (selectElement) {
+        selectElement.value = languageCode;
+        selectElement.dispatchEvent(new Event('change'));
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Hide Google Translate banner and elements
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .goog-te-banner-frame { display: none !important; }
+      .goog-te-menu-frame { display: none !important; }
+      body { top: 0px !important; }
+      #google_translate_element { display: none !important; }
+      .goog-tooltip { display: none !important; }
+      .goog-tooltip:hover { display: none !important; }
+      .goog-text-highlight { background: none !important; box-shadow: none !important; }
+    `;
+    document.head.appendChild(style);
+  }, []);
 
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
