@@ -200,7 +200,7 @@ const Navbar = () => {
           {/* Mobile menu button and language */}
           <div className="md:hidden flex items-center space-x-2">
             {/* Mobile Language Dropdown */}
-            <div className="relative">
+            <div className="relative language-dropdown">
               <Button
                 variant="ghost"
                 size="sm"
