@@ -115,6 +115,73 @@ const About = () => {
           </div>
         </div>
 
+        {/* Special Programs */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Special Programs</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center p-6">
+                <Music className="h-12 w-12 mx-auto text-purple-600 mb-4" />
+                <CardTitle className="text-xl">Piano Lessons with Dr. Tingting</CardTitle>
+                <CardDescription className="text-purple-600 font-medium">World Class Pianist and Instructor!</CardDescription>
+              </CardHeader>
+              <CardContent className="px-6 pb-6">
+                <div className="text-center space-y-3">
+                  <p className="text-gray-600">
+                    Professional piano instruction with internationally acclaimed pianist Dr. Tingting.
+                  </p>
+                  <div className="border-t pt-4 space-y-2">
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Mail className="h-4 w-4 mr-2 text-purple-600" />
+                      <span>pianowtt@gmail.com</span>
+                    </div>
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Phone className="h-4 w-4 mr-2 text-purple-600" />
+                      <span>857.264.6097</span>
+                    </div>
+                    <a 
+                      href="https://www.tingtingw.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-purple-600 hover:text-purple-800 font-medium"
+                    >
+                      www.tingtingw.com
+                    </a>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center p-6">
+                <div className="h-12 w-12 mx-auto text-blue-600 mb-4 flex items-center justify-center">
+                  <span className="text-2xl">💻</span>
+                </div>
+                <CardTitle className="text-xl">Tech Tutoring & Esports</CardTitle>
+                <CardDescription className="text-blue-600 font-medium">Coding, Development & Gaming</CardDescription>
+              </CardHeader>
+              <CardContent className="px-6 pb-6">
+                <div className="text-center space-y-3">
+                  <p className="text-gray-600">
+                    Beginner and intermediate level coding, mobile/web development, emerging tech (AI/automation), 
+                    gaming tournaments and more!
+                  </p>
+                  <div className="border-t pt-4 space-y-2">
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Mail className="h-4 w-4 mr-2 text-blue-600" />
+                      <span>johnrileytechsolutions7@gmail.com</span>
+                    </div>
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Phone className="h-4 w-4 mr-2 text-blue-600" />
+                      <span>561.674.3150</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         {/* Community & Leadership */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Our Community & Leadership</h2>
