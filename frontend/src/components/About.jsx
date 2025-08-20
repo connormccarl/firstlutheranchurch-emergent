@@ -17,7 +17,7 @@ const About = () => {
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-            About First Lutheran Church of Miami
+            About Us
           </h1>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto">
             Celebrating diversity in worship, music, and teaching. A welcoming community serving Miami for over 1¼ years.
