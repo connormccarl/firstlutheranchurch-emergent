@@ -7,25 +7,48 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Home = () => {
+  // Function to get the next Sunday date
+  const getNextSunday = (weeksFromNow = 0) => {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const daysUntilSunday = dayOfWeek === 0 ? 7 : 7 - dayOfWeek; // If today is Sunday, get next Sunday
+    
+    const nextSunday = new Date(today);
+    nextSunday.setDate(today.getDate() + daysUntilSunday + (weeksFromNow * 7));
+    
+    return nextSunday.toISOString().split('T')[0]; // Return YYYY-MM-DD format
+  };
+
+  // Function to format date for display
+  const formatSundayDate = () => {
+    const nextSunday = new Date(getNextSunday());
+    return nextSunday.toLocaleDateString('en-US', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  };
+
   const upcomingEvents = [
     {
       id: 1,
       title: 'Sunday Worship Service',
-      date: '2025-01-19',
+      date: getNextSunday(), // This Sunday
       time: '1:00 PM',
       location: 'Main Sanctuary'
     },
     {
       id: 2,
       title: 'Bible Study & Language Classes',
-      date: '2025-01-19',
+      date: getNextSunday(), // This Sunday
       time: '2:00 PM',
       location: 'Fellowship Hall'
     },
     {
       id: 3,
       title: 'First Communion Classes',
-      date: '2025-01-26',
+      date: getNextSunday(1), // Next Sunday (1 week from now)
       time: '2:00 PM',
       location: 'Sunday School Room'
     }
