@@ -276,12 +276,12 @@ const About = () => {
             </div>
             <div className="relative">
               <img
-                src="https://voyagemia.com/wp-content/uploads/2025/02/c-1738772100241-1738772595018_pastorjames_dunham_pastor-james-and-children-we-open-our-school-in-september-of-2025-1.jpg"
-                alt="Pastor James with children for the upcoming school"
+                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/5eqmmk0k_image.png"
+                alt="Dr. Tingting Wu - World Class Pianist"
                 className="w-full h-64 object-cover rounded-lg shadow-lg"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 rounded-b-lg">
-                <p className="text-sm font-medium">Pastor James with children - School opens September 2025</p>
+                <p className="text-sm font-medium">Dr. Tingting Wu - Top 10 World Class Pianist</p>
               </div>
             </div>
             <div className="relative">
