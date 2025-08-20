@@ -112,7 +112,8 @@ const Events = () => {
       study: 'bg-green-100 text-green-800',
       outreach: 'bg-amber-100 text-amber-800',
       youth: 'bg-purple-100 text-purple-800',
-      prayer: 'bg-rose-100 text-rose-800'
+      music: 'bg-pink-100 text-pink-800',
+      fellowship: 'bg-orange-100 text-orange-800'
     };
     return colors[type] || 'bg-gray-100 text-gray-800';
   };
@@ -166,7 +167,8 @@ const Events = () => {
                         <SelectItem value="study">Bible Study</SelectItem>
                         <SelectItem value="outreach">Community Outreach</SelectItem>
                         <SelectItem value="youth">Youth Ministry</SelectItem>
-                        <SelectItem value="prayer">Prayer</SelectItem>
+                        <SelectItem value="music">Musical Event</SelectItem>
+                        <SelectItem value="fellowship">Fellowship</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -277,7 +279,8 @@ const Events = () => {
                 <SelectItem value="study">Bible Study</SelectItem>
                 <SelectItem value="outreach">Outreach</SelectItem>
                 <SelectItem value="youth">Youth</SelectItem>
-                <SelectItem value="prayer">Prayer</SelectItem>
+                <SelectItem value="music">Musical Events</SelectItem>
+                <SelectItem value="fellowship">Fellowship</SelectItem>
               </SelectContent>
             </Select>
           </div>
