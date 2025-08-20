@@ -78,7 +78,19 @@ const Navbar = () => {
       .goog-text-highlight { background: none !important; box-shadow: none !important; }
     `;
     document.head.appendChild(style);
-  }, []);
+    
+    // Close dropdowns when clicking outside
+    const handleClickOutside = (event) => {
+      if (languageOpen && !event.target.closest('.language-dropdown')) {
+        setLanguageOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [languageOpen]);
 
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
