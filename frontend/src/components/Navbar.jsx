@@ -110,7 +110,7 @@ const Navbar = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
               alt="First Lutheran Church of Miami Logo" 
-              className="h-16 w-16 flex-shrink-0 object-contain"
+              className="h-20 w-20 md:h-24 md:w-24 flex-shrink-0 object-contain"
             />
             <div className="flex flex-col min-w-0">
               <span className="text-base sm:text-lg font-bold text-gray-900 leading-tight">
