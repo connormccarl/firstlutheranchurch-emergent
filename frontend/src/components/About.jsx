@@ -13,7 +13,7 @@ const About = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
               alt="First Lutheran Church of Miami Logo" 
-              className="h-20 w-20 md:h-24 md:w-24 object-contain filter drop-shadow-lg"
+              className="h-28 w-28 md:h-32 md:w-32 object-contain filter drop-shadow-lg"
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
