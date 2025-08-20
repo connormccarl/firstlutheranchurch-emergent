@@ -329,6 +329,7 @@ const Home = () => {
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-3xl font-bold mb-6">Visit Us This Sunday</h2>
+              <p className="text-amber-200 mb-4 text-lg font-medium">{formatSundayDate()}</p>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <MapPin className="h-5 w-5 mr-3 text-amber-400" />
