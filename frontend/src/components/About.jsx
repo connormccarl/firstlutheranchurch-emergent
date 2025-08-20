@@ -30,7 +30,7 @@ const About = () => {
             <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8">
               <div className="flex flex-col lg:flex-row items-center gap-8">
                 <img
-                  src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/50zz2v4s_image.png"
+                  src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/5eqmmk0k_image.png"
                   alt="Pastor James (Santiago) Dunham"
                   className="w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg"
                 />
