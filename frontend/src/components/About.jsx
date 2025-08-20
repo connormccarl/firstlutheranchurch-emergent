@@ -284,7 +284,7 @@ const About = () => {
             </div>
             <div className="relative">
               <img
-                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/5eqmmk0k_image.png"
+                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/50zz2v4s_image.png"
                 alt="Dr. Tingting Wu - World Class Pianist"
                 className="w-full h-64 object-cover rounded-lg shadow-lg"
               />
