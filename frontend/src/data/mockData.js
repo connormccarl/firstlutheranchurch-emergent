@@ -205,6 +205,106 @@ export const mockAIChatHistory = [
   }
 ];
 
+// Calendar view data for September and October 2025
+export const calendarData = {
+  september2025: {
+    month: 'September 2025',
+    events: [
+      {
+        date: 1,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
+          { time: '2:05 PM', title: 'Board of Directors Meeting', type: 'meeting' },
+          { time: '2:10 PM', title: 'Family Bible Study', type: 'study' }
+        ]
+      },
+      {
+        date: 7,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
+          { time: '2:05 PM', title: 'Board of Directors Meeting', type: 'meeting' },
+          { time: '2:10 PM', title: 'Family Bible Study', type: 'study' }
+        ]
+      },
+      {
+        date: 14,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
+          { time: '2:00 PM', title: 'First Communion Classes', type: 'study' }
+        ]
+      },
+      {
+        date: 17,
+        dayOfWeek: 'Tuesday',
+        events: [
+          { time: 'All Day', title: '1¼ Year Anniversary Celebration', type: 'celebration' }
+        ]
+      },
+      {
+        date: 21,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
+          { time: '2:00 PM', title: 'Catechism Classes', type: 'study' }
+        ]
+      },
+      {
+        date: 28,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
+          { time: '2:00 PM', title: 'Spanish and Evangelism Classes', type: 'study' }
+        ]
+      }
+    ]
+  },
+  october2025: {
+    month: 'October 2025',
+    events: [
+      {
+        date: 4,
+        dayOfWeek: 'Friday',
+        events: [
+          { time: '7:00 PM', title: 'Sushi Night Fellowship', type: 'fellowship' }
+        ]
+      },
+      {
+        date: 5,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' }
+        ]
+      },
+      {
+        date: 12,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
+          { time: '2:00 PM', title: 'First Communion Classes', type: 'study' }
+        ]
+      },
+      {
+        date: 19,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
+          { time: '2:00 PM', title: 'Catechism Classes', type: 'study' }
+        ]
+      },
+      {
+        date: 26,
+        dayOfWeek: 'Sunday',
+        events: [
+          { time: '1:00 PM', title: 'Reformation Day Worship', type: 'worship' }
+        ]
+      }
+    ]
+  }
+};
+
 // Mock functions for saving data to local storage
 export const saveEvent = (event) => {
   const existingEvents = JSON.parse(localStorage.getItem('churchEvents') || '[]');
