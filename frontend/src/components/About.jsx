@@ -30,7 +30,7 @@ const About = () => {
             <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8">
               <div className="flex flex-col lg:flex-row items-center gap-8">
                 <img
-                  src="https://voyagemia.com/wp-content/uploads/2025/02/c-1739001069779-personal_1739001564590_1739001564590_pastorjames_dunham_pastor-james-santiago-dunham-first-lutheran-church-of-miami-1-1.jpg"
+                  src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/50zz2v4s_image.png"
                   alt="Pastor James (Santiago) Dunham"
                   className="w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg"
                 />
