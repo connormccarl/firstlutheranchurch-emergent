@@ -307,7 +307,7 @@ const Home = () => {
                 </div>
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-amber-400" />
-                  <span>info@firstlutheranmiami.org</span>
+                  <span>pastorjamesdunham@gmail.com</span>
                 </div>
                 <div className="bg-blue-800 p-4 rounded-lg mt-6">
                   <h3 className="font-semibold mb-2 text-amber-400">Sunday Schedule:</h3>
