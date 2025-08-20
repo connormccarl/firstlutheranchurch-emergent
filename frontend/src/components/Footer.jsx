@@ -13,7 +13,7 @@ const Footer = () => {
               <img 
                 src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
                 alt="First Lutheran Church of Miami Logo" 
-                className="h-16 w-16 object-contain"
+                className="h-20 w-20 md:h-24 md:w-24 object-contain"
               />
               <div className="flex flex-col">
                 <span className="text-xl font-bold">First Lutheran Church</span>
