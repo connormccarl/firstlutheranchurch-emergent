@@ -252,6 +252,9 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      
+      {/* Hidden Google Translate Element */}
+      <div id="google_translate_element" style={{ display: 'none' }}></div>
     </nav>
   );
 };
