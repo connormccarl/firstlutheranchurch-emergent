@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Clock, Phone, Mail, MessageCircle, Users, Heart, BookOpen } from 'lucide-react';
+import { Calendar, MapPin, Clock, Phone, Mail, MessageCircle, Users, Heart, BookOpen, Music, Globe } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import Navbar from './Navbar';
@@ -12,22 +12,22 @@ const Home = () => {
       id: 1,
       title: 'Sunday Worship Service',
       date: '2025-01-19',
-      time: '10:00 AM',
+      time: '1:00 PM',
       location: 'Main Sanctuary'
     },
     {
       id: 2,
-      title: 'Bible Study',
-      date: '2025-01-22',
-      time: '7:00 PM',
+      title: 'Bible Study & Language Classes',
+      date: '2025-01-19',
+      time: '2:00 PM',
       location: 'Fellowship Hall'
     },
     {
       id: 3,
-      title: 'Community Outreach',
-      date: '2025-01-25',
-      time: '9:00 AM',
-      location: 'Downtown Miami'
+      title: 'First Communion Classes',
+      date: '2025-01-26',
+      time: '2:00 PM',
+      location: 'Sunday School Room'
     }
   ];
 
@@ -40,15 +40,15 @@ const Home = () => {
     },
     {
       icon: Calendar,
-      title: 'Schedule 1-on-1',
-      description: 'Book personal sessions with Pastor James Dunham',
+      title: 'Schedule with Pastor James',
+      description: 'Book personal sessions with Pastor James Dunham (MDIV, 25+ years experience)',
       link: '/schedule'
     },
     {
-      icon: Users,
-      title: 'Church Events',
-      description: 'Stay updated with all church activities and programs',
-      link: '/events'
+      icon: Globe,
+      title: 'Language Learning',
+      description: 'Learn any of 14 languages taught by Pastor James, plus Spanish and evangelism classes',
+      link: '/about'
     }
   ];
 
@@ -63,10 +63,13 @@ const Home = () => {
             Welcome to First Lutheran Church
             <span className="block text-2xl md:text-3xl text-amber-200 mt-2">of Miami</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
-            "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future."
+          <p className="text-xl md:text-2xl mb-6 max-w-3xl mx-auto leading-relaxed">
+            "Behold, the Lamb of God, who takes away the sin of the world"
           </p>
-          <p className="text-lg mb-8 text-blue-100">- Jeremiah 29:11</p>
+          <p className="text-lg mb-4 text-blue-100">- John 1:29</p>
+          <p className="text-lg mb-8 text-amber-200 font-medium">
+            A "no judgment" zone - We love you the way you are!
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg">
               <Link to="/schedule">Schedule with Pastor</Link>
@@ -104,41 +107,77 @@ const Home = () => {
             <Card className="text-center hover:shadow-lg transition-shadow duration-300">
               <CardHeader>
                 <Clock className="h-12 w-12 text-amber-600 mx-auto mb-4" />
-                <CardTitle>Sunday Service</CardTitle>
+                <CardTitle>Sunday Worship</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold text-blue-900">10:00 AM</p>
-                <p className="text-gray-600 mt-2">Traditional Worship with Communion</p>
+                <p className="text-2xl font-bold text-blue-900">1:00 PM</p>
+                <p className="text-gray-600 mt-2">Traditional Lutheran Worship</p>
               </CardContent>
             </Card>
 
             <Card className="text-center hover:shadow-lg transition-shadow duration-300">
               <CardHeader>
                 <BookOpen className="h-12 w-12 text-amber-600 mx-auto mb-4" />
-                <CardTitle>Bible Study</CardTitle>
+                <CardTitle>Bible & Language Classes</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold text-blue-900">Wednesday 7:00 PM</p>
-                <p className="text-gray-600 mt-2">Deep dive into Scripture together</p>
+                <p className="text-2xl font-bold text-blue-900">Sunday 2:00 PM</p>
+                <p className="text-gray-600 mt-2">Bible study & 14 language options</p>
               </CardContent>
             </Card>
 
             <Card className="text-center hover:shadow-lg transition-shadow duration-300">
               <CardHeader>
-                <Heart className="h-12 w-12 text-amber-600 mx-auto mb-4" />
-                <CardTitle>Youth Ministry</CardTitle>
+                <Music className="h-12 w-12 text-amber-600 mx-auto mb-4" />
+                <CardTitle>World-Class Music</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold text-blue-900">Friday 6:00 PM</p>
-                <p className="text-gray-600 mt-2">Fellowship for teens and young adults</p>
+                <p className="text-2xl font-bold text-blue-900">Dr. Tingting</p>
+                <p className="text-gray-600 mt-2">Top 10 pianist worldwide</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Church Photos */}
       <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Our Church Family</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/evoiorv3_Cristina%20and%20Pastor%20%28Santiago%29%20James.JPG" 
+                alt="Cristina and Pastor James" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4 hover:scale-105 transition-transform duration-300"
+              />
+              <h3 className="text-lg font-semibold text-gray-900">Pastor James & Cristina</h3>
+              <p className="text-gray-600">Building relationships in our community</p>
+            </div>
+            <div className="text-center">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/v75ihsk4_David%2C%20Pastor%20James%2C%20Tingting.jpg" 
+                alt="David, Pastor James, and Dr. Tingting" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4 hover:scale-105 transition-transform duration-300"
+              />
+              <h3 className="text-lg font-semibold text-gray-900">David, Pastor James & Dr. Tingting</h3>
+              <p className="text-gray-600">Our leadership team serving together</p>
+            </div>
+            <div className="text-center">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/9x45ghe4_Ketler%2C%20Santiago%2C%20Gigi%202.0%21.jpg" 
+                alt="Ketler, Santiago, and Gigi" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4 hover:scale-105 transition-transform duration-300"
+              />
+              <h3 className="text-lg font-semibold text-gray-900">Ketler, Santiago & Gigi</h3>
+              <p className="text-gray-600">Young adults growing in faith together</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">How We Can Help You Grow</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -170,10 +209,10 @@ const Home = () => {
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Upcoming Events</h2>
+            <h2 className="text-3xl font-bold text-gray-900">This Sunday's Schedule</h2>
             <Button asChild variant="outline">
               <Link to="/events">View All Events</Link>
             </Button>
@@ -211,12 +250,52 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Special Programs Highlight */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Special Programs</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <Globe className="h-12 w-12 text-amber-600 mb-4" />
+                <CardTitle className="text-xl">Learn 14 Languages</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700 mb-4">
+                  Pick any of 14 languages you'd like to learn, and Pastor James will teach them to you! 
+                  We also offer Spanish classes and evangelism training.
+                </p>
+                <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+                  <Link to="/about">Learn More</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <Music className="h-12 w-12 text-purple-600 mb-4" />
+                <CardTitle className="text-xl">Piano Lessons with Dr. Tingting</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700 mb-4">
+                  Learn piano from a world-class musician! Dr. Tingting, our beloved Music Director and 
+                  top 10 pianist worldwide, offers lessons for children and adults.
+                </p>
+                <Button asChild className="w-full bg-purple-600 hover:bg-purple-700">
+                  <Link to="/about">Contact Dr. Tingting</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="py-16 bg-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
+              <h2 className="text-3xl font-bold mb-6">Visit Us This Sunday</h2>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <MapPin className="h-5 w-5 mr-3 text-amber-400" />
@@ -229,6 +308,11 @@ const Home = () => {
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-amber-400" />
                   <span>info@firstlutheranmiami.org</span>
+                </div>
+                <div className="bg-blue-800 p-4 rounded-lg mt-6">
+                  <h3 className="font-semibold mb-2 text-amber-400">Sunday Schedule:</h3>
+                  <p>1:00 PM - Traditional Worship</p>
+                  <p>2:00 PM - Bible Classes & Language Learning</p>
                 </div>
               </div>
             </div>
@@ -248,6 +332,9 @@ const Home = () => {
                 <div className="flex items-center">
                   <Mail className="h-4 w-4 mr-2 text-amber-400" />
                   <span>pastorjamesdunham@gmail.com</span>
+                </div>
+                <div className="text-xs">
+                  <span className="text-amber-400">Credentials:</span> Master of Divinity (MDIV), 25+ Years Teaching Experience
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">

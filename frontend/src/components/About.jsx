@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Users, BookOpen, Compass, Church, Mail, Phone, MapPin } from 'lucide-react';
+import { Heart, Users, BookOpen, Compass, Church, Mail, Phone, MapPin, Music, Globe, GraduationCap } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Link } from 'react-router-dom';
@@ -10,56 +10,71 @@ const About = () => {
   const values = [
     {
       icon: Heart,
-      title: 'Love & Compassion',
-      description: 'We believe in showing Christ\'s love through acts of kindness, compassion, and genuine care for one another.'
-    },
-    {
-      icon: Users,
-      title: 'Community & Fellowship',
-      description: 'Building meaningful relationships and supporting each other through life\'s joys and challenges.'
+      title: 'Love & Acceptance',
+      description: 'We are a "no judgment" zone. We love you the way you are! Open to all people, truly welcoming all ethnicities.'
     },
     {
       icon: BookOpen,
       title: 'Scripture-Centered',
-      description: 'Grounded in Biblical truth, we seek to apply God\'s Word to our daily lives and decisions.'
+      description: 'We hold strongly to the Holy Scriptures as being "inerrant", without any errors. Biblical truth guides our faith and practice.'
     },
     {
-      icon: Compass,
-      title: 'Faithful Guidance',
-      description: 'Providing spiritual direction and pastoral care to help people grow in their relationship with God.'
+      icon: Globe,
+      title: 'Multilingual Ministry',
+      description: 'Language classes in 14 different languages taught by Pastor James, plus Spanish and evangelism classes.'
+    },
+    {
+      icon: Music,
+      title: 'World-Class Music',
+      description: 'Amazing musical events with our beloved Music Director, Dr. Tingting, a top 10 pianist worldwide.'
     }
   ];
 
   const ministries = [
     {
-      title: 'Sunday Worship',
-      description: 'Traditional Lutheran worship service with communion, inspiring messages, and beautiful hymns.',
-      time: 'Sundays at 10:00 AM'
+      title: 'Traditional Worship',
+      description: 'Join us for beautiful traditional Lutheran worship service every Sunday.',
+      time: 'Sundays at 1:00 PM'
     },
     {
-      title: 'Bible Study',
-      description: 'Weekly Bible study sessions exploring Scripture and its application to modern life.',
-      time: 'Wednesdays at 7:00 PM'
+      title: 'Bible Classes',
+      description: 'Deep study of God\'s Word and Biblical teachings.',
+      time: '1st Sunday of every month, 2:00-2:45 PM'
     },
     {
-      title: 'Youth Ministry',
-      description: 'Engaging programs for teenagers and young adults, including fellowship and service projects.',
-      time: 'Fridays at 6:00 PM'
+      title: 'Language Classes',
+      description: 'Learn any of 14 different languages taught by Pastor James, plus Spanish and evangelism classes.',
+      time: 'Sundays at 2:00 PM'
     },
     {
-      title: 'Community Outreach',
-      description: 'Regular service projects helping our Miami community through food drives, volunteering, and support.',
-      time: 'Monthly events'
+      title: 'First Communion Classes',
+      description: 'Special preparation classes for children ages 7-11.',
+      time: '2nd Sunday of every month, 2:00-2:45 PM'
     },
     {
-      title: 'Women\'s Ministry',
-      description: 'Prayer circles, Bible studies, and fellowship opportunities for women of all ages.',
-      time: 'Various times'
+      title: 'Catechism Classes',
+      description: 'Faith instruction for children ages 8-11.',
+      time: '3rd Sunday of every month, 2:00-2:45 PM'
     },
     {
-      title: 'Pastoral Care',
-      description: 'One-on-one counseling, hospital visits, and personal spiritual guidance from Pastor James.',
+      title: 'Piano Lessons',
+      description: 'Piano instruction for children and adults with Dr. Tingting, our world-class Music Director.',
       time: 'By appointment'
+    },
+    {
+      title: 'Preschool & Elementary',
+      description: 'Quality Christian education for young children.',
+      time: 'Contact for schedule'
+    },
+    {
+      title: 'Literature Classes',
+      description: 'Monday night literature classes for intellectual and spiritual growth.',
+      time: 'Beginning January 2026'
+    },
+    {
+      title: 'Fellowship Meals',
+      description: 'Monthly fellowship meals at local restaurants - all are welcome!',
+      time: 'Monthly gatherings'
     }
   ];
 
@@ -72,53 +87,99 @@ const About = () => {
         <div className="max-w-4xl mx-auto text-center">
           <Church className="h-16 w-16 mx-auto mb-6" />
           <h1 className="text-4xl md:text-5xl font-bold mb-6">About Our Church</h1>
-          <p className="text-xl md:text-2xl leading-relaxed">
-            First Lutheran Church of Miami has been a beacon of faith, hope, and love in our community 
-            for over 60 years, welcoming all who seek to grow in their relationship with God.
+          <p className="text-xl md:text-2xl leading-relaxed mb-4">
+            First Lutheran Church of Miami - A Lutheran Church open to all people, truly welcoming all ethnicities.
+          </p>
+          <p className="text-lg italic text-amber-200">
+            "We are a 'no judgment' zone. We love you the way you are!"
           </p>
         </div>
       </section>
 
-      {/* Mission & Vision */}
+      {/* Church Photos Section */}
       <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Church Family</h2>
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="text-center">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/evoiorv3_Cristina%20and%20Pastor%20%28Santiago%29%20James.JPG" 
+                alt="Cristina and Pastor James" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4"
+              />
+              <p className="text-gray-700 font-medium">Pastor James with Cristina</p>
+            </div>
+            <div className="text-center">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/v75ihsk4_David%2C%20Pastor%20James%2C%20Tingting.jpg" 
+                alt="David, Pastor James, and Dr. Tingting" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4"
+              />
+              <p className="text-gray-700 font-medium">David, Pastor James & Dr. Tingting (Music Director)</p>
+            </div>
+            <div className="text-center">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_church-connect-16/artifacts/9x45ghe4_Ketler%2C%20Santiago%2C%20Gigi%202.0%21.jpg" 
+                alt="Ketler, Santiago, and Gigi" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg mb-4"
+              />
+              <p className="text-gray-700 font-medium">Ketler, Santiago & Gigi - Church Family</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & What We Offer */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                To create a welcoming community where people can encounter God's love, grow in their faith, 
-                and serve others with joy. We are committed to sharing the Gospel of Jesus Christ through 
-                worship, fellowship, education, and service.
+                First Lutheran Church of Miami is committed to sharing the Gospel of Jesus Christ through 
+                worship, fellowship, education, and service. We hold strongly to the Holy Scriptures as 
+                being "inerrant", without any errors.
               </p>
-              <p className="text-gray-700 leading-relaxed">
-                We believe that every person is created in God's image and has inherent worth and dignity. 
-                Our church family strives to be a place where all people can find acceptance, healing, and 
-                purpose in their spiritual journey.
+              <p className="text-gray-700 leading-relaxed mb-6">
+                We believe in the birth, substitutionary death and resurrection of Jesus Christ our Savior. 
+                Contact Pastor James for our detailed "This we believe, teach and confess" - a 23 article 
+                explanation of our Biblical beliefs.
               </p>
+              <blockquote className="text-lg italic text-amber-700 border-l-4 border-amber-600 pl-4">
+                "Behold, the Lamb of God, who takes away the sin of the world" - John 1:29
+              </blockquote>
             </div>
             
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Vision</h2>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                To be a thriving, Christ-centered church that transforms lives and strengthens our Miami 
-                community through God's grace and love. We envision a church where:
-              </p>
-              <ul className="space-y-3 text-gray-700">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">What We Offer</h2>
+              <ul className="space-y-4 text-gray-700">
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-amber-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  People experience authentic worship and meaningful community
+                  Traditional worship every Sunday at 1:00 PM
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-amber-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Families grow together in faith across generations
+                  Language classes in 14 different languages taught by Pastor James
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-amber-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Our community is served through acts of compassion and justice
+                  World-class musical events and piano lessons with Dr. Tingting
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-amber-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  Lives are transformed by the power of God's love
+                  First Communion and Catechism classes for children
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  Preschool and elementary instruction
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  Monthly fellowship meals at local restaurants
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  Literature classes beginning January 2026
                 </li>
               </ul>
             </div>
@@ -127,7 +188,7 @@ const About = () => {
       </section>
 
       {/* Values */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Core Values</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -151,57 +212,84 @@ const About = () => {
         </div>
       </section>
 
-      {/* Pastor Section */}
-      <section className="py-16 bg-white">
+      {/* Pastor & Dr. Tingting Section */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Meet Pastor James Dunham</h2>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Pastor James has served First Lutheran Church of Miami with dedication and passion for over 15 years. 
-                His heart is to see every person discover God's amazing plan for their life and to walk alongside 
-                people through every season of their journey.
-              </p>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                With a Master of Divinity from Lutheran Seminary and extensive experience in pastoral counseling, 
-                Pastor James brings both theological depth and practical wisdom to his ministry. He is married to 
-                Sarah, and they have two children who are active in the church community.
-              </p>
-              <div className="space-y-3 text-gray-700">
-                <div className="flex items-center">
-                  <Mail className="h-5 w-5 mr-3 text-amber-600" />
-                  <span>pastorjamesdunham@gmail.com</span>
-                </div>
-                <div className="flex items-center">
-                  <Phone className="h-5 w-5 mr-3 text-amber-600" />
-                  <span>(313) 670-3830</span>
-                </div>
-              </div>
-              <div className="mt-8">
-                <Button asChild className="bg-blue-900 hover:bg-blue-800">
-                  <Link to="/schedule">Schedule a Meeting</Link>
-                </Button>
-              </div>
-            </div>
-            
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Leadership</h2>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Pastor James */}
             <div className="text-center">
               <div className="w-80 h-80 bg-gradient-to-br from-blue-600 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Church className="h-32 w-32 text-white" />
               </div>
-              <blockquote className="text-lg text-gray-700 italic">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Pastor James Dunham</h3>
+              <p className="text-amber-700 font-medium mb-4">Senior Pastor • Master of Divinity (MDIV) • 25+ Years Teaching</p>
+              <p className="text-gray-700 mb-6 leading-relaxed">
                 "My heart is to see every person discover God's amazing plan for their life. Whether you're seeking 
                 answers, going through challenges, or wanting to grow in your faith, I'm here to walk alongside you."
-              </blockquote>
-              <p className="text-amber-700 font-medium mt-4">- Pastor James Dunham</p>
+              </p>
+              <div className="space-y-3 text-gray-700 mb-6">
+                <div className="flex items-center justify-center">
+                  <Mail className="h-5 w-5 mr-3 text-amber-600" />
+                  <span>pastorjamesdunham@gmail.com</span>
+                </div>
+                <div className="flex items-center justify-center">
+                  <Phone className="h-5 w-5 mr-3 text-amber-600" />
+                  <span>(313) 670-3830</span>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Button asChild className="bg-blue-900 hover:bg-blue-800 w-full">
+                  <Link to="/schedule">Schedule a Meeting</Link>
+                </Button>
+                <div className="text-xs text-gray-500">
+                  <a href="https://www.linkedin.com/in/pastor-james-%E2%99%A5%EF%B8%8F-dunham-399ab581" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     className="text-amber-600 hover:text-amber-700">
+                    View LinkedIn Profile
+                  </a> | 
+                  <a href="https://voyagemia.com/interview/daily-inspiration-meet-pastor-james-dunham" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     className="text-amber-600 hover:text-amber-700 ml-1">
+                    Read Interview
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Dr. Tingting */}
+            <div className="text-center">
+              <div className="w-80 h-80 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Music className="h-32 w-32 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Dr. Tingting</h3>
+              <p className="text-purple-700 font-medium mb-4">Music Director • Top 10 Pianist Worldwide</p>
+              <p className="text-gray-700 mb-6 leading-relaxed">
+                Dr. Tingting brings world-class musical excellence to our worship services and hosts amazing 
+                musical events. She also offers piano lessons for children and adults of all skill levels.
+              </p>
+              <div className="bg-purple-50 p-4 rounded-lg mb-6">
+                <h4 className="font-semibold text-purple-900 mb-2">Piano Lessons Available</h4>
+                <p className="text-sm text-purple-700">
+                  Learn from a world-renowned pianist! Dr. Tingting offers personalized piano instruction 
+                  for beginners to advanced students, both children and adults.
+                </p>
+              </div>
+              <Button className="bg-purple-600 hover:bg-purple-700 w-full">
+                Contact for Piano Lessons
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Ministries */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Ministries</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Ministries & Programs</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {ministries.map((ministry, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
@@ -220,66 +308,12 @@ const About = () => {
         </div>
       </section>
 
-      {/* History */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Our History</h2>
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-semibold text-amber-600 mb-4">1962 - Foundation</h3>
-              <p className="text-gray-700 leading-relaxed">
-                First Lutheran Church of Miami was founded by a small group of Lutheran families who felt called 
-                to establish a Lutheran presence in the growing Miami community. Starting with just 25 members 
-                meeting in a rented space, the church was built on a foundation of faith, fellowship, and service.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-semibold text-amber-600 mb-4">1975 - First Building</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Through the generous donations and volunteer work of the congregation, the church built its first 
-                permanent building on Brickell Avenue. The sanctuary could seat 150 people and included classrooms 
-                for Sunday school and community gatherings.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-semibold text-amber-600 mb-4">1990s - Growth & Expansion</h3>
-              <p className="text-gray-700 leading-relaxed">
-                As the congregation grew to over 300 members, the church expanded its facilities to include a 
-                fellowship hall, youth center, and additional classrooms. Community outreach programs were 
-                established, including a food pantry and after-school tutoring program.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-semibold text-amber-600 mb-4">2009 - Pastor James Arrives</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Pastor James Dunham was called to serve as senior pastor, bringing fresh energy and vision to the 
-                congregation. Under his leadership, the church has embraced technology, expanded its ministries, 
-                and deepened its commitment to serving the Miami community.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-semibold text-amber-600 mb-4">Today - Moving Forward</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Today, First Lutheran Church of Miami continues to be a vibrant community of faith with over 400 
-                members. We're embracing new technologies like our AI assistant while maintaining our core values 
-                of worship, fellowship, and service. Our vision is to be a church that meets people where they are 
-                and helps them grow in their relationship with God.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Contact CTA */}
       <section className="py-16 bg-blue-900 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Visit Us</h2>
+          <h2 className="text-3xl font-bold mb-6">Visit Us This Sunday!</h2>
           <p className="text-xl mb-8 text-blue-100">
-            We'd love to meet you! Join us for worship this Sunday or reach out to learn more about our church family.
+            Join us for worship at 1:00 PM and experience our welcoming, loving church family.
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 mb-8">

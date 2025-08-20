@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Church, Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { Church, Facebook, Instagram, Youtube, Mail, Phone, MapPin, Music, Globe } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -17,8 +17,8 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-400 mb-4 leading-relaxed">
-              Building a community of faith, hope, and love in the heart of Miami. 
-              Join us as we grow together in Christ's grace.
+              A "no judgment" zone - We love you the way you are! Open to all people, 
+              truly welcoming all ethnicities. Come grow with us in God's grace.
             </p>
             <div className="space-y-2 text-sm text-gray-400">
               <div className="flex items-center">
@@ -73,35 +73,75 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Service Times */}
+          {/* Service Times & Programs */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-400">Service Times</h3>
-            <div className="space-y-2 text-sm text-gray-400">
+            <h3 className="text-lg font-semibold mb-4 text-amber-400">Sunday Schedule</h3>
+            <div className="space-y-3 text-sm text-gray-400">
               <div>
-                <p className="font-medium text-white">Sunday Worship</p>
-                <p>10:00 AM</p>
+                <p className="font-medium text-white flex items-center">
+                  <Church className="h-3 w-3 mr-2" />
+                  Worship Service
+                </p>
+                <p>Sunday 1:00 PM</p>
               </div>
               <div>
-                <p className="font-medium text-white">Bible Study</p>
-                <p>Wednesday 7:00 PM</p>
+                <p className="font-medium text-white flex items-center">
+                  <Globe className="h-3 w-3 mr-2" />
+                  Bible & Language Classes
+                </p>
+                <p>Sunday 2:00 PM</p>
               </div>
               <div>
-                <p className="font-medium text-white">Youth Ministry</p>
-                <p>Friday 6:00 PM</p>
+                <p className="font-medium text-white flex items-center">
+                  <Music className="h-3 w-3 mr-2" />
+                  Piano Lessons
+                </p>
+                <p>By appointment with Dr. Tingting</p>
               </div>
             </div>
+            
             <div className="mt-6">
-              <h4 className="font-medium text-white mb-2">Pastor James Dunham</h4>
+              <h4 className="font-medium text-white mb-2">Leadership</h4>
               <div className="space-y-1 text-xs text-gray-400">
-                <div className="flex items-center">
-                  <Phone className="h-3 w-3 mr-1" />
-                  <span>(313) 670-3830</span>
+                <div>
+                  <span className="text-amber-400">Pastor James Dunham</span>
+                  <div className="flex items-center">
+                    <Phone className="h-3 w-3 mr-1" />
+                    <span>(313) 670-3830</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Mail className="h-3 w-3 mr-1" />
+                    <span>pastorjamesdunham@gmail.com</span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Mail className="h-3 w-3 mr-1" />
-                  <span>pastorjamesdunham@gmail.com</span>
+                <div className="mt-2">
+                  <span className="text-purple-400">Dr. Tingting</span>
+                  <p>Music Director & Piano Instructor</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Special Programs */}
+        <div className="border-t border-gray-800 pt-8 mt-8">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <h4 className="font-medium text-amber-400 mb-2">Special Programs</h4>
+              <p className="text-xs text-gray-400">
+                • Learn 14 different languages with Pastor James
+                • First Communion & Catechism classes for children
+                • Preschool & elementary instruction
+                • Monthly fellowship meals at local restaurants
+              </p>
+            </div>
+            <div>
+              <h4 className="font-medium text-purple-400 mb-2">Music Programs</h4>
+              <p className="text-xs text-gray-400">
+                • World-class musical events
+                • Piano lessons with top 10 worldwide pianist Dr. Tingting
+                • Traditional Lutheran hymns and contemporary worship
+              </p>
             </div>
           </div>
         </div>
