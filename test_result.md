@@ -216,15 +216,18 @@ backend:
 frontend:
   - task: "Calendly Integration"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/Schedule.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Implemented Calendly integration using react-calendly package with Pastor James's URL (https://calendly.com/pastorjamesdunham/30min). Added scheduling widget with proper styling and configuration."
+        - working: true
+          agent: "testing"
+          comment: "✅ Calendly integration working perfectly. Schedule page loads correctly with Pastor James's photo and information. 'Open Scheduling Calendar' button successfully activates Calendly iframe widget. Contact buttons (email/phone) are functional. Pastor photos visible and properly displayed."
 
   - task: "Photo Updates"
     implemented: true
