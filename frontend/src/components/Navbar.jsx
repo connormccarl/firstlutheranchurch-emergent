@@ -146,7 +146,7 @@ const Navbar = () => {
             })}
             
             {/* Language Dropdown */}
-            <div className="relative">
+            <div className="relative language-dropdown">
               <Button
                 variant="ghost"
                 size="sm"
