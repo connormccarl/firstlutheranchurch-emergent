@@ -200,17 +200,17 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex space-x-4 mb-4 md:mb-0">
-              <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors duration-200">
+              <a href="#" className="text-white hover:text-amber-400 transition-colors duration-200">
                 <Facebook className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors duration-200">
+              <a href="#" className="text-white hover:text-amber-400 transition-colors duration-200">
                 <Instagram className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors duration-200">
+              <a href="#" className="text-white hover:text-amber-400 transition-colors duration-200">
                 <Youtube className="h-6 w-6" />
               </a>
             </div>
-            <p className="text-gray-400 text-sm">
+            <p className="text-white font-bold text-sm">
               © 2025 First Lutheran Church of Miami. All rights reserved.
             </p>
           </div>
