@@ -129,7 +129,7 @@ const Footer = () => {
 
         {/* Special Programs */}
         <div className="border-t border-gray-800 pt-8 mt-8">
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
             <div>
               <h4 className="font-medium text-amber-400 mb-2">Special Programs</h4>
               <p className="text-xs text-gray-400">
@@ -140,12 +140,39 @@ const Footer = () => {
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-purple-400 mb-2">Music Programs</h4>
-              <p className="text-xs text-gray-400">
-                • World-class musical events
-                • Piano lessons with top 10 worldwide pianist Dr. Tingting
-                • Traditional Lutheran hymns and contemporary worship
+              <h4 className="font-medium text-purple-400 mb-2">Piano Lessons - Dr. Tingting</h4>
+              <p className="text-xs text-gray-400 mb-2">
+                World class pianist and instructor!
               </p>
+              <div className="text-xs text-gray-400 space-y-1">
+                <div className="flex items-center">
+                  <Mail className="h-3 w-3 mr-1" />
+                  <span>pianowtt@gmail.com</span>
+                </div>
+                <div className="flex items-center">
+                  <Phone className="h-3 w-3 mr-1" />
+                  <span>857.264.6097</span>
+                </div>
+                <a href="https://www.tingtingw.com" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300">
+                  www.tingtingw.com
+                </a>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-medium text-blue-400 mb-2">Tech Tutoring & Esports</h4>
+              <p className="text-xs text-gray-400 mb-2">
+                Beginner and intermediate coding, mobile/web development, emerging tech (AI/automation), gaming tournaments and more!
+              </p>
+              <div className="text-xs text-gray-400 space-y-1">
+                <div className="flex items-center">
+                  <Mail className="h-3 w-3 mr-1" />
+                  <span>johnrileytechsolutions7@gmail.com</span>
+                </div>
+                <div className="flex items-center">
+                  <Phone className="h-3 w-3 mr-1" />
+                  <span>561.674.3150</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
