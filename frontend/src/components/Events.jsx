@@ -196,7 +196,112 @@ const Events = () => {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Church Events & Calendar</h1>
             <p className="text-gray-600">Stay connected with all our church activities and special programs</p>
           </div>
-          
+
+        {/* Event Registration Dialog */}
+        <Dialog open={showRegistrationDialog} onOpenChange={setShowRegistrationDialog}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <UserPlus className="h-5 w-5 mr-2 text-blue-600" />
+                Register for Event
+              </DialogTitle>
+              <DialogDescription>
+                {selectedEvent && (
+                  <div className="space-y-2 mt-2">
+                    <h4 className="font-medium text-gray-900">{selectedEvent.title}</h4>
+                    <div className="text-sm text-gray-600 space-y-1">
+                      <div className="flex items-center">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {selectedEvent.date && new Date(selectedEvent.date).toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </div>
+                      <div className="flex items-center">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {selectedEvent.time}
+                      </div>
+                      {selectedEvent.location && (
+                        <div className="flex items-center">
+                          <MapPin className="h-3 w-3 mr-1" />
+                          {selectedEvent.location}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </DialogDescription>
+            </DialogHeader>
+            
+            <form onSubmit={handleRegistration} className="space-y-4">
+              <div>
+                <Label htmlFor="reg-name">Full Name *</Label>
+                <Input
+                  id="reg-name"
+                  placeholder="Enter your full name"
+                  value={registrationData.name}
+                  onChange={(e) => setRegistrationData({...registrationData, name: e.target.value})}
+                  required
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="reg-email">Email Address *</Label>
+                <Input
+                  id="reg-email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={registrationData.email}
+                  onChange={(e) => setRegistrationData({...registrationData, email: e.target.value})}
+                  required
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="reg-phone">Phone Number</Label>
+                <Input
+                  id="reg-phone"
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  value={registrationData.phone}
+                  onChange={(e) => setRegistrationData({...registrationData, phone: e.target.value})}
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="reg-notes">Additional Notes</Label>
+                <Textarea
+                  id="reg-notes"
+                  placeholder="Any special requests or questions?"
+                  value={registrationData.notes}
+                  onChange={(e) => setRegistrationData({...registrationData, notes: e.target.value})}
+                  rows={3}
+                />
+              </div>
+              
+              <div className="flex gap-2 pt-4">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setShowRegistrationDialog(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  type="submit" 
+                  className="flex-1 bg-blue-600 hover:bg-blue-700"
+                >
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                  Register
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
+
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
               <Button className="bg-amber-600 hover:bg-amber-700 mt-4 md:mt-0">
