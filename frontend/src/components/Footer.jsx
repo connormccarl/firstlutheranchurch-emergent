@@ -49,32 +49,32 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 text-amber-400">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-400 hover:text-white transition-colors duration-200">
+                <Link to="/" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-400 hover:text-white transition-colors duration-200">
+                <Link to="/about" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="text-gray-400 hover:text-white transition-colors duration-200">
+                <Link to="/events" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Events
                 </Link>
               </li>
               <li>
-                <Link to="/media" className="text-gray-400 hover:text-white transition-colors duration-200">
+                <Link to="/media" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Media
                 </Link>
               </li>
               <li>
-                <Link to="/ai-assistant" className="text-gray-400 hover:text-white transition-colors duration-200">
+                <Link to="/ai-assistant" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   AI Assistant
                 </Link>
               </li>
               <li>
-                <Link to="/schedule" className="text-gray-400 hover:text-white transition-colors duration-200">
+                <Link to="/schedule" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Schedule Meeting
                 </Link>
               </li>
