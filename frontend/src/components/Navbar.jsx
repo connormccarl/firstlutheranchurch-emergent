@@ -185,8 +185,37 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile menu button and language */}
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile Language Dropdown */}
+            <div className="relative">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setLanguageOpen(!languageOpen)}
+                className="flex items-center space-x-1 text-gray-700"
+              >
+                <Globe className="h-5 w-5" />
+              </Button>
+              
+              {languageOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                  <div className="py-1">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => translatePage(lang.code, lang.name)}
+                        className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-amber-50"
+                      >
+                        <span>{lang.flag}</span>
+                        <span>{lang.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            
             <Button
               variant="ghost"
               size="sm"
