@@ -352,7 +352,14 @@ const About = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Contact Pastor James</h3>
-                  <p className="text-gray-600">pastorjamesdunham@gmail.com<br />(313) 670-3830</p>
+                  <p className="text-gray-600">
+                    <a href="mailto:pastorjamesdunham@gmail.com" className="hover:text-blue-600 transition-colors">
+                      pastorjamesdunham@gmail.com
+                    </a><br />
+                    <a href="tel:+13136703830" className="hover:text-blue-600 transition-colors">
+                      (313) 670-3830
+                    </a>
+                  </p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">Worship Schedule</h3>
