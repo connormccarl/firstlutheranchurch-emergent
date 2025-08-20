@@ -9,6 +9,13 @@ const About = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
+          <div className="flex justify-center mb-6">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+              alt="First Lutheran Church of Miami Logo" 
+              className="h-20 w-20 md:h-24 md:w-24 object-contain filter drop-shadow-lg"
+            />
+          </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
             About First Lutheran Church of Miami
           </h1>
