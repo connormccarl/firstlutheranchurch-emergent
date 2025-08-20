@@ -77,11 +77,15 @@ const Schedule = () => {
                   <div className="space-y-4">
                     <div className="flex items-center">
                       <Mail className="h-5 w-5 mr-3 text-gray-500" />
-                      <span className="text-gray-700">pastorjamesdunham@gmail.com</span>
+                      <a href="mailto:pastorjamesdunham@gmail.com" className="text-gray-700 hover:text-blue-600 transition-colors">
+                        pastorjamesdunham@gmail.com
+                      </a>
                     </div>
                     <div className="flex items-center">
                       <Phone className="h-5 w-5 mr-3 text-gray-500" />
-                      <span className="text-gray-700">(313) 670-3830</span>
+                      <a href="tel:+13136703830" className="text-gray-700 hover:text-blue-600 transition-colors">
+                        (313) 670-3830
+                      </a>
                     </div>
                     <div className="flex items-start">
                       <MessageSquare className="h-5 w-5 mr-3 text-gray-500 mt-1" />
