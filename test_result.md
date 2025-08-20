@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the backend API for First Lutheran Church of Miami with comprehensive endpoint testing including health check, events, media, schedule, booking, and AI chat APIs"
+user_problem_statement: "Integrate Calendly scheduling system into the church website and update all photos across pages with new images from user uploads and Voyagemia article. Remove January/February events, update 1¼ year anniversary celebration image, and remove Dr. Tingting Wu Recital from Events page."
 
 backend:
   - task: "Health Check API"
@@ -214,19 +214,67 @@ backend:
           comment: "✅ MongoDB connection and operations working correctly. All CRUD operations tested successfully with proper data persistence."
 
 frontend:
-  # Frontend testing not performed as per system limitations
+  - task: "Calendly Integration"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Schedule.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented Calendly integration using react-calendly package with Pastor James's URL (https://calendly.com/pastorjamesdunham/30min). Added scheduling widget with proper styling and configuration."
+
+  - task: "Photo Updates"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Home.jsx, /app/frontend/src/components/About.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Updated all photos across website with new images from user uploads and Voyagemia article. Replaced old church photos with Eric Williams family, Pastor James with Serena and Boris, and First Easter celebration images."
+
+  - task: "Events Page Updates"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/data/mockData.js, /app/frontend/src/components/Events.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Removed January and February events, updated 1¼ year anniversary celebration image to use First Easter photo, removed Dr. Tingting Wu Recital entries, and added Pastor James's photo to Sunday Worship Service events."
+
+  - task: "About Page Enhancement"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/About.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Enhanced About page with comprehensive information from Voyagemia article including Pastor James's full bio, 14-language program details, church leadership, and community photos."
 
 metadata:
-  created_by: "testing_agent"
-  version: "1.0"
+  created_by: "main_agent"
+  version: "2.0"
   test_sequence: 1
   run_ui: false
 
 test_plan:
   current_focus:
-    - "All backend API endpoints tested and verified"
+    - "Calendly Integration"
+    - "Photo Updates"
+    - "Events Page Updates"
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
