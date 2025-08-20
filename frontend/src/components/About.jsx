@@ -234,8 +234,8 @@ const About = () => {
                     <p className="text-gray-600 text-sm">Cantor, world traveler, and beloved community member</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Winston & Quiqui Leech</h4>
-                    <p className="text-gray-600 text-sm">Winston: Multi-talented member; Quiqui: Amazing fashion designer</p>
+                    <h4 className="font-semibold text-gray-900">Dr. Tingting Wu</h4>
+                    <p className="text-gray-600 text-sm">Top 10 world class pianist and music instructor</p>
                   </div>
                 </div>
               </CardContent>
