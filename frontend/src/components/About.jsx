@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
-import { Heart, Globe, Music, Book, Users, Award } from 'lucide-react';
+import { Heart, Globe, Music, Book, Users, Award, Mail, Phone } from 'lucide-react';
 
 const About = () => {
   return (
