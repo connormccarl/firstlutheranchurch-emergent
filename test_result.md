@@ -246,15 +246,18 @@ frontend:
 
   - task: "Events Page Updates"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/data/mockData.js, /app/frontend/src/components/Events.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Removed January and February events, updated 1¼ year anniversary celebration image to use First Easter photo, removed Dr. Tingting Wu Recital entries, and added Pastor James's photo to Sunday Worship Service events."
+        - working: true
+          agent: "testing"
+          comment: "✅ Events page working correctly. Page loads with proper heading 'Church Events & Calendar'. Found 12 event cards displaying properly with 2 event images visible. 'Add Event' button functional - opens dialog successfully. Search and filter functionality available. Events display with proper dates, times, and locations."
 
   - task: "About Page Enhancement"
     implemented: true
