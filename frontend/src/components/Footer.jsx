@@ -20,23 +20,23 @@ const Footer = () => {
                 <span className="text-amber-400 -mt-1">of Miami</span>
               </div>
             </div>
-            <p className="text-gray-400 mb-4 leading-relaxed">
+            <p className="text-white font-medium mb-4 leading-relaxed">
               A "no judgment" zone - We love you the way you are! Open to all people, 
               truly welcoming all ethnicities. Come grow with us in God's grace.
             </p>
-            <div className="space-y-2 text-sm text-gray-400">
+            <div className="space-y-2 text-sm text-white font-bold">
               <div className="flex items-center">
-                <MapPin className="h-4 w-4 mr-2" />
+                <MapPin className="h-4 w-4 mr-2 text-amber-400" />
                 <span>1770 Brickell Avenue, Miami, FL 33129</span>
               </div>
               <div className="flex items-center">
-                <Phone className="h-4 w-4 mr-2" />
+                <Phone className="h-4 w-4 mr-2 text-amber-400" />
                 <a href="tel:+13136703830" className="hover:text-amber-400 transition-colors">
                   (313) 670-3830
                 </a>
               </div>
               <div className="flex items-center">
-                <Mail className="h-4 w-4 mr-2" />
+                <Mail className="h-4 w-4 mr-2 text-amber-400" />
                 <a href="mailto:pastorjamesdunham@gmail.com" className="hover:text-amber-400 transition-colors">
                   pastorjamesdunham@gmail.com
                 </a>
