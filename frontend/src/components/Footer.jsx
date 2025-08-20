@@ -142,20 +142,20 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-8 mt-8">
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             <div>
-              <h4 className="font-medium text-amber-400 mb-2">Special Programs</h4>
-              <p className="text-xs text-gray-400">
-                • Learn 14 different languages with Pastor James
-                • First Communion & Catechism classes for children
-                • Preschool & elementary instruction
+              <h4 className="font-bold text-amber-400 mb-2">Special Programs</h4>
+              <p className="text-xs text-white font-medium">
+                • Learn 14 different languages with Pastor James<br/>
+                • First Communion & Catechism classes for children<br/>
+                • Preschool & elementary instruction<br/>
                 • Monthly fellowship meals at local restaurants
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-purple-400 mb-2">Piano Lessons - Dr. Tingting</h4>
-              <p className="text-xs text-gray-400 mb-2">
+              <h4 className="font-bold text-purple-400 mb-2">Piano Lessons - Dr. Tingting</h4>
+              <p className="text-xs text-white font-medium mb-2">
                 World class pianist and instructor!
               </p>
-              <div className="text-xs text-gray-400 space-y-1">
+              <div className="text-xs text-white font-medium space-y-1">
                 <div className="flex items-center">
                   <Mail className="h-3 w-3 mr-1" />
                   <a href="mailto:pianowtt@gmail.com" className="hover:text-purple-400 transition-colors">
@@ -174,11 +174,11 @@ const Footer = () => {
               </div>
             </div>
             <div>
-              <h4 className="font-medium text-blue-400 mb-2">Tech Tutoring & Esports</h4>
-              <p className="text-xs text-gray-400 mb-2">
+              <h4 className="font-bold text-blue-400 mb-2">Tech Tutoring & Esports</h4>
+              <p className="text-xs text-white font-medium mb-2">
                 Beginner and intermediate coding, mobile/web development, emerging tech (AI/automation), gaming tournaments and more!
               </p>
-              <div className="text-xs text-gray-400 space-y-1">
+              <div className="text-xs text-white font-medium space-y-1">
                 <div className="flex items-center">
                   <Mail className="h-3 w-3 mr-1" />
                   <a href="mailto:johnrileytechsolutions7@gmail.com" className="hover:text-blue-400 transition-colors">
