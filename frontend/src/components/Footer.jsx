@@ -98,9 +98,12 @@ const Footer = () => {
               <div>
                 <p className="font-medium text-white flex items-center">
                   <Music className="h-3 w-3 mr-2" />
-                  Piano Lessons
+                  Piano Lessons - Dr. Tingting
                 </p>
-                <p>By appointment with Dr. Tingting</p>
+                <p>World class pianist and instructor!</p>
+                <div className="text-xs mt-1">
+                  <span>pianowtt@gmail.com | 857.264.6097</span>
+                </div>
               </div>
             </div>
             
