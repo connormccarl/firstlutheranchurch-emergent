@@ -63,7 +63,7 @@ const Home = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
               alt="First Lutheran Church of Miami Logo" 
-              className="h-40 w-40 md:h-48 md:w-48 object-contain filter drop-shadow-lg"
+              className="h-48 w-48 md:h-64 md:w-64 lg:h-80 lg:w-80 object-contain filter drop-shadow-lg"
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
