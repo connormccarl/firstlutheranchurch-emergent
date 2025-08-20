@@ -9,8 +9,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Church Info */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <Church className="h-8 w-8 text-amber-400" />
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+                alt="First Lutheran Church of Miami Logo" 
+                className="h-10 w-10 object-contain"
+              />
               <div className="flex flex-col">
                 <span className="text-xl font-bold">First Lutheran Church</span>
                 <span className="text-amber-400 -mt-1">of Miami</span>
