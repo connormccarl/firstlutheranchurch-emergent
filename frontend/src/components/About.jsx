@@ -197,19 +197,19 @@ const About = () => {
               <CardContent>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900">Billy Rudnick</h4>
-                    <p className="text-gray-600 text-sm">Children's author of three books including "The Miraculous Conchell"</p>
+                    <h4 className="font-semibold text-gray-900">Pastor - James Dunham</h4>
+                    <p className="text-gray-600 text-sm">Lead Pastor, 25+ years experience, multilingual ministry leader</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Ernesto Capoche (27)</h4>
-                    <p className="text-gray-600 text-sm">Beloved Evangelism Director</p>
+                    <h4 className="font-semibold text-gray-900">President - Anastasia Leech</h4>
+                    <p className="text-gray-600 text-sm">Church President and accomplished vocalist with "voice of an angel"</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Manny Cordoves Jr. (21) & Angie Castaneda (22)</h4>
-                    <p className="text-gray-600 text-sm">Young leadership representing our diverse community</p>
+                    <h4 className="font-semibold text-gray-900">Advisory - David Whitten</h4>
+                    <p className="text-gray-600 text-sm">Captain, cantor, world traveler, and beloved community member</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Eric Williams - Advisory Role</h4>
+                    <h4 className="font-semibold text-gray-900">Advisory - Eric Williams</h4>
                     <p className="text-gray-600 text-sm">CEO of LocalPosh, serving Miami's 55+ senior communities</p>
                   </div>
                 </div>
