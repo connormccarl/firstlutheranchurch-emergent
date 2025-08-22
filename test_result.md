@@ -432,17 +432,16 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Add Learn More Buttons to Special Programs"
-    - "Fix Sunday Schedule Dates Bug"
-    - "Add Photos to Special Programs Section"
-    - "Frontend CTA and Button Testing"
+    - "Gallery.jsx Syntax Error Fix"
+    - "Donation Backend API"
+    - "Donation Frontend Component"
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
     - agent: "main"
-      message: "COMPLETED ALL REQUESTED TASKS: 1) Fixed Sunday date bug - all events now show correct Sunday dates (Aug 24, Aug 31), 2) Added photos for Dr. Tingting and John Riley to About page Special Programs, 3) Added Learn More buttons to Piano Lessons (purple) and Tech Tutoring (blue) sections with proper routing to About page. Backend testing complete (12/13 tests passed). Ready for comprehensive frontend testing of all CTAs and buttons as requested."
+      message: "COMPLETED: Gallery.jsx syntax fix - Eric Williams & Family card now routes to video page successfully. IMPLEMENTED: Comprehensive donation system - backend API with PayPal framework, frontend component with 4-step flow, red donate buttons in navbar. Backend needs testing for donation endpoints, frontend needs testing for donation flow and button functionality. PayPal integration framework ready for credential connection."
     - agent: "testing"
       message: "Completed comprehensive backend API testing after Calendly integration and photo updates. All critical backend functionality verified working: Health Check (✅), Events API (✅), Media API (✅), Schedule API (✅), Booking API (✅), AI Chat with Emergent LLM (✅), Database Operations (✅), Error Handling (✅). CORS configuration is properly set to frontend URL (more secure than wildcard). Backend is fully functional with 12/13 tests passing (92.3% success rate). Minor: CORS test expectation was overly broad - actual configuration is correct and secure. Backend ready for frontend integration."
     - agent: "testing"
