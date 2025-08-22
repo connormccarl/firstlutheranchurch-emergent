@@ -154,6 +154,19 @@ const Events = () => {
     setShowRegistrationDialog(true);
   };
 
+  // Handle calendar event click - find the event and open registration
+  const handleCalendarEventClick = (calendarEvent, month) => {
+    // Find the matching event in the events array
+    const matchingEvent = events.find(event => 
+      event.title === calendarEvent.title && 
+      (month === 'september' ? event.date.includes('2025-09') : event.date.includes('2025-10'))
+    );
+    
+    if (matchingEvent) {
+      handleEventClick(matchingEvent);
+    }
+  };
+
   const handleRegistration = async (e) => {
     e.preventDefault();
     
