@@ -323,7 +323,7 @@ const Navbar = () => {
       </div>
       
       {/* Hidden Google Translate Element */}
-      <div id="google_translate_element" style={{ display: 'none' }}></div>
+      <div id="google_translate_element" aria-hidden="true"></div>
     </nav>
   );
 };
