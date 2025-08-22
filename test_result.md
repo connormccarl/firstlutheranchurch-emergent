@@ -214,6 +214,18 @@ backend:
           comment: "✅ MongoDB connection and operations working correctly. All CRUD operations tested successfully with proper data persistence."
 
 frontend:
+  - task: "Add Learn More Buttons to Special Programs"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Home.jsx, /app/frontend/src/components/About.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Successfully added Learn More buttons to both Piano Lessons (purple button) and Tech Tutoring (blue button) sections in Home page Special Programs. Added id='special-programs' to About page section. Both buttons correctly navigate to /about#special-programs. Tested functionality - Piano button works ✅, Tech button works ✅."
+
   - task: "Fix Sunday Schedule Dates Bug"
     implemented: true
     working: true
