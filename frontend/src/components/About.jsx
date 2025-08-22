@@ -121,7 +121,14 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center p-6">
-                <Music className="h-12 w-12 mx-auto text-purple-600 mb-4" />
+                <div className="mb-4">
+                  <img 
+                    src="https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/92iglhvo_Dr%20TingTing%20photo.jpeg" 
+                    alt="Dr. Tingting Wu - Concert Pianist and Piano Instructor" 
+                    className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full mx-auto shadow-lg mb-4"
+                  />
+                  <Music className="h-8 w-8 mx-auto text-purple-600 mb-2" />
+                </div>
                 <CardTitle className="text-xl">Piano Lessons with Dr. Tingting</CardTitle>
                 <CardDescription className="text-purple-600 font-medium">World Class Pianist and Instructor!</CardDescription>
               </CardHeader>
