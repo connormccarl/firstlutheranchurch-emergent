@@ -433,6 +433,7 @@ class ChurchAPITester:
         except Exception as e:
             self.log_test("PayPal Order - 404 Error", False, f"Exception: {str(e)}")
     
+    def test_error_handling(self):
         """Test error handling for invalid requests"""
         # Test invalid event creation
         try:
