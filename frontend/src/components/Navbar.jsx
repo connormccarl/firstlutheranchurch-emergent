@@ -146,6 +146,7 @@ const Navbar = () => {
     { name: 'Gallery', path: '/gallery', icon: Camera },
     { name: 'AI Assistant', path: '/ai-assistant', icon: MessageCircle },
     { name: 'Schedule 1-on-1', path: '/schedule', icon: Calendar },
+    { name: 'Contact Us', path: '/contact', icon: Mail },
   ];
 
   return (
