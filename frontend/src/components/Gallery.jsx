@@ -137,10 +137,10 @@ const Gallery = () => {
               />
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-              Gallery
+              Gallery & Media
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Capturing moments of faith, fellowship, and community at First Lutheran Church of Miami
+              Photos, videos, sermons, and media from First Lutheran Church of Miami
             </p>
           </div>
 
