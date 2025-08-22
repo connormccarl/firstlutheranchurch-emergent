@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Add the provided photos for Dr. Tingting and John Riley to the 'About Us' page in the Special Programs section, and fix the Sunday schedule dates issue where events were showing Saturday Aug. 23rd instead of Sunday Aug. 24th with automatic weekly date updates."
+user_problem_statement: "Fix the Sunday schedule dates bug where events were showing Saturday dates instead of Sunday dates, add photos for Dr. Tingting and John Riley to About page Special Programs section, and test all backend and frontend functionality including buttons and CTAs."
 
 backend:
   - task: "Health Check API"
