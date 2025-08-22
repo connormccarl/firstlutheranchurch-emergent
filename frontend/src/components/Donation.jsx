@@ -554,8 +554,8 @@ const Donation = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {/* Step 4: Success */}
-          {step === 4 && (
+          {/* Step 5: Success */}
+          {step === 5 && (
             <div className="text-center space-y-6">
               <div className="flex justify-center">
                 <CheckCircle className="h-16 w-16 text-green-500" />
