@@ -396,9 +396,9 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Add Learn More Buttons to Special Programs"
     - "Fix Sunday Schedule Dates Bug"
     - "Add Photos to Special Programs Section"
-    - "Backend API Testing"
     - "Frontend CTA and Button Testing"
   stuck_tasks: []
   test_all: true
@@ -406,7 +406,7 @@ test_plan:
 
 agent_communication:
     - agent: "main"
-      message: "CRITICAL BUG FIX COMPLETED: Fixed Sunday schedule dates issue - root cause was JavaScript Date conversion from string causing timezone shifts. Now using Date objects directly. All events correctly show Sunday dates. Added Dr. Tingting and John Riley photos to About page. Need comprehensive backend testing first, then frontend CTA/button testing as requested by user."
+      message: "COMPLETED ALL REQUESTED TASKS: 1) Fixed Sunday date bug - all events now show correct Sunday dates (Aug 24, Aug 31), 2) Added photos for Dr. Tingting and John Riley to About page Special Programs, 3) Added Learn More buttons to Piano Lessons (purple) and Tech Tutoring (blue) sections with proper routing to About page. Backend testing complete (12/13 tests passed). Ready for comprehensive frontend testing of all CTAs and buttons as requested."
     - agent: "testing"
       message: "Completed comprehensive backend API testing after Calendly integration and photo updates. All critical backend functionality verified working: Health Check (✅), Events API (✅), Media API (✅), Schedule API (✅), Booking API (✅), AI Chat with Emergent LLM (✅), Database Operations (✅), Error Handling (✅). CORS configuration is properly set to frontend URL (more secure than wildcard). Backend is fully functional with 12/13 tests passing (92.3% success rate). Minor: CORS test expectation was overly broad - actual configuration is correct and secure. Backend ready for frontend integration."
     - agent: "testing"
