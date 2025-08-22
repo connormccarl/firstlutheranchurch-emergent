@@ -246,6 +246,108 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Special Programs Section */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Our Special Programs</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            
+            {/* Learn 14 Languages with Pastor James */}
+            <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <CardHeader className="text-center p-6">
+                <Globe className="h-12 w-12 mx-auto text-blue-600 mb-4" />
+                <CardTitle className="text-xl">Learn 14 Languages with Pastor James</CardTitle>
+                <CardDescription className="text-blue-600 font-medium">Multilingual Ministry Leader</CardDescription>
+              </CardHeader>
+              <CardContent className="px-6 pb-6">
+                <div className="text-center space-y-3">
+                  <p className="text-gray-600">
+                    Comprehensive language instruction including Spanish, French, Hebrew, Greek, Portuguese, 
+                    Mandarin Chinese, Japanese, Italian, German, Hindi, Indonesian, Vietnamese, Russian, Urdu, and ASL.
+                  </p>
+                  <div className="border-t pt-4">
+                    <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                      <Link to="/about">Learn More</Link>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Piano Lessons with Dr. Tingting Wu */}
+            <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <CardHeader className="text-center p-6">
+                <Music className="h-12 w-12 mx-auto text-purple-600 mb-4" />
+                <CardTitle className="text-xl">Piano Lessons with Dr. Tingting Wu</CardTitle>
+                <CardDescription className="text-purple-600 font-medium">Top 10 World Class Pianist!</CardDescription>
+              </CardHeader>
+              <CardContent className="px-6 pb-6">
+                <div className="text-center space-y-3">
+                  <p className="text-gray-600">
+                    Professional piano instruction with internationally acclaimed pianist Dr. Tingting Wu.
+                  </p>
+                  <div className="border-t pt-4 space-y-2">
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Mail className="h-4 w-4 mr-2 text-purple-600" />
+                      <a href="mailto:pianowtt@gmail.com" className="hover:text-purple-800 transition-colors">
+                        pianowtt@gmail.com
+                      </a>
+                    </div>
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Phone className="h-4 w-4 mr-2 text-purple-600" />
+                      <a href="tel:+18572646097" className="hover:text-purple-800 transition-colors">
+                        857.264.6097
+                      </a>
+                    </div>
+                    <a 
+                      href="https://www.tingtingw.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-purple-600 hover:text-purple-800 font-medium transition-colors"
+                    >
+                      www.tingtingw.com
+                    </a>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Tech Tutoring & Esports with John Riley */}
+            <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <CardHeader className="text-center p-6">
+                <div className="h-12 w-12 mx-auto text-blue-600 mb-4 flex items-center justify-center">
+                  <span className="text-2xl">💻</span>
+                </div>
+                <CardTitle className="text-xl">Tech Tutoring & Esports with John Riley</CardTitle>
+                <CardDescription className="text-blue-600 font-medium">Coding, Development & Gaming</CardDescription>
+              </CardHeader>
+              <CardContent className="px-6 pb-6">
+                <div className="text-center space-y-3">
+                  <p className="text-gray-600">
+                    Beginner and intermediate level coding, mobile/web development, emerging tech (AI/automation), 
+                    gaming tournaments and more!
+                  </p>
+                  <div className="border-t pt-4 space-y-2">
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Mail className="h-4 w-4 mr-2 text-blue-600" />
+                      <a href="mailto:johnrileytechsolutions7@gmail.com" className="hover:text-blue-800 transition-colors">
+                        johnrileytechsolutions7@gmail.com
+                      </a>
+                    </div>
+                    <div className="flex items-center justify-center text-sm text-gray-700">
+                      <Phone className="h-4 w-4 mr-2 text-blue-600" />
+                      <a href="tel:+15616743150" className="hover:text-blue-800 transition-colors">
+                        561.674.3150
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Upcoming Events */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
