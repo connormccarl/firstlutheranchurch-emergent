@@ -264,6 +264,59 @@ const Gallery = () => {
                 );
               }
               
+              // YouTube videos - open in new tab
+              if (item.type === 'video' && item.videoUrl) {
+                return (
+                  <a
+                    key={item.id}
+                    href={item.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
+                      <div className="relative">
+                        <div className="h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
+                          {item.isPlaceholder ? (
+                            <div className="flex flex-col items-center justify-center h-full bg-gray-200">
+                              <Play className="h-12 w-12 text-gray-400 mb-2" />
+                              <span className="text-gray-500 text-sm">Placeholder Video</span>
+                            </div>
+                          ) : (
+                            <img
+                              src={item.src}
+                              alt={item.title}
+                              className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                              onError={(e) => {
+                                // Fallback if YouTube thumbnail fails to load
+                                e.target.parentElement.innerHTML = `
+                                  <div class="flex flex-col items-center justify-center h-full bg-gray-200">
+                                    <div class="h-12 w-12 text-gray-400 mb-2">▶</div>
+                                    <span class="text-gray-500 text-sm">YouTube Video</span>
+                                  </div>
+                                `;
+                              }}
+                            />
+                          )}
+                        </div>
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+                            <Play className="h-16 w-16" />
+                          </div>
+                        </div>
+                        <Badge className="absolute top-2 right-2 bg-red-600 text-white">
+                          YouTube
+                        </Badge>
+                      </div>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                        <p className="text-gray-600 text-sm">{item.description}</p>
+                      </CardContent>
+                    </Card>
+                  </a>
+                );
+              }
+              
               // Regular gallery items - open modal
               return (
                 <Card 
