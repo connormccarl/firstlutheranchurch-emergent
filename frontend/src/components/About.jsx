@@ -116,7 +116,7 @@ const About = () => {
         </div>
 
         {/* Special Programs */}
-        <div className="mb-16">
+        <div className="mb-16" id="special-programs">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Special Programs</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow">
