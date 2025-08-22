@@ -32,6 +32,7 @@ function App() {
           <Route path="/dr-tingting-article" element={<DrTingtingArticle />} />
           <Route path="/john-riley-article" element={<JohnRileyArticle />} />
           <Route path="/pastor-james-article" element={<PastorJamesArticle />} />
+          <Route path="/pastor-james-video" element={<PastorJamesVideo />} />
         </Routes>
         
         {/* Global Chat Widget */}
