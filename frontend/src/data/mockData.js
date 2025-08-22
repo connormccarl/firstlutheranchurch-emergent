@@ -256,11 +256,17 @@ export const calendarData = {
     month: 'October 2025',
     events: [
       {
+        date: 3,
+        dayOfWeek: 'Friday',
+        events: [
+          { time: '7:00 PM', title: 'Sushi Night Fellowship', type: 'fellowship' }
+        ]
+      },
+      {
         date: 5,
         dayOfWeek: 'Sunday',
         events: [
-          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
-          { time: '7:00 PM', title: 'Sushi Night Fellowship', type: 'fellowship' }
+          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' }
         ]
       },
       {
