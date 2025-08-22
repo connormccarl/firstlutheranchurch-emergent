@@ -11,6 +11,18 @@ const Gallery = () => {
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [filter, setFilter] = useState('all');
 
+  // Helper function to extract YouTube video ID from URL
+  const getYouTubeVideoId = (url) => {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[7].length === 11) ? match[7] : null;
+  };
+
+  // Helper function to get YouTube thumbnail
+  const getYouTubeThumbnail = (videoId) => {
+    return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  };
+
   // Sample gallery data - you can replace with actual images and videos
   const galleryItems = [
     {
@@ -92,6 +104,61 @@ const Gallery = () => {
       title: 'Pastor Santiago & Church Family',
       description: 'Multilingual worship and classes invitation',
       category: 'community'
+    },
+    
+    // YouTube Videos - Music Category
+    {
+      id: 11,
+      type: 'video',
+      src: getYouTubeThumbnail(getYouTubeVideoId('https://www.youtube.com/watch?v=PEuGplaeTVU')),
+      title: 'Church Music Performance',
+      description: 'Beautiful musical performance - Click to watch on YouTube',
+      category: 'music',
+      videoUrl: 'https://www.youtube.com/watch?v=PEuGplaeTVU',
+      videoId: getYouTubeVideoId('https://www.youtube.com/watch?v=PEuGplaeTVU')
+    },
+    {
+      id: 12,
+      type: 'video',
+      src: getYouTubeThumbnail(getYouTubeVideoId('https://www.youtube.com/watch?v=knJnJJbT0-Y')),
+      title: 'Music Ministry Video',
+      description: 'Our music ministry in action - Click to watch on YouTube',
+      category: 'music',
+      videoUrl: 'https://www.youtube.com/watch?v=knJnJJbT0-Y',
+      videoId: getYouTubeVideoId('https://www.youtube.com/watch?v=knJnJJbT0-Y')
+    },
+    
+    // Educational Videos - Placeholder structure for @kpg5277 channel
+    // You can replace these with actual video URLs from the channel
+    {
+      id: 13,
+      type: 'video',
+      src: 'https://img.youtube.com/vi/placeholder/maxresdefault.jpg',
+      title: 'Educational Content - Video 1',
+      description: 'Educational video from @kpg5277 channel - Replace with actual video URL',
+      category: 'education',
+      videoUrl: 'https://www.youtube.com/@kpg5277',
+      isPlaceholder: true
+    },
+    {
+      id: 14,
+      type: 'video',
+      src: 'https://img.youtube.com/vi/placeholder/maxresdefault.jpg',
+      title: 'Educational Content - Video 2',
+      description: 'Educational video from @kpg5277 channel - Replace with actual video URL',
+      category: 'education',
+      videoUrl: 'https://www.youtube.com/@kpg5277',
+      isPlaceholder: true
+    },
+    {
+      id: 15,
+      type: 'video',
+      src: 'https://img.youtube.com/vi/placeholder/maxresdefault.jpg',
+      title: 'Educational Content - Video 3',
+      description: 'Educational video from @kpg5277 channel - Replace with actual video URL',
+      category: 'education',
+      videoUrl: 'https://www.youtube.com/@kpg5277',
+      isPlaceholder: true
     }
   ];
 
