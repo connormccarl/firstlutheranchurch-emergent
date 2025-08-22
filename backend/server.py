@@ -519,7 +519,9 @@ async def get_donations(skip: int = 0, limit: int = 50):
     """Get all donations (for admin purposes)"""
     try:
         donations = await db.donations.find().sort("created_at", -1).skip(skip).limit(limit).to_list(length=None)
-        return {"donations": donations}
+        # Convert to Donation objects to ensure proper serialization
+        donation_objects = [Donation(**donation) for donation in donations]
+        return {"donations": [donation.dict() for donation in donation_objects]}
     except Exception as e:
         logger.error(f"Error fetching donations: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch donations")
