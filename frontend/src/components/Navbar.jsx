@@ -405,6 +405,18 @@ const Navbar = () => {
                   </Link>
                 );
               })}
+              
+              {/* Mobile Donate Menu Item */}
+              <button
+                onClick={() => {
+                  setDonationOpen(true);
+                  setIsOpen(false);
+                }}
+                className="flex items-center space-x-2 w-full px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+              >
+                <Heart className="h-5 w-5" />
+                <span>Donate</span>
+              </button>
             </div>
           </div>
         )}
@@ -412,6 +424,12 @@ const Navbar = () => {
       
       {/* Hidden Google Translate Element */}
       <div id="google_translate_element" aria-hidden="true"></div>
+      
+      {/* Donation Modal */}
+      <Donation 
+        isOpen={donationOpen} 
+        onClose={() => setDonationOpen(false)} 
+      />
     </nav>
   );
 };
