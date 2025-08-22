@@ -12,6 +12,8 @@ const Home = () => {
     const today = new Date();
     const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
     
+    console.log('Debug - Today:', today.toDateString(), 'Day of week:', dayOfWeek);
+    
     let daysUntilSunday;
     if (dayOfWeek === 0) {
       // If today is Sunday, show today (0 days)
@@ -21,7 +23,11 @@ const Home = () => {
       daysUntilSunday = 7 - dayOfWeek;
     }
     
+    console.log('Debug - Days until Sunday:', daysUntilSunday);
+    
     const targetSunday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + daysUntilSunday + (weeksFromNow * 7));
+    
+    console.log('Debug - Target Sunday:', targetSunday.toDateString(), 'Day of week:', targetSunday.getDay());
     
     return targetSunday;
   };
