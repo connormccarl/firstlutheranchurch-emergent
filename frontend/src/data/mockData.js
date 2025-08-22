@@ -61,7 +61,7 @@ export const mockEvents = [
     location: 'Sunday School Room',
     description: 'Faith instruction for children ages 11-13.',
     type: 'study',
-    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/47nytwmg_Screenshot_20250819_155919_Add%20Text.jpg'
   },
   {
     id: 108,
@@ -89,12 +89,12 @@ export const mockEvents = [
   {
     id: 202,
     title: 'Sushi Night Fellowship',
-    date: '2025-10-04',
+    date: '2025-10-05',
     time: '7:00 PM',
     location: 'Local Sushi Restaurant',
     description: 'Monthly fellowship meal - join us for sushi and great conversation!',
     type: 'fellowship',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=250&fit=crop'
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/yt3lr9d1_image.png'
   },
   {
     id: 204,
@@ -114,7 +114,7 @@ export const mockEvents = [
     location: 'Sunday School Room',
     description: 'Faith instruction for children ages 11-13.',
     type: 'study',
-    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/47nytwmg_Screenshot_20250819_155919_Add%20Text.jpg'
   },
   {
     id: 207,
