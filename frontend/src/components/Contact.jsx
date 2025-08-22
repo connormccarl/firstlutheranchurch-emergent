@@ -329,11 +329,11 @@ const Contact = () => {
               </Card>
 
               {/* Quick Actions */}
-              <div className="mt-8 grid grid-cols-2 gap-4">
+              <div className="mt-8 grid grid-cols-1 gap-4">
                 <Button asChild className="bg-green-600 hover:bg-green-700 text-white py-3">
                   <a href="/schedule">
                     <Calendar className="h-4 w-4 mr-2" />
-                    Schedule Meeting
+                    Schedule 1-on-1 with Pastor James
                   </a>
                 </Button>
                 <Button 
@@ -349,7 +349,13 @@ const Contact = () => {
                   }}
                 >
                   <MessageCircle className="h-4 w-4 mr-2" />
-                  AI Assistant
+                  AI Spiritual Assistant
+                </Button>
+                <Button asChild variant="outline" className="border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white py-3">
+                  <a href="/media">
+                    <Music className="h-4 w-4 mr-2" />
+                    View Media Library
+                  </a>
                 </Button>
               </div>
             </div>
