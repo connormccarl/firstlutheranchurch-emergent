@@ -533,7 +533,9 @@ async def get_donation(donation_id: str):
         donation = await db.donations.find_one({"id": donation_id})
         if not donation:
             raise HTTPException(status_code=404, detail="Donation not found")
-        return donation
+        # Convert to Donation object to ensure proper serialization
+        donation_obj = Donation(**donation)
+        return donation_obj.dict()
     except HTTPException:
         raise
     except Exception as e:
