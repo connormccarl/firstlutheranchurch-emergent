@@ -12,6 +12,7 @@ import Contact from "./components/Contact";
 import DrTingtingArticle from "./components/DrTingtingArticle";
 import JohnRileyArticle from "./components/JohnRileyArticle";
 import PastorJamesArticle from "./components/PastorJamesArticle";
+import PastorJamesVideo from "./components/PastorJamesVideo";
 import ChatWidget from "./components/ChatWidget";
 import { Toaster } from "./components/ui/toaster";
 
