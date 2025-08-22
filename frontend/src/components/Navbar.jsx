@@ -121,7 +121,9 @@ const Navbar = () => {
         display: none !important; 
       }
       .goog-te-combo {
-        display: none !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
       }
       iframe.goog-te-menu-frame {
         display: none !important;
