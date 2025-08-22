@@ -211,15 +211,6 @@ export const calendarData = {
     month: 'September 2025',
     events: [
       {
-        date: 1,
-        dayOfWeek: 'Sunday',
-        events: [
-          { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
-          { time: '2:05 PM', title: 'Board of Directors Meeting', type: 'meeting' },
-          { time: '2:10 PM', title: 'Family Bible Study', type: 'study' }
-        ]
-      },
-      {
         date: 7,
         dayOfWeek: 'Sunday',
         events: [
