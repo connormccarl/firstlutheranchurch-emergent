@@ -275,7 +275,7 @@ const Donation = ({ isOpen, onClose }) => {
               </div>
 
               <Button
-                onClick={() => setStep(2)}
+                onClick={() => setStep(3)}
                 disabled={getCurrentAmount() <= 0}
                 className="w-full bg-blue-600 hover:bg-blue-700"
               >
