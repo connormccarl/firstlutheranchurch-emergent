@@ -7,6 +7,7 @@ import Donation from './Donation';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [donationOpen, setDonationOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('English');
   const location = useLocation();
 
