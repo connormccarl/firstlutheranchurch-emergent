@@ -351,8 +351,124 @@ const Donation = ({ isOpen, onClose }) => {
             </form>
           )}
 
-          {/* Step 3: PayPal Payment */}
+          {/* Step 3: Payment Method Selection */}
           {step === 3 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <Badge className="bg-blue-600 text-white mb-2">
+                  Donation Amount: ${getCurrentAmount()}
+                </Badge>
+                <p className="text-sm text-gray-600">
+                  Donor: {donorInfo.name} ({donorInfo.email})
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-center">Choose Your Payment Method</h3>
+                
+                <div className="space-y-4">
+                  {/* PayPal Option */}
+                  <Card 
+                    className={`cursor-pointer border-2 transition-all duration-200 ${
+                      selectedPaymentMethod === 'paypal' 
+                        ? 'border-blue-500 bg-blue-50' 
+                        : 'border-gray-200 hover:border-blue-300'
+                    }`}
+                    onClick={() => setSelectedPaymentMethod('paypal')}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                          selectedPaymentMethod === 'paypal' ? 'border-blue-500' : 'border-gray-300'
+                        }`}>
+                          {selectedPaymentMethod === 'paypal' && (
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2 mb-1">
+                            <h4 className="font-semibold">PayPal</h4>
+                            <div className="flex space-x-1">
+                              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">PayPal</span>
+                              <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Venmo</span>
+                              <span className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cards</span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-600">
+                            Pay with PayPal account, Venmo, or any credit/debit card
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Zeffy Option */}
+                  <Card 
+                    className={`cursor-pointer border-2 transition-all duration-200 ${
+                      selectedPaymentMethod === 'zeffy' 
+                        ? 'border-green-500 bg-green-50' 
+                        : 'border-gray-200 hover:border-green-300'
+                    }`}
+                    onClick={() => setSelectedPaymentMethod('zeffy')}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                          selectedPaymentMethod === 'zeffy' ? 'border-green-500' : 'border-gray-300'
+                        }`}>
+                          {selectedPaymentMethod === 'zeffy' && (
+                            <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2 mb-1">
+                            <h4 className="font-semibold">Zeffy</h4>
+                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">0% Fees</span>
+                          </div>
+                          <p className="text-sm text-gray-600">
+                            100% of your donation goes to the church - no processing fees!
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep(2)}
+                  className="flex-1"
+                >
+                  Back
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (selectedPaymentMethod === 'zeffy') {
+                      openZeffyDonation();
+                    } else if (selectedPaymentMethod === 'paypal') {
+                      setStep(4);
+                    } else {
+                      toast({
+                        title: "Payment Method Required",
+                        description: "Please select a payment method to continue.",
+                        variant: "destructive"
+                      });
+                    }
+                  }}
+                  disabled={!selectedPaymentMethod}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700"
+                >
+                  Continue with {selectedPaymentMethod === 'paypal' ? 'PayPal' : selectedPaymentMethod === 'zeffy' ? 'Zeffy' : 'Selected Method'}
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 4: PayPal Payment */}
+          {step === 4 && selectedPaymentMethod === 'paypal' && (
             <div className="space-y-6">
               <div className="text-center">
                 <Badge className="bg-blue-600 text-white mb-2">
