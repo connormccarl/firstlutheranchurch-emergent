@@ -680,6 +680,7 @@ const Events = () => {
                               'bg-amber-600'
                             }`}
                             title={`${event.time} - ${event.title}`}
+                            onClick={() => handleCalendarEventClick(event, 'october')}
                           >
                             {event.title}
                           </div>
