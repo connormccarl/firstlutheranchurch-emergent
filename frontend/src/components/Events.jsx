@@ -848,10 +848,7 @@ const Events = () => {
               ))}
             </div>
             <div className="grid grid-cols-7 gap-2">
-              {/* First 6 empty cells for September 2025 (starts on Monday) */}
-              {Array.from({ length: 6 }, (_, i) => (
-                <div key={`empty-${i}`} className="h-24 border border-gray-100"></div>
-              ))}
+              {/* No empty cells for September 2025 (starts on Monday - day 1) */}
               
               {/* September days */}
               {Array.from({ length: 30 }, (_, i) => {
