@@ -292,7 +292,7 @@ const Donation = ({ isOpen, onClose }) => {
             </form>
           )}
 
-          {/* Step 3: Payment (PayPal Integration Placeholder) */}
+          {/* Step 3: PayPal Payment */}
           {step === 3 && (
             <div className="space-y-6">
               <div className="text-center">
@@ -304,38 +304,66 @@ const Donation = ({ isOpen, onClose }) => {
                 </p>
               </div>
 
-              <Card className="bg-yellow-50 border-yellow-200">
-                <CardContent className="p-4">
-                  <div className="text-center space-y-3">
-                    <h3 className="font-semibold text-yellow-800">
-                      PayPal Integration Setup Required
-                    </h3>
-                    <p className="text-sm text-yellow-700">
-                      This donation system is ready to accept your PayPal credentials. 
-                      Once connected, donors will see PayPal payment options here.
-                    </p>
-                    <div className="space-y-2 text-xs text-yellow-600">
-                      <p>• Secure PayPal payment processing</p>
-                      <p>• Credit card and PayPal account support</p>
-                      <p>• Automatic donation receipts</p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="text-center mb-4">
+                  <h3 className="font-semibold text-blue-800 mb-2">
+                    Secure Payment with PayPal
+                  </h3>
+                  <p className="text-sm text-blue-700">
+                    Your donation will be processed securely through PayPal. You can pay with your PayPal account, debit card, or credit card.
+                  </p>
+                </div>
+
+                {/* PayPal Button Container */}
+                <div className="bg-white rounded-lg p-4 border-2 border-dashed border-gray-300">
+                  {paypalLoaded ? (
+                    <div>
+                      <div className="text-center mb-3">
+                        <p className="text-sm font-medium text-gray-700">
+                          Click the PayPal button below to complete your ${getCurrentAmount()} donation
+                        </p>
+                      </div>
+                      <div id="paypal-container" className="text-center"></div>
+                      <div className="mt-3 text-center">
+                        <p className="text-xs text-gray-500">
+                          Secure payment processed by PayPal
+                        </p>
+                      </div>
                     </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
+                      <p className="text-sm text-gray-600">Loading PayPal...</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Information Display */}
+              <Card className="bg-gray-50">
+                <CardContent className="p-4">
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Donation Amount:</span>
+                      <span className="font-semibold">${getCurrentAmount()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Donor Name:</span>
+                      <span>{donorInfo.name}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Email:</span>
+                      <span>{donorInfo.email}</span>
+                    </div>
+                    {donorInfo.message && (
+                      <div className="pt-2 border-t">
+                        <span className="text-gray-600 text-xs">Message:</span>
+                        <p className="text-xs mt-1">{donorInfo.message}</p>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Simulate payment for demo purposes */}
-              <div className="space-y-3">
-                <p className="text-sm text-gray-600 text-center">
-                  For demo purposes, click below to simulate a completed donation:
-                </p>
-                <Button
-                  onClick={handleDonationComplete}
-                  disabled={isProcessing}
-                  className="w-full bg-green-600 hover:bg-green-700"
-                >
-                  {isProcessing ? 'Processing...' : 'Simulate Donation Complete'}
-                </Button>
-              </div>
 
               <div className="flex gap-2">
                 <Button
