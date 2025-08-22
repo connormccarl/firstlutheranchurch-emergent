@@ -9,6 +9,8 @@ import Schedule from "./components/Schedule";
 import About from "./components/About";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
+import DrTingtingArticle from "./components/DrTingtingArticle";
+import JohnRileyArticle from "./components/JohnRileyArticle";
 import ChatWidget from "./components/ChatWidget";
 import { Toaster } from "./components/ui/toaster";
 
