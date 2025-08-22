@@ -335,6 +335,15 @@ const Navbar = () => {
 
           {/* Mobile menu button and language */}
           <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile Donate Button */}
+            <Button
+              onClick={() => setDonationOpen(true)}
+              className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-md transition-colors duration-200"
+              title="Donate"
+            >
+              <Heart className="h-4 w-4" />
+            </Button>
+            
             {/* Mobile Language Dropdown */}
             <div className="relative language-dropdown">
               <Button
