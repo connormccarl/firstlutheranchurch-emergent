@@ -2,6 +2,8 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Heart, Globe, Music, Book, Users, Award, Mail, Phone } from 'lucide-react';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const About = () => {
   return (
