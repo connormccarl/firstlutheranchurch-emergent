@@ -209,6 +209,17 @@ const About = () => {
                         561.674.3150
                       </a>
                     </div>
+                    <Link 
+                      to="/john-riley-article" 
+                      className="text-blue-600 hover:text-blue-800 font-medium transition-colors block"
+                    >
+                      📰 Featured in Miami Herald
+                    </Link>
+                    <div className="pt-3">
+                      <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                        <Link to="/about#special-programs">Learn More</Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
