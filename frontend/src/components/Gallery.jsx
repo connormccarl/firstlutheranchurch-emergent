@@ -231,7 +231,7 @@ const Gallery = () => {
                   </CardContent>
                 </Card>
               );
-            })}}
+            })}
           </div>
 
           {/* Add Media Section */}
