@@ -143,6 +143,7 @@ const Navbar = () => {
     { name: 'About Us', path: '/about', icon: Info },
     { name: 'Events', path: '/events', icon: Calendar },
     { name: 'Media', path: '/media', icon: Image },
+    { name: 'Gallery', path: '/gallery', icon: Camera },
     { name: 'AI Assistant', path: '/ai-assistant', icon: MessageCircle },
     { name: 'Schedule 1-on-1', path: '/schedule', icon: Calendar },
   ];
