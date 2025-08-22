@@ -214,6 +214,30 @@ backend:
           comment: "✅ MongoDB connection and operations working correctly. All CRUD operations tested successfully with proper data persistence."
 
 frontend:
+  - task: "Add Photos to Special Programs Section"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/About.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Successfully added Dr. Tingting's photo (92iglhvo_Dr TingTing photo.jpeg) to Piano Lessons card and John Riley's photo (0hgv19y9_City of Miami Gardens NextGen Coders Class Graduates Photo #10.jpg) to Tech Tutoring & Esports card. Photos are properly sized (24x24 md:32x32), circular, and positioned above the program titles."
+
+  - task: "Fix Sunday Schedule Dates"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Home.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Sunday schedule dates are now correctly displaying. Verified through debug logs: Today (Friday Aug 22, 2025) correctly calculates to Sunday Aug 24, 2025. All events show proper Sunday dates: Sunday Worship Service (Aug 24), Bible Study & Language Classes (Aug 24), First Communion Classes (Aug 31). Date calculation logic working correctly with automatic weekly updates."
+
   - task: "Calendly Integration"
     implemented: true
     working: true
