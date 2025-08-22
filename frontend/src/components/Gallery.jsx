@@ -283,14 +283,12 @@ const Gallery = () => {
                 );
               }
               
-              // YouTube videos - open in new tab
-              if (item.type === 'video' && item.videoUrl) {
+              // YouTube videos - route to internal video pages
+              if (item.type === 'video' && item.videoId) {
                 return (
-                  <a
+                  <Link
                     key={item.id}
-                    href={item.videoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    to={`/video/${item.videoId}`}
                     className="block"
                   >
                     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
@@ -317,7 +315,7 @@ const Gallery = () => {
                           </div>
                         </div>
                         <Badge className="absolute top-2 right-2 bg-red-600 text-white">
-                          YouTube
+                          Video
                         </Badge>
                       </div>
                       <CardContent className="p-4">
@@ -325,7 +323,7 @@ const Gallery = () => {
                         <p className="text-gray-600 text-sm">{item.description}</p>
                       </CardContent>
                     </Card>
-                  </a>
+                  </Link>
                 );
               }
               
