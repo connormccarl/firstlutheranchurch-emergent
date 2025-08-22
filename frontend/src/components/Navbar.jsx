@@ -304,7 +304,7 @@ const Navbar = () => {
           </div>
 
           {/* Medium screens navigation - simplified */}
-          <div className="hidden md:flex lg:hidden items-center space-x-4">
+          <div className="hidden md:flex lg:hidden items-center space-x-3">
             {navItems.slice(0, 4).map((item) => {
               const Icon = item.icon;
               return (
@@ -322,6 +322,15 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            
+            {/* Donate Button for medium screens */}
+            <Button
+              onClick={() => setDonationOpen(true)}
+              className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-md transition-colors duration-200"
+              title="Donate"
+            >
+              <Heart className="h-5 w-5" />
+            </Button>
           </div>
 
           {/* Mobile menu button and language */}
