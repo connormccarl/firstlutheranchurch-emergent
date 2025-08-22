@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Integrate Calendly scheduling system into the church website and update all photos across pages with new images from user uploads and Voyagemia article. Remove January/February events, update 1¼ year anniversary celebration image, and remove Dr. Tingting Wu Recital from Events page."
+user_problem_statement: "Add the provided photos for Dr. Tingting and John Riley to the 'About Us' page in the Special Programs section, and fix the Sunday schedule dates issue where events were showing Saturday Aug. 23rd instead of Sunday Aug. 24th with automatic weekly date updates."
 
 backend:
   - task: "Health Check API"
