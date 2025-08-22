@@ -473,6 +473,7 @@ class ChurchAPITester:
         self.test_booking_api(slot_id)
         
         self.test_ai_chat_api()
+        self.test_donation_api()  # Add donation API testing
         self.test_error_handling()
         
         # Summary
