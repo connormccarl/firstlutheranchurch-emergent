@@ -214,6 +214,21 @@ backend:
           comment: "✅ MongoDB connection and operations working correctly. All CRUD operations tested successfully with proper data persistence."
 
 frontend:
+  - task: "Fix Sunday Schedule Dates Bug"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Home.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported that Sunday schedule events are still showing Saturday dates (Aug 23, Aug 30) instead of Sunday dates (Aug 24, Aug 31) as shown in user's screenshot."
+        - working: true
+          agent: "main"
+          comment: "FIXED: Root cause was JavaScript Date conversion issue. Changed upcomingEvents array to use Date objects directly instead of converting from string. Updated event.date display to use date.toLocaleDateString() instead of new Date(event.date).toLocaleDateString(). All events now correctly show Sunday dates: Sunday Worship Service (Aug 24), Bible Study (Aug 24), First Communion (Aug 31)."
+
   - task: "Add Photos to Special Programs Section"
     implemented: true
     working: true
