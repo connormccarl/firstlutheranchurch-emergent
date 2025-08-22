@@ -128,37 +128,56 @@ const Gallery = () => {
       videoId: getYouTubeVideoId('https://www.youtube.com/watch?v=knJnJJbT0-Y')
     },
     
-    // Educational Videos - Placeholder structure for @kpg5277 channel
-    // You can replace these with actual video URLs from the channel
+    // Educational Videos from @kpg5277 channel
     {
       id: 13,
       type: 'video',
-      src: 'https://img.youtube.com/vi/placeholder/maxresdefault.jpg',
-      title: 'Educational Content - Video 1',
-      description: 'Educational video from @kpg5277 channel - Replace with actual video URL',
+      src: getYouTubeThumbnail('JSTx0oiiisY'),
+      title: 'Educational Video 1',
+      description: 'Educational content from @kpg5277 channel - Click to watch on YouTube',
       category: 'education',
-      videoUrl: 'https://www.youtube.com/@kpg5277',
-      isPlaceholder: true
+      videoUrl: 'https://youtu.be/JSTx0oiiisY?si=7koREEXj3bkLi13m',
+      videoId: 'JSTx0oiiisY'
     },
     {
       id: 14,
       type: 'video',
-      src: 'https://img.youtube.com/vi/placeholder/maxresdefault.jpg',
-      title: 'Educational Content - Video 2',
-      description: 'Educational video from @kpg5277 channel - Replace with actual video URL',
+      src: getYouTubeThumbnail('XToCylT-XqI'),
+      title: 'Educational Video 2',
+      description: 'Educational content from @kpg5277 channel - Click to watch on YouTube',
       category: 'education',
-      videoUrl: 'https://www.youtube.com/@kpg5277',
-      isPlaceholder: true
+      videoUrl: 'https://youtu.be/XToCylT-XqI?si=ttGt4DEs2XPvEk-S',
+      videoId: 'XToCylT-XqI'
     },
     {
       id: 15,
       type: 'video',
-      src: 'https://img.youtube.com/vi/placeholder/maxresdefault.jpg',
-      title: 'Educational Content - Video 3',
-      description: 'Educational video from @kpg5277 channel - Replace with actual video URL',
+      src: getYouTubeThumbnail('tqlBAQ77AAE'),
+      title: 'Educational Video 3',
+      description: 'Educational content from @kpg5277 channel - Click to watch on YouTube',
       category: 'education',
-      videoUrl: 'https://www.youtube.com/@kpg5277',
-      isPlaceholder: true
+      videoUrl: 'https://youtu.be/tqlBAQ77AAE?si=oPzL08qYxNalKo1M',
+      videoId: 'tqlBAQ77AAE'
+    },
+    {
+      id: 16,
+      type: 'video',
+      src: getYouTubeThumbnail('g9MCF5eeIE0'),
+      title: 'Educational Video 4',
+      description: 'Educational content from @kpg5277 channel - Click to watch on YouTube',
+      category: 'education',
+      videoUrl: 'https://youtu.be/g9MCF5eeIE0?si=lzVPGlHhUiR2LW2v',
+      videoId: 'g9MCF5eeIE0'
+    },
+    {
+      id: 17,
+      type: 'video',
+      src: getYouTubeThumbnail('kRydSBxB9WI'),
+      title: 'Educational Video 5',
+      description: 'Educational content from @kpg5277 channel - Click to watch on YouTube',
+      category: 'education',
+      videoUrl: 'https://youtu.be/kRydSBxB9WI?si=xswtyfxduNKH-cBl',
+      videoId: 'kRydSBxB9WI'
     }
   ];
 
