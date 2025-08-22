@@ -72,6 +72,16 @@ const About = () => {
                   multilingual capabilities to his pastoral care ministry.
                 </p>
               </div>
+              
+              {/* Article Link */}
+              <div className="pt-6 border-t">
+                <Link 
+                  to="/pastor-james-article" 
+                  className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors text-lg"
+                >
+                  📰 Featured in Voyage MIA Magazine - Daily Inspiration Interview
+                </Link>
+              </div>
             </CardContent>
           </Card>
         </div>
