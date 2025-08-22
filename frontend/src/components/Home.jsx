@@ -29,8 +29,8 @@ const Home = () => {
 
   // Function to format date for display
   const formatSundayDate = () => {
-    const nextSunday = new Date(getNextSunday());
-    return nextSunday.toLocaleDateString('en-US', { 
+    const sundayDate = new Date(getNextSunday());
+    return sundayDate.toLocaleDateString('en-US', { 
       weekday: 'long', 
       year: 'numeric', 
       month: 'long', 
