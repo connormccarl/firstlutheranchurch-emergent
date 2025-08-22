@@ -378,7 +378,7 @@ const Home = () => {
                   <div className="space-y-2 text-sm text-gray-600">
                     <div className="flex items-center">
                       <Calendar className="h-4 w-4 mr-2" />
-                      {new Date(event.date).toLocaleDateString('en-US', { 
+                      {event.date.toLocaleDateString('en-US', { 
                         weekday: 'long', 
                         year: 'numeric', 
                         month: 'long', 
