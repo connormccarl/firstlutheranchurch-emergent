@@ -104,7 +104,7 @@ export const mockEvents = [
     location: 'Sunday School Room',
     description: 'Special preparation classes for children ages 8-11.',
     type: 'study',
-    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=250&fit=crop'
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/5x7qnd73_James%20teaching%2C%20Mary%20and%20Martha%2C.jpg'
   },
   {
     id: 205,
