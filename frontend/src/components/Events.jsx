@@ -212,12 +212,16 @@ const Events = () => {
                     <div className="text-sm text-gray-600 space-y-1">
                       <div className="flex items-center">
                         <Calendar className="h-3 w-3 mr-1" />
-                        {selectedEvent.date && new Date(selectedEvent.date).toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        })}
+                        {selectedEvent.date && (() => {
+                          const [year, month, day] = selectedEvent.date.split('-');
+                          const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                          return date.toLocaleDateString('en-US', { 
+                            weekday: 'long', 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                          });
+                        })()}
                       </div>
                       <div className="flex items-center">
                         <Clock className="h-3 w-3 mr-1" />
