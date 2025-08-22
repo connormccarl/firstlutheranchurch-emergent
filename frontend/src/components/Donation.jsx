@@ -566,10 +566,13 @@ const Donation = ({ isOpen, onClose }) => {
                   Thank You for Your Generosity!
                 </h3>
                 <p className="text-gray-600 mb-2">
-                  Your donation of <span className="font-semibold">${getCurrentAmount()}</span> has been processed successfully through PayPal.
+                  Your donation of <span className="font-semibold">${getCurrentAmount()}</span> has been processed successfully through {selectedPaymentMethod === 'zeffy' ? 'Zeffy' : 'PayPal'}.
                 </p>
                 <p className="text-sm text-gray-500">
-                  Your payment has been completed and you should receive a PayPal receipt shortly.
+                  {selectedPaymentMethod === 'zeffy' 
+                    ? 'You should receive a Zeffy receipt shortly. Thank you for choosing the zero-fee option!'
+                    : 'Your payment has been completed and you should receive a PayPal receipt shortly.'
+                  }
                 </p>
               </div>
 
