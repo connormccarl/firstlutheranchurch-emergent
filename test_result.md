@@ -104,6 +104,42 @@
 
 user_problem_statement: "Fix the Gallery.jsx syntax error to enable Eric Williams & Family image routing to Pastor James video page, and implement donation functionality with PayPal integration framework."
 
+  - task: "Gallery.jsx Syntax Error Fix"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Gallery.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Fixed syntax error on line 234 - removed extra closing brace from })}} to })}. Eric Williams & Family card now routes to /pastor-james-video page with Play icon and Video badge display."
+
+  - task: "Donation Backend API"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Added donation endpoints: POST /api/donations (create), GET /api/donations (list), GET /api/donations/{id} (get), PUT /api/donations/{id}/status (update), PayPal order creation/capture endpoints. Added Donation and DonationCreate models. Installed paypal-checkout-serversdk. Ready for backend testing."
+
+  - task: "Donation Frontend Component"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/Donation.jsx, /app/frontend/src/components/Navbar.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Created comprehensive donation component with 4-step flow: amount selection, donor info, payment (PayPal placeholder), success. Added red heart-icon donate buttons to all navbar breakpoints (desktop, tablet, mobile). Installed @paypal/react-paypal-js. Ready for frontend testing."
+
 backend:
   - task: "Health Check API"
     implemented: true
