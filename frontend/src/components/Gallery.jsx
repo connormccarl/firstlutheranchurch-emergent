@@ -225,7 +225,7 @@ const Gallery = () => {
                     : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
                 }`}
               >
-                {category === 'all' ? 'All Photos' : category}
+                {category === 'all' ? 'All Media' : category}
               </Button>
             ))}
           </div>
