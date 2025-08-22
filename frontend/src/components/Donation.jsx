@@ -15,9 +15,66 @@ const Donation = ({ isOpen, onClose }) => {
   });
   const [step, setStep] = useState(1); // 1: amount, 2: info, 3: payment, 4: success
   const [isProcessing, setIsProcessing] = useState(false);
+  const [paypalLoaded, setPaypalLoaded] = useState(false);
   const { toast } = useToast();
 
   const predefinedAmounts = [10, 25, 50, 100, 250, 500];
+
+  // Load PayPal SDK when component mounts
+  useEffect(() => {
+    const loadPayPalScript = () => {
+      // Check if PayPal is already loaded
+      if (window.paypal) {
+        setPaypalLoaded(true);
+        return;
+      }
+
+      // Create script element
+      const script = document.createElement('script');
+      script.src = 'https://www.paypal.com/sdk/js?client-id=BAAvQSKEbfIoZAHW1ywBJZVJfgfhu1kV0H74ILTrzdYUfeDMHE0ZgMge_1My6f3AOOAl-sib6HnHAxg5Do&components=hosted-buttons&enable-funding=venmo&currency=USD';
+      script.async = true;
+      script.onload = () => {
+        setPaypalLoaded(true);
+      };
+      script.onerror = () => {
+        console.error('PayPal SDK failed to load');
+        toast({
+          title: "Payment System Error",
+          description: "Failed to load PayPal. Please try again later.",
+          variant: "destructive"
+        });
+      };
+
+      document.head.appendChild(script);
+    };
+
+    if (isOpen) {
+      loadPayPalScript();
+    }
+  }, [isOpen, toast]);
+
+  // Initialize PayPal button when step 3 is reached
+  useEffect(() => {
+    if (step === 3 && paypalLoaded && window.paypal) {
+      // Clear any existing PayPal container
+      const container = document.getElementById('paypal-container');
+      if (container) {
+        container.innerHTML = '';
+        
+        // Render PayPal hosted button
+        window.paypal.HostedButtons({
+          hostedButtonId: "4Q83P6E6UGSV6",
+        }).render("#paypal-container").catch(err => {
+          console.error('PayPal render error:', err);
+          toast({
+            title: "Payment Error",
+            description: "Failed to load payment options. Please try again.",
+            variant: "destructive"
+          });
+        });
+      }
+    }
+  }, [step, paypalLoaded, toast]);
 
   const handleAmountSelect = (amount) => {
     setSelectedAmount(amount);
