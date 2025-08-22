@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Church, MessageCircle, Calendar, Image, Info, Home, Globe, Camera, Mail } from 'lucide-react';
+import { Menu, X, Church, MessageCircle, Calendar, Image, Info, Home, Globe, Camera, Mail, Heart } from 'lucide-react';
 import { Button } from './ui/button';
+import Donation from './Donation';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
