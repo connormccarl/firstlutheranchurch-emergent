@@ -203,8 +203,10 @@ const Donation = ({ isOpen, onClose }) => {
     setStep(1);
     setSelectedAmount(null);
     setCustomAmount('');
+    setSelectedPaymentMethod('');
     setDonorInfo({ name: '', email: '', message: '' });
     setIsProcessing(false);
+    setZeffyModalOpen(false);
   };
 
   if (!isOpen) return null;
