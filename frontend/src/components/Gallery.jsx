@@ -55,9 +55,9 @@ const Gallery = () => {
     {
       id: 6,
       type: 'image',
-      src: 'https://customer-assets.emergeant.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png',
-      title: 'Church Logo',
-      description: 'First Lutheran Church of Miami',
+      src: 'https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png',
+      title: 'First Lutheran Church of Miami Logo',
+      description: 'Official church logo and branding',
       category: 'branding'
     },
     {
