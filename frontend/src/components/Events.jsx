@@ -70,6 +70,78 @@ const Events = () => {
     setFilteredEvents(filtered);
   }, [events, searchTerm, filterType]);
 
+  // Handle edit event
+  const handleEditClick = (event) => {
+    setEventToEdit({...event});
+    setShowEditDialog(true);
+  };
+
+  // Handle delete event
+  const handleDeleteClick = (event) => {
+    setEventToDelete(event);
+    setShowDeleteDialog(true);
+  };
+
+  // Save edited event
+  const handleSaveEdit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const updatedEvents = events.map(event => 
+        event.id === eventToEdit.id ? eventToEdit : event
+      );
+      setEvents(updatedEvents);
+      
+      // Save to localStorage
+      const storedEvents = getStoredEvents();
+      const updatedStoredEvents = storedEvents.map(event => 
+        event.id === eventToEdit.id ? eventToEdit : event
+      );
+      localStorage.setItem('churchEvents', JSON.stringify(updatedStoredEvents));
+      
+      toast({
+        title: "Event Updated!",
+        description: `"${eventToEdit.title}" has been updated successfully.`,
+      });
+      
+      setShowEditDialog(false);
+      setEventToEdit(null);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update event. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Delete event
+  const handleConfirmDelete = () => {
+    try {
+      const updatedEvents = events.filter(event => event.id !== eventToDelete.id);
+      setEvents(updatedEvents);
+      
+      // Remove from localStorage
+      const storedEvents = getStoredEvents();
+      const updatedStoredEvents = storedEvents.filter(event => event.id !== eventToDelete.id);
+      localStorage.setItem('churchEvents', JSON.stringify(updatedStoredEvents));
+      
+      toast({
+        title: "Event Deleted!",
+        description: `"${eventToDelete.title}" has been deleted successfully.`,
+      });
+      
+      setShowDeleteDialog(false);
+      setEventToDelete(null);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete event. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleAddEvent = () => {
     if (!newEvent.title || !newEvent.date || !newEvent.time) {
       toast({
