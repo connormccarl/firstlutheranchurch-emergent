@@ -111,6 +111,21 @@ class ChatResponse(BaseModel):
     sender: str = "ai"
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
+class DonationCreate(BaseModel):
+    amount: float
+    donor_name: str
+    donor_email: str
+    message: Optional[str] = ""
+    payment_method: str = "paypal"  # paypal, credit_card, etc.
+
+class Donation(DonationCreate):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    status: str = "pending"  # pending, completed, failed
+    paypal_order_id: Optional[str] = None
+    transaction_id: Optional[str] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    completed_at: Optional[datetime] = None
+
 # ===============================
 # AI CHAT INTEGRATION
 # ===============================
