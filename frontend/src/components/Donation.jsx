@@ -421,8 +421,11 @@ const Donation = ({ isOpen, onClose }) => {
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
                   Thank You for Your Generosity!
                 </h3>
-                <p className="text-gray-600">
-                  Your donation of <span className="font-semibold">${getCurrentAmount()}</span> will help us continue our ministry and serve our community better.
+                <p className="text-gray-600 mb-2">
+                  Your donation of <span className="font-semibold">${getCurrentAmount()}</span> has been processed successfully through PayPal.
+                </p>
+                <p className="text-sm text-gray-500">
+                  Your payment has been completed and you should receive a PayPal receipt shortly.
                 </p>
               </div>
 
