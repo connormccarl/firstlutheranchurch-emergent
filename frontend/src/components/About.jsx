@@ -159,10 +159,16 @@ const About = () => {
                       href="https://www.tingtingw.com" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-purple-600 hover:text-purple-800 font-medium"
+                      className="text-purple-600 hover:text-purple-800 font-medium transition-colors"
                     >
                       www.tingtingw.com
                     </a>
+                    <Link 
+                      to="/dr-tingting-article" 
+                      className="text-purple-600 hover:text-purple-800 font-medium transition-colors block"
+                    >
+                      📰 Featured in Bold Journey Magazine
+                    </Link>
                   </div>
                 </div>
               </CardContent>
