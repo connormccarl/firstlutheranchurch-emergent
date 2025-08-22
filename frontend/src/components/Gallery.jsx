@@ -1,0 +1,229 @@
+import React, { useState } from 'react';
+import { Card, CardContent } from './ui/card';
+import { Button } from './ui/button';
+import { Badge } from './ui/badge';
+import { Play, Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import Navbar from './Navbar';
+import Footer from './Footer';
+
+const Gallery = () => {
+  const [selectedMedia, setSelectedMedia] = useState(null);
+  const [filter, setFilter] = useState('all');
+
+  // Sample gallery data - you can replace with actual images and videos
+  const galleryItems = [
+    {
+      id: 1,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/r8r2porw_Our%20partner%2C%20Localposh%20CEO%2C%20Eric%20Williams%20and%20family%21.JPG',
+      title: 'Eric Williams & Family',
+      description: 'LocalPosh CEO and church partner',
+      category: 'community'
+    },
+    {
+      id: 2,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hmet117m_Pastor%20James%20with%20Serena%20and%20Boris.jpg',
+      title: 'Pastor James with Serena & Boris',
+      description: 'Building relationships in our community',
+      category: 'community'
+    },
+    {
+      id: 3,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/x121373s_Yay%21%201st%20Easter%20at%20FLC.JPG',
+      title: 'First Easter Celebration',
+      description: 'Celebrating milestones together',
+      category: 'events'
+    },
+    {
+      id: 4,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/btvo34vs_Tingting%2BCoverPhoto%2Bfor%2BVoyageMIA%2B06282025.webp',
+      title: 'Dr. Tingting Wu',
+      description: 'World-class pianist and music director',
+      category: 'music'
+    },
+    {
+      id: 5,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/0hgv19y9_City%20of%20Miami%20Gardens%20NextGen%20Coders%20Class%20Graduates%20Photo%20%2310.jpg',
+      title: 'NextGen Coders Graduates',
+      description: 'John Riley with tech tutoring graduates',
+      category: 'education'
+    },
+    {
+      id: 6,
+      type: 'image',
+      src: 'https://customer-assets.emergeant.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png',
+      title: 'Church Logo',
+      description: 'First Lutheran Church of Miami',
+      category: 'branding'
+    }
+  ];
+
+  const filteredItems = filter === 'all' 
+    ? galleryItems 
+    : galleryItems.filter(item => item.category === filter);
+
+  const categories = ['all', 'community', 'events', 'music', 'education', 'branding'];
+
+  const openModal = (item) => {
+    setSelectedMedia(item);
+  };
+
+  const closeModal = () => {
+    setSelectedMedia(null);
+  };
+
+  const navigateMedia = (direction) => {
+    const currentIndex = filteredItems.findIndex(item => item.id === selectedMedia.id);
+    let newIndex;
+    
+    if (direction === 'next') {
+      newIndex = currentIndex === filteredItems.length - 1 ? 0 : currentIndex + 1;
+    } else {
+      newIndex = currentIndex === 0 ? filteredItems.length - 1 : currentIndex - 1;
+    }
+    
+    setSelectedMedia(filteredItems[newIndex]);
+  };
+
+  return (
+    <div className="min-h-screen">
+      <Navbar />
+      
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}        
+          <div className="text-center mb-12">
+            <div className="flex justify-center mb-6">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+                alt="First Lutheran Church of Miami Logo" 
+                className="h-28 w-28 md:h-32 md:w-32 object-contain filter drop-shadow-lg"
+              />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+              Gallery
+            </h1>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Capturing moments of faith, fellowship, and community at First Lutheran Church of Miami
+            </p>
+          </div>
+
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={filter === category ? "default" : "outline"}
+                onClick={() => setFilter(category)}
+                className={`capitalize ${
+                  filter === category 
+                    ? 'bg-blue-600 hover:bg-blue-700' 
+                    : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
+                }`}
+              >
+                {category === 'all' ? 'All Photos' : category}
+              </Button>
+            ))}
+          </div>
+
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredItems.map((item) => (
+              <Card 
+                key={item.id} 
+                className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                onClick={() => openModal(item)}
+              >
+                <div className="relative">
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+                      {item.type === 'video' ? (
+                        <Play className="h-16 w-16" />
+                      ) : (
+                        <ImageIcon className="h-16 w-16" />
+                      )}
+                    </div>
+                  </div>
+                  <Badge className="absolute top-2 right-2 bg-blue-600 text-white">
+                    {item.category}
+                  </Badge>
+                </div>
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                  <p className="text-gray-600 text-sm">{item.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Add Media Section */}
+          <div className="mt-12 text-center">
+            <Card className="bg-white shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Share Your Photos & Videos</h2>
+              <p className="text-gray-600 mb-6">
+                Help us capture the spirit of our church community by sharing your photos and videos from services, events, and special moments.
+              </p>
+              <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3">
+                Upload Media
+              </Button>
+            </Card>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal for viewing images/videos */}
+      {selectedMedia && (
+        <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
+          <div className="relative max-w-5xl max-h-full">
+            <button
+              onClick={closeModal}
+              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <X className="h-8 w-8" />
+            </button>
+            
+            <button
+              onClick={() => navigateMedia('prev')}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <ChevronLeft className="h-12 w-12" />
+            </button>
+            
+            <button
+              onClick={() => navigateMedia('next')}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <ChevronRight className="h-12 w-12" />
+            </button>
+
+            <div className="bg-white rounded-lg overflow-hidden">
+              <img
+                src={selectedMedia.src}
+                alt={selectedMedia.title}
+                className="max-w-full max-h-96 w-auto h-auto object-contain"
+              />
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{selectedMedia.title}</h3>
+                <p className="text-gray-600 mb-2">{selectedMedia.description}</p>
+                <Badge className="bg-blue-600 text-white">{selectedMedia.category}</Badge>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Gallery;
