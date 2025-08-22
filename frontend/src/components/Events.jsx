@@ -395,6 +395,161 @@ const Events = () => {
           </DialogContent>
         </Dialog>
 
+        {/* Edit Event Dialog */}
+        <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="flex items-center">
+                <Edit className="h-5 w-5 mr-2 text-blue-600" />
+                Edit Event
+              </DialogTitle>
+              <DialogDescription>
+                Update the event details below.
+              </DialogDescription>
+            </DialogHeader>
+            {eventToEdit && (
+              <form onSubmit={handleSaveEdit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-title">Event Title</Label>
+                    <Input
+                      id="edit-title"
+                      value={eventToEdit.title}
+                      onChange={(e) => setEventToEdit({...eventToEdit, title: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-type">Event Type</Label>
+                    <Select value={eventToEdit.type} onValueChange={(value) => setEventToEdit({...eventToEdit, type: value})}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="worship">Worship</SelectItem>
+                        <SelectItem value="study">Study</SelectItem>
+                        <SelectItem value="fellowship">Fellowship</SelectItem>
+                        <SelectItem value="meeting">Meeting</SelectItem>
+                        <SelectItem value="celebration">Celebration</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-date">Date</Label>
+                    <Input
+                      id="edit-date"
+                      type="date"
+                      value={eventToEdit.date}
+                      onChange={(e) => setEventToEdit({...eventToEdit, date: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-time">Time</Label>
+                    <Input
+                      id="edit-time"
+                      type="time"
+                      value={eventToEdit.time}
+                      onChange={(e) => setEventToEdit({...eventToEdit, time: e.target.value})}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-location">Location</Label>
+                  <Input
+                    id="edit-location"
+                    value={eventToEdit.location || ''}
+                    onChange={(e) => setEventToEdit({...eventToEdit, location: e.target.value})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-description">Description</Label>
+                  <Textarea
+                    id="edit-description"
+                    value={eventToEdit.description || ''}
+                    onChange={(e) => setEventToEdit({...eventToEdit, description: e.target.value})}
+                    rows={3}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-image">Image URL (optional)</Label>
+                  <Input
+                    id="edit-image"
+                    value={eventToEdit.image || ''}
+                    onChange={(e) => setEventToEdit({...eventToEdit, image: e.target.value})}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-pastor">Pastor/Leader (optional)</Label>
+                  <Input
+                    id="edit-pastor"
+                    value={eventToEdit.pastor || ''}
+                    onChange={(e) => setEventToEdit({...eventToEdit, pastor: e.target.value})}
+                  />
+                </div>
+                <div className="flex justify-end gap-3 pt-4 border-t">
+                  <Button type="button" variant="outline" onClick={() => setShowEditDialog(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+                    <CheckCircle className="h-4 w-4 mr-2" />
+                    Update Event
+                  </Button>
+                </div>
+              </form>
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Delete Event Dialog */}
+        <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center text-red-600">
+                <Trash2 className="h-5 w-5 mr-2" />
+                Delete Event
+              </DialogTitle>
+              <DialogDescription>
+                Are you sure you want to delete this event? This action cannot be undone.
+              </DialogDescription>
+            </DialogHeader>
+            {eventToDelete && (
+              <div className="space-y-4">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-medium text-gray-900">{eventToDelete.title}</h4>
+                  <div className="text-sm text-gray-600 mt-1">
+                    <div className="flex items-center">
+                      <Calendar className="h-3 w-3 mr-1" />
+                      {eventToDelete.date}
+                    </div>
+                    <div className="flex items-center mt-1">
+                      <Clock className="h-3 w-3 mr-1" />
+                      {eventToDelete.time}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-3 pt-4 border-t">
+                  <Button type="button" variant="outline" onClick={() => setShowDeleteDialog(false)}>
+                    Cancel
+                  </Button>
+                  <Button 
+                    type="button" 
+                    variant="destructive"
+                    onClick={handleConfirmDelete}
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Delete Event
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
               <Button className="bg-amber-600 hover:bg-amber-700 mt-4 md:mt-0">
