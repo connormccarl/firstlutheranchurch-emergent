@@ -24,6 +24,7 @@ function App() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         
         {/* Global Chat Widget */}
