@@ -566,8 +566,7 @@ const Events = () => {
                   {events.map((event) => (
                     <Card 
                       key={event.id} 
-                      className="hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer group"
-                      onClick={() => handleEventClick(event)}
+                      className="hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
                     >
                       {event.image && (
                         <div className="h-48 overflow-hidden bg-gray-100">
@@ -581,12 +580,41 @@ const Events = () => {
                       <CardHeader className="pb-2">
                         <div className="flex items-start justify-between">
                           <CardTitle className="text-lg leading-tight group-hover:text-blue-600 transition-colors">{event.title}</CardTitle>
-                          <Badge className={getEventTypeColor(event.type)} variant="secondary">
-                            {event.type}
-                          </Badge>
+                          <div className="flex items-center gap-2">
+                            <Badge className={getEventTypeColor(event.type)} variant="secondary">
+                              {event.type}
+                            </Badge>
+                            {/* Show edit/delete buttons for user-added events (id > 1000) */}
+                            {event.id > 1000 && (
+                              <div className="flex gap-1">
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="h-6 w-6 p-0 hover:bg-blue-100"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleEditClick(event);
+                                  }}
+                                >
+                                  <Edit className="h-3 w-3 text-blue-600" />
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="h-6 w-6 p-0 hover:bg-red-100"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteClick(event);
+                                  }}
+                                >
+                                  <Trash2 className="h-3 w-3 text-red-600" />
+                                </Button>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent onClick={() => handleEventClick(event)} className="cursor-pointer">
                         <div className="space-y-2 text-sm text-gray-600 mb-3">
                           <div className="flex items-center">
                             <Calendar className="h-4 w-4 mr-2" />
