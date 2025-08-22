@@ -50,21 +50,21 @@ const Home = () => {
     {
       id: 1,
       title: 'Sunday Worship Service',
-      date: getSundayDateString(), // This Sunday
+      date: getNextSunday(), // This Sunday - use Date object directly
       time: '1:00 PM',
       location: 'Main Sanctuary'
     },
     {
       id: 2,
       title: 'Bible Study & Language Classes',
-      date: getSundayDateString(), // This Sunday
+      date: getNextSunday(), // This Sunday - use Date object directly
       time: '2:00 PM',
       location: 'Fellowship Hall'
     },
     {
       id: 3,
       title: 'First Communion Classes',
-      date: getSundayDateString(1), // Next Sunday (1 week from now)
+      date: getNextSunday(1), // Next Sunday (1 week from now) - use Date object directly
       time: '2:00 PM',
       location: 'Sunday School Room'
     }
