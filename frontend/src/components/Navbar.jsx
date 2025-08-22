@@ -101,7 +101,11 @@ const Navbar = () => {
         position: static !important;
       }
       #google_translate_element { 
-        display: none !important; 
+        position: absolute !important;
+        left: -9999px !important;
+        width: 1px !important;
+        height: 1px !important;
+        opacity: 0 !important;
       }
       .goog-tooltip { 
         display: none !important; 
