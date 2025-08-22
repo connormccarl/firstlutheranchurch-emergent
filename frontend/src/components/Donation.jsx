@@ -149,7 +149,7 @@ const Donation = ({ isOpen, onClose }) => {
     };
   }, []);
 
-  const handleDonationComplete = async () => {
+  const handleDonationComplete = async (paymentMethod = selectedPaymentMethod) => {
     setIsProcessing(true);
     
     try {
@@ -159,7 +159,7 @@ const Donation = ({ isOpen, onClose }) => {
         donor_name: donorInfo.name,
         donor_email: donorInfo.email,
         message: donorInfo.message,
-        payment_method: "paypal"
+        payment_method: paymentMethod
       };
 
       // Call backend API to record donation
@@ -180,11 +180,11 @@ const Donation = ({ isOpen, onClose }) => {
         console.error('Failed to record donation');
       }
       
-      setStep(4);
+      setStep(5); // Go to success step
       
       toast({
         title: "Thank You!",
-        description: `Your generous donation of $${getCurrentAmount()} has been processed successfully.`,
+        description: `Your generous donation of $${getCurrentAmount()} has been processed successfully through ${paymentMethod === 'zeffy' ? 'Zeffy' : 'PayPal'}.`,
       });
       
     } catch (error) {
@@ -193,7 +193,7 @@ const Donation = ({ isOpen, onClose }) => {
         title: "Processing Complete",
         description: `Thank you for your $${getCurrentAmount()} donation to First Lutheran Church of Miami.`,
       });
-      setStep(4); // Still go to success even if logging fails
+      setStep(5); // Still go to success even if logging fails
     } finally {
       setIsProcessing(false);
     }
