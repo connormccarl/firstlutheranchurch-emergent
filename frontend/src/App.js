@@ -27,6 +27,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/dr-tingting-article" element={<DrTingtingArticle />} />
+          <Route path="/john-riley-article" element={<JohnRileyArticle />} />
         </Routes>
         
         {/* Global Chat Widget */}
