@@ -123,7 +123,7 @@ const About = () => {
               <CardHeader className="text-center p-6">
                 <div className="mb-4">
                   <img 
-                    src="https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/92iglhvo_Dr%20TingTing%20photo.jpeg" 
+                    src="https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/btvo34vs_Tingting%2BCoverPhoto%2Bfor%2BVoyageMIA%2B06282025.webp" 
                     alt="Dr. Tingting Wu - Concert Pianist and Piano Instructor" 
                     className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full mx-auto shadow-lg mb-4"
                   />
