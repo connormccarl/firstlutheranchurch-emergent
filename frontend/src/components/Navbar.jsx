@@ -241,7 +241,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -262,6 +262,15 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            
+            {/* Donate Button */}
+            <Button
+              onClick={() => setDonationOpen(true)}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-2"
+            >
+              <Heart className="h-4 w-4" />
+              <span className="hidden xl:inline">Donate</span>
+            </Button>
             
             {/* Language Dropdown */}
             <div className="relative language-dropdown">
