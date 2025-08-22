@@ -481,6 +481,170 @@ async def create_chat_session():
         logger.error(f"Error creating chat session: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to create chat session")
 
+# ===============================
+# DONATION ENDPOINTS
+# ===============================
+
+@api_router.post("/donations", response_model=dict)
+async def create_donation(donation: DonationCreate):
+    """Create a new donation record"""
+    try:
+        # Validate donation amount
+        if donation.amount <= 0:
+            raise HTTPException(status_code=400, detail="Donation amount must be greater than 0")
+        
+        # Create donation record
+        new_donation = Donation(**donation.dict())
+        donation_dict = new_donation.dict()
+        
+        # Store in database
+        result = await db.donations.insert_one(donation_dict)
+        
+        logger.info(f"Created donation record: {new_donation.id} for ${donation.amount}")
+        
+        return {
+            "id": new_donation.id,
+            "message": "Donation record created successfully",
+            "amount": donation.amount,
+            "status": "pending"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating donation: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to create donation")
+
+@api_router.get("/donations")
+async def get_donations(skip: int = 0, limit: int = 50):
+    """Get all donations (for admin purposes)"""
+    try:
+        donations = await db.donations.find().sort("created_at", -1).skip(skip).limit(limit).to_list(length=None)
+        return {"donations": donations}
+    except Exception as e:
+        logger.error(f"Error fetching donations: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch donations")
+
+@api_router.get("/donations/{donation_id}")
+async def get_donation(donation_id: str):
+    """Get a specific donation by ID"""
+    try:
+        donation = await db.donations.find_one({"id": donation_id})
+        if not donation:
+            raise HTTPException(status_code=404, detail="Donation not found")
+        return donation
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching donation: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch donation")
+
+@api_router.put("/donations/{donation_id}/status")
+async def update_donation_status(donation_id: str, status: str, transaction_id: Optional[str] = None):
+    """Update donation status (for PayPal webhooks)"""
+    try:
+        update_data = {
+            "status": status,
+            "updated_at": datetime.utcnow()
+        }
+        
+        if transaction_id:
+            update_data["transaction_id"] = transaction_id
+            
+        if status == "completed":
+            update_data["completed_at"] = datetime.utcnow()
+        
+        result = await db.donations.update_one(
+            {"id": donation_id},
+            {"$set": update_data}
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Donation not found")
+        
+        logger.info(f"Updated donation {donation_id} status to {status}")
+        return {"message": "Donation status updated successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating donation status: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update donation status")
+
+# PayPal Integration Endpoints (Framework for future connection)
+@api_router.post("/donations/{donation_id}/paypal-order")
+async def create_paypal_order(donation_id: str):
+    """Create PayPal order for donation (requires PayPal credentials)"""
+    try:
+        # Get donation record
+        donation = await db.donations.find_one({"id": donation_id})
+        if not donation:
+            raise HTTPException(status_code=404, detail="Donation not found")
+            
+        if donation["status"] != "pending":
+            raise HTTPException(status_code=400, detail="Donation is not pending")
+        
+        # TODO: Integrate with PayPal SDK when credentials are available
+        # For now, return a mock response
+        mock_order_id = f"MOCK_ORDER_{uuid.uuid4().hex[:8].upper()}"
+        
+        # Update donation with PayPal order ID
+        await db.donations.update_one(
+            {"id": donation_id},
+            {"$set": {
+                "paypal_order_id": mock_order_id,
+                "updated_at": datetime.utcnow()
+            }}
+        )
+        
+        return {
+            "order_id": mock_order_id,
+            "status": "created",
+            "links": [{
+                "href": f"https://sandbox.paypal.com/checkoutnow?token={mock_order_id}",
+                "rel": "approve",
+                "method": "GET"
+            }],
+            "message": "PayPal integration ready - connect your PayPal account to enable live payments"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating PayPal order: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to create PayPal order")
+
+@api_router.post("/donations/{donation_id}/paypal-capture")
+async def capture_paypal_order(donation_id: str, order_id: str):
+    """Capture PayPal payment (requires PayPal credentials)"""
+    try:
+        # Get donation record
+        donation = await db.donations.find_one({"id": donation_id})
+        if not donation:
+            raise HTTPException(status_code=404, detail="Donation not found")
+            
+        # TODO: Integrate with PayPal SDK when credentials are available
+        # For now, simulate successful capture
+        
+        # Update donation status
+        await db.donations.update_one(
+            {"id": donation_id},
+            {"$set": {
+                "status": "completed",
+                "transaction_id": f"MOCK_TXN_{uuid.uuid4().hex[:8].upper()}",
+                "completed_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            }}
+        )
+        
+        return {
+            "status": "completed",
+            "transaction_id": f"MOCK_TXN_{uuid.uuid4().hex[:8].upper()}",
+            "message": "Payment captured successfully (simulated - connect PayPal for live processing)"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error capturing PayPal payment: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to capture PayPal payment")
+
 # Include the router in the main app
 app.include_router(api_router)
 
