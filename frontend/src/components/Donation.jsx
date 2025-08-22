@@ -131,7 +131,7 @@ const Donation = ({ isOpen, onClose }) => {
       });
       return;
     }
-    setStep(3);
+    setStep(3); // Go to payment method selection
   };
 
   // Listen for PayPal success (you can customize this based on PayPal's callback)
