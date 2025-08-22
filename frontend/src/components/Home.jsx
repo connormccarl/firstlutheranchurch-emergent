@@ -21,21 +21,29 @@ const Home = () => {
       daysUntilSunday = 7 - dayOfWeek;
     }
     
-    const targetSunday = new Date(today);
-    targetSunday.setDate(today.getDate() + daysUntilSunday + (weeksFromNow * 7));
+    const targetSunday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + daysUntilSunday + (weeksFromNow * 7));
     
-    return targetSunday.toISOString().split('T')[0]; // Return YYYY-MM-DD format
+    return targetSunday;
   };
 
   // Function to format date for display
   const formatSundayDate = () => {
-    const sundayDate = new Date(getNextSunday());
+    const sundayDate = getNextSunday();
     return sundayDate.toLocaleDateString('en-US', { 
       weekday: 'long', 
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
     });
+  };
+
+  // Function to get date in YYYY-MM-DD format for events
+  const getSundayDateString = (weeksFromNow = 0) => {
+    const sundayDate = getNextSunday(weeksFromNow);
+    const year = sundayDate.getFullYear();
+    const month = String(sundayDate.getMonth() + 1).padStart(2, '0');
+    const day = String(sundayDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   const upcomingEvents = [
