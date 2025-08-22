@@ -13,9 +13,11 @@ const Donation = ({ isOpen, onClose }) => {
     email: '',
     message: ''
   });
-  const [step, setStep] = useState(1); // 1: amount, 2: info, 3: payment, 4: success
+  const [step, setStep] = useState(1); // 1: amount, 2: info, 3: payment method, 4: payment, 5: success
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [paypalLoaded, setPaypalLoaded] = useState(false);
+  const [zeffyModalOpen, setZeffyModalOpen] = useState(false);
   const { toast } = useToast();
 
   const predefinedAmounts = [10, 25, 50, 100, 250, 500];
