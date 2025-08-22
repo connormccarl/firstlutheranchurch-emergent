@@ -98,7 +98,7 @@ const Gallery = () => {
     ? galleryItems 
     : galleryItems.filter(item => item.category === filter);
 
-  const categories = ['all', 'community', 'events', 'music', 'education', 'branding'];
+  const categories = ['all', 'community', 'events', 'music', 'education', 'sermons', 'branding'];
 
   const openModal = (item) => {
     setSelectedMedia(item);
