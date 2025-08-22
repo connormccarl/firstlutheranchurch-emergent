@@ -544,7 +544,7 @@ const Donation = ({ isOpen, onClose }) => {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setStep(2)}
+                  onClick={() => setStep(3)}
                   className="flex-1"
                   disabled={isProcessing}
                 >
