@@ -72,16 +72,16 @@ const Home = () => {
 
   const features = [
     {
-      icon: MessageCircle,
-      title: 'AI Spiritual Assistant',
-      description: 'Get answers to faith questions and spiritual guidance 24/7 through our chat widget',
-      action: 'Click the chat button below to start'
-    },
-    {
       icon: Calendar,
       title: 'Schedule with Pastor James',
       description: 'Book personal sessions with Pastor James Dunham (MDIV, 25+ years experience)',
       link: '/schedule'
+    },
+    {
+      icon: MessageCircle,
+      title: 'AI Spiritual Assistant',
+      description: 'Get answers to faith questions and spiritual guidance 24/7 through our chat widget',
+      action: 'Click the chat button below to start'
     },
     {
       icon: Globe,
