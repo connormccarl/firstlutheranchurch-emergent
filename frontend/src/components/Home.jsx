@@ -15,7 +15,7 @@ const Home = () => {
     let daysUntilSunday;
     if (dayOfWeek === 0) {
       // If today is Sunday, show today (0 days)
-      daysUntilSundar = 0;
+      daysUntilSunday = 0;
     } else {
       // Otherwise, calculate days until next Sunday
       daysUntilSunday = 7 - dayOfWeek;
