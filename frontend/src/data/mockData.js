@@ -89,12 +89,12 @@ export const mockEvents = [
   {
     id: 202,
     title: 'Sushi Night Fellowship',
-    date: '2025-10-05',
+    date: '2025-10-03',
     time: '7:00 PM',
     location: 'Local Sushi Restaurant',
     description: 'Monthly fellowship meal - join us for sushi and great conversation!',
     type: 'fellowship',
-    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/yt3lr9d1_image.png'
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/lqg1yd8w_Screenshot_20250819_155919_Add%20Text.jpg'
   },
   {
     id: 204,
