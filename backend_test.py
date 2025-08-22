@@ -31,7 +31,8 @@ class ChurchAPITester:
             'events': [],
             'media': [],
             'slots': [],
-            'bookings': []
+            'bookings': [],
+            'donations': []
         }
     
     def log_test(self, test_name, success, message="", response_data=None):
