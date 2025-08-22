@@ -21,7 +21,7 @@ export const mockEvents = [
     location: 'Conference Room',
     description: 'Monthly board meeting for church leadership and planning.',
     type: 'meeting',
-    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=250&fit=crop'
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/1q909h9l_Friends.jpg'
   },
   {
     id: 103,
