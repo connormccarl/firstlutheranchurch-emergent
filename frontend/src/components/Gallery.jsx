@@ -59,6 +59,38 @@ const Gallery = () => {
       title: 'Church Logo',
       description: 'First Lutheran Church of Miami',
       category: 'branding'
+    },
+    {
+      id: 7,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/gi0tco68_Screenshot_20250819_155537_Add%20Text.jpg',
+      title: 'Pastor James with Music Family',
+      description: 'Sunday worship and language classes invitation - English & Spanish',
+      category: 'community'
+    },
+    {
+      id: 8,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/0ujczttk_Screenshot_20250819_155919_Add%20Text.jpg',
+      title: 'Pastor James & Family Group',
+      description: 'Welcome invitation in multiple languages',
+      category: 'community'
+    },
+    {
+      id: 9,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/m4fyvt06_Screenshot_20250819_154418_Add%20Text.jpg',
+      title: 'Church Family Piano Gathering',
+      description: 'Language learning and worship invitation',
+      category: 'music'
+    },
+    {
+      id: 10,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/afhu1dwf_Screenshot_20250819_154823_Add%20Text.jpg',
+      title: 'Pastor Santiago & Church Family',
+      description: 'Multilingual worship and classes invitation',
+      category: 'community'
     }
   ];
 
