@@ -28,62 +28,94 @@ const Navbar = () => {
       return;
     }
 
-    // Initialize Google Translate
-    const initGoogleTranslate = () => {
-      if (!window.google?.translate?.TranslateElement) {
-        console.log('Google Translate API not loaded yet, retrying...');
-        setTimeout(initGoogleTranslate, 500);
-        return;
-      }
-
-      // Remove existing translate element if it exists
-      const existingElement = document.getElementById('google_translate_element');
-      if (existingElement) {
-        existingElement.innerHTML = '';
-      }
-
-      // Create new translate element
-      new window.google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'zh,es,fr,it,ja',
-        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false,
-        multilanguagePage: true
-      }, 'google_translate_element');
-      
-      // Wait for translate element to be ready, then trigger translation
-      const checkAndTranslate = setInterval(() => {
-        const translateCombo = document.querySelector('#google_translate_element select');
-        if (translateCombo) {
-          clearInterval(checkAndTranslate);
-          setTimeout(() => {
-            translateCombo.value = languageCode;
-            translateCombo.dispatchEvent(new Event('change'));
-          }, 300);
+    // Function to load Google Translate
+    const loadGoogleTranslate = () => {
+      return new Promise((resolve, reject) => {
+        // Check if already loaded
+        if (window.google?.translate?.TranslateElement) {
+          resolve();
+          return;
         }
-      }, 100);
+
+        // Remove existing script if any
+        const existingScript = document.querySelector('script[src*="translate.google.com"]');
+        if (existingScript) {
+          existingScript.remove();
+        }
+
+        // Create and load the script
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.async = true;
+        
+        script.onload = () => {
+          console.log('✅ Google Translate script loaded successfully');
+          resolve();
+        };
+        
+        script.onerror = (error) => {
+          console.error('❌ Failed to load Google Translate script:', error);
+          reject(error);
+        };
+
+        // Set up the callback function before loading the script
+        window.googleTranslateElementInit = function() {
+          try {
+            // Clear any existing translate element
+            const container = document.getElementById('google_translate_element');
+            if (container) {
+              container.innerHTML = '';
+            }
+
+            // Create new translate element
+            new window.google.translate.TranslateElement({
+              pageLanguage: 'en',
+              includedLanguages: 'zh,es,fr,it,ja',
+              layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+              autoDisplay: false,
+              multilanguagePage: true
+            }, 'google_translate_element');
+            
+            console.log('✅ Google Translate element initialized');
+            
+            // Wait a bit then trigger translation
+            setTimeout(() => {
+              const translateCombo = document.querySelector('#google_translate_element select') || 
+                                   document.querySelector('.goog-te-combo');
+              if (translateCombo) {
+                console.log(`✅ Found translate combo, setting language to: ${languageCode}`);
+                translateCombo.value = languageCode;
+                translateCombo.dispatchEvent(new Event('change', { bubbles: true }));
+              } else {
+                console.log('❌ Translate combo not found, retrying...');
+                // Retry after a short delay
+                setTimeout(() => {
+                  const retryCombo = document.querySelector('#google_translate_element select') || 
+                                   document.querySelector('.goog-te-combo');
+                  if (retryCombo) {
+                    console.log(`✅ Found translate combo on retry, setting language to: ${languageCode}`);
+                    retryCombo.value = languageCode;
+                    retryCombo.dispatchEvent(new Event('change', { bubbles: true }));
+                  }
+                }, 1000);
+              }
+            }, 500);
+          } catch (error) {
+            console.error('❌ Error in googleTranslateElementInit:', error);
+          }
+        };
+
+        document.head.appendChild(script);
+      });
     };
 
-    // Load Google Translate script if not already loaded
-    if (!document.querySelector('script[src*="translate.google.com"]')) {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      script.onload = () => {
-        console.log('Google Translate script loaded');
-      };
-      script.onerror = () => {
-        console.error('Failed to load Google Translate script');
-      };
-      
-      // Set up the callback function
-      window.googleTranslateElementInit = initGoogleTranslate;
-      
-      document.head.appendChild(script);
-    } else {
-      initGoogleTranslate();
-    }
+    // Load and initialize Google Translate
+    loadGoogleTranslate().catch(error => {
+      console.error('Failed to initialize Google Translate:', error);
+      // Fallback - show a message to user
+      alert('Translation service is temporarily unavailable. Please try again.');
+    });
   };
 
   useEffect(() => {
