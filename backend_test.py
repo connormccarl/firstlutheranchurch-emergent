@@ -390,9 +390,28 @@ class ChurchAPITester:
             self.log_test("PUT Donation Status - 404", False, f"Exception: {str(e)}")
         
         # Test POST /api/donations/{id}/paypal-order - PayPal order creation (mock)
-        if donation_id:
+        # Create a fresh donation for PayPal testing since the previous one was marked completed
+        paypal_donation_id = None
+        try:
+            paypal_donation_data = {
+                "amount": 25.00,
+                "donor_name": "Michael Thompson",
+                "donor_email": "michael.thompson@email.com",
+                "message": "For youth programs",
+                "payment_method": "paypal"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/donations", json=paypal_donation_data)
+            if response.status_code == 200:
+                paypal_donation = response.json()
+                paypal_donation_id = paypal_donation.get('id')
+                self.created_resources['donations'].append(paypal_donation_id)
+        except Exception as e:
+            self.log_test("PayPal Test Setup", False, f"Failed to create donation for PayPal test: {str(e)}")
+        
+        if paypal_donation_id:
             try:
-                response = self.session.post(f"{API_BASE_URL}/donations/{donation_id}/paypal-order")
+                response = self.session.post(f"{API_BASE_URL}/donations/{paypal_donation_id}/paypal-order")
                 if response.status_code == 200:
                     paypal_response = response.json()
                     order_id = paypal_response.get('order_id')
@@ -402,7 +421,7 @@ class ChurchAPITester:
                         # Test POST /api/donations/{id}/paypal-capture - PayPal payment capture
                         try:
                             capture_response = self.session.post(
-                                f"{API_BASE_URL}/donations/{donation_id}/paypal-capture",
+                                f"{API_BASE_URL}/donations/{paypal_donation_id}/paypal-capture",
                                 params={"order_id": order_id}
                             )
                             if capture_response.status_code == 200:
@@ -421,6 +440,8 @@ class ChurchAPITester:
                     self.log_test("POST PayPal Order Creation", False, f"Status: {response.status_code}", response.text)
             except Exception as e:
                 self.log_test("POST PayPal Order Creation", False, f"Exception: {str(e)}")
+        else:
+            self.log_test("POST PayPal Order Creation", False, "No donation available for PayPal test")
         
         # Test PayPal endpoints with non-existent donation
         try:
