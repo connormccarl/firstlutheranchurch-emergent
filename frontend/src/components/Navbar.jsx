@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Church, MessageCircle, Calendar, Image, Info, Home, Globe } from 'lucide-react';
+import { Menu, X, Church, MessageCircle, Calendar, Image, Info, Home, Globe, Camera } from 'lucide-react';
 import { Button } from './ui/button';
 
 const Navbar = () => {
