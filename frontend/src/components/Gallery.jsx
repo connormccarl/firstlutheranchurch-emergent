@@ -165,39 +165,73 @@ const Gallery = () => {
 
           {/* Gallery Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredItems.map((item) => (
-              <Card 
-                key={item.id} 
-                className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group"
-                onClick={() => openModal(item)}
-              >
-                <div className="relative">
-                  <div className="h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={item.src}
-                      alt={item.title}
-                      className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
-                      {item.type === 'video' ? (
-                        <Play className="h-16 w-16" />
-                      ) : (
-                        <ImageIcon className="h-16 w-16" />
-                      )}
+            {filteredItems.map((item) => {
+              // Special handling for Eric Williams & Family - route to video page
+              if (item.id === 1) {
+                return (
+                  <Link key={item.id} to="/pastor-james-video">
+                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
+                      <div className="relative">
+                        <div className="h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
+                          <img
+                            src={item.src}
+                            alt={item.title}
+                            className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+                            <Play className="h-16 w-16" />
+                          </div>
+                        </div>
+                        <Badge className="absolute top-2 right-2 bg-blue-600 text-white">
+                          Video
+                        </Badge>
+                      </div>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                        <p className="text-gray-600 text-sm">{item.description} - Click to watch Pastor James's testimonial</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              }
+              
+              // Regular gallery items - open modal
+              return (
+                <Card 
+                  key={item.id} 
+                  className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                  onClick={() => openModal(item)}
+                >
+                  <div className="relative">
+                    <div className="h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={item.src}
+                        alt={item.title}
+                        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+                        {item.type === 'video' ? (
+                          <Play className="h-16 w-16" />
+                        ) : (
+                          <ImageIcon className="h-16 w-16" />
+                        )}
+                      </div>
+                    </div>
+                    <Badge className="absolute top-2 right-2 bg-blue-600 text-white">
+                      {item.category}
+                    </Badge>
                   </div>
-                  <Badge className="absolute top-2 right-2 bg-blue-600 text-white">
-                    {item.category}
-                  </Badge>
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                  <p className="text-gray-600 text-sm">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                    <p className="text-gray-600 text-sm">{item.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}}
           </div>
 
           {/* Add Media Section */}
