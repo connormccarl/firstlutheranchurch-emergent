@@ -50,21 +50,21 @@ const Home = () => {
     {
       id: 1,
       title: 'Sunday Worship Service',
-      date: getNextSunday(), // This Sunday
+      date: getSundayDateString(), // This Sunday
       time: '1:00 PM',
       location: 'Main Sanctuary'
     },
     {
       id: 2,
       title: 'Bible Study & Language Classes',
-      date: getNextSunday(), // This Sunday
+      date: getSundayDateString(), // This Sunday
       time: '2:00 PM',
       location: 'Fellowship Hall'
     },
     {
       id: 3,
       title: 'First Communion Classes',
-      date: getNextSunday(1), // Next Sunday (1 week from now)
+      date: getSundayDateString(1), // Next Sunday (1 week from now)
       time: '2:00 PM',
       location: 'Sunday School Room'
     }
