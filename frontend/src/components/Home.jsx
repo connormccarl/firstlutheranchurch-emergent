@@ -353,6 +353,11 @@ const Home = () => {
                         561.674.3150
                       </a>
                     </div>
+                    <div className="pt-3">
+                      <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                        <Link to="/about#special-programs">Learn More</Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
