@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Fix the Sunday schedule dates bug where events were showing Saturday dates instead of Sunday dates, add photos for Dr. Tingting and John Riley to About page Special Programs section, and test all backend and frontend functionality including buttons and CTAs."
+user_problem_statement: "Fix the Gallery.jsx syntax error to enable Eric Williams & Family image routing to Pastor James video page, and implement donation functionality with PayPal integration framework."
 
 backend:
   - task: "Health Check API"
