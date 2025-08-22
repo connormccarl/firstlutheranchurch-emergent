@@ -55,9 +55,9 @@ const Donation = ({ isOpen, onClose }) => {
     }
   }, [isOpen, toast]);
 
-  // Initialize PayPal button when step 3 is reached
+  // Initialize PayPal button when step 4 is reached and PayPal is selected
   useEffect(() => {
-    if (step === 3 && paypalLoaded && window.paypal) {
+    if (step === 4 && selectedPaymentMethod === 'paypal' && paypalLoaded && window.paypal) {
       // Clear any existing PayPal container
       const container = document.getElementById('paypal-container');
       if (container) {
@@ -76,7 +76,33 @@ const Donation = ({ isOpen, onClose }) => {
         });
       }
     }
-  }, [step, paypalLoaded, toast]);
+  }, [step, selectedPaymentMethod, paypalLoaded, toast]);
+
+  // Handle Zeffy donation
+  const openZeffyDonation = () => {
+    const zeffyUrl = `https://www.zeffy.com/embed/donation-form/donate-to-change-lives-2752?modal=true&amount=${getCurrentAmount()}&donor_first_name=${encodeURIComponent(donorInfo.name.split(' ')[0] || '')}&donor_last_name=${encodeURIComponent(donorInfo.name.split(' ').slice(1).join(' ') || '')}&donor_email=${encodeURIComponent(donorInfo.email)}`;
+    
+    // Open Zeffy in a new window
+    const zeffyWindow = window.open(
+      zeffyUrl,
+      'zeffy-donation',
+      'width=800,height=600,scrollbars=yes,resizable=yes,status=yes,location=yes,toolbar=no,menubar=no'
+    );
+
+    // Monitor for window close to handle success
+    const checkClosed = setInterval(() => {
+      if (zeffyWindow.closed) {
+        clearInterval(checkClosed);
+        // Assume success if window was closed (user completed or cancelled)
+        setTimeout(() => {
+          const userCompleted = confirm('Did you complete your donation through Zeffy? Click OK if yes, Cancel if no.');
+          if (userCompleted) {
+            handleDonationComplete('zeffy');
+          }
+        }, 500);
+      }
+    }, 1000);
+  };
 
   const handleAmountSelect = (amount) => {
     setSelectedAmount(amount);
