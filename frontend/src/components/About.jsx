@@ -165,8 +165,15 @@ const About = () => {
 
             <Card className="bg-white shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center p-6">
-                <div className="h-12 w-12 mx-auto text-blue-600 mb-4 flex items-center justify-center">
-                  <span className="text-2xl">💻</span>
+                <div className="mb-4">
+                  <img 
+                    src="https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/0hgv19y9_City%20of%20Miami%20Gardens%20NextGen%20Coders%20Class%20Graduates%20Photo%20%2310.jpg" 
+                    alt="John Riley - Tech Tutor and Esports Instructor" 
+                    className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full mx-auto shadow-lg mb-4"
+                  />
+                  <div className="h-8 w-8 mx-auto text-blue-600 mb-2 flex items-center justify-center">
+                    <span className="text-xl">💻</span>
+                  </div>
                 </div>
                 <CardTitle className="text-xl">Tech Tutoring & Esports</CardTitle>
                 <CardDescription className="text-blue-600 font-medium">Coding, Development & Gaming</CardDescription>
