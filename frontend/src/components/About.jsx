@@ -225,11 +225,6 @@ const About = () => {
                     >
                       📰 Featured in Miami Herald
                     </Link>
-                    <div className="pt-3">
-                      <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                        <Link to="/about#special-programs">Learn More</Link>
-                      </Button>
-                    </div>
                   </div>
                 </div>
               </CardContent>
