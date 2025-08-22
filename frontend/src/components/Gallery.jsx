@@ -171,11 +171,13 @@ const Gallery = () => {
                 onClick={() => openModal(item)}
               >
                 <div className="relative">
-                  <img
-                    src={item.src}
-                    alt={item.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                  <div className="h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
                       {item.type === 'video' ? (
