@@ -266,7 +266,173 @@ class ChurchAPITester:
         except Exception as e:
             self.log_test("CORS Configuration", False, f"Exception: {str(e)}")
     
-    def test_error_handling(self):
+    def test_donation_api(self):
+        """Test Donation API endpoints - comprehensive testing"""
+        donation_id = None
+        
+        # Test POST /api/donations - Create donation with valid data
+        try:
+            donation_data = {
+                "amount": 50.00,
+                "donor_name": "Sarah Johnson",
+                "donor_email": "sarah.johnson@email.com",
+                "message": "For the church building fund and community outreach programs",
+                "payment_method": "paypal"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/donations", json=donation_data)
+            if response.status_code == 200:
+                created_donation = response.json()
+                donation_id = created_donation.get('id')
+                self.created_resources['donations'].append(donation_id)
+                self.log_test("POST Donations - Valid Data", True, f"Created donation: ${donation_data['amount']} from {donation_data['donor_name']}")
+            else:
+                self.log_test("POST Donations - Valid Data", False, f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("POST Donations - Valid Data", False, f"Exception: {str(e)}")
+        
+        # Test POST /api/donations - Invalid amount (negative)
+        try:
+            invalid_donation = {
+                "amount": -10.00,
+                "donor_name": "Test User",
+                "donor_email": "test@email.com",
+                "payment_method": "paypal"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/donations", json=invalid_donation)
+            if response.status_code == 400:
+                self.log_test("POST Donations - Negative Amount", True, "Properly rejected negative donation amount")
+            else:
+                self.log_test("POST Donations - Negative Amount", False, f"Should reject negative amount, got: {response.status_code}")
+        except Exception as e:
+            self.log_test("POST Donations - Negative Amount", False, f"Exception: {str(e)}")
+        
+        # Test POST /api/donations - Invalid amount (zero)
+        try:
+            zero_donation = {
+                "amount": 0.00,
+                "donor_name": "Test User",
+                "donor_email": "test@email.com",
+                "payment_method": "paypal"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/donations", json=zero_donation)
+            if response.status_code == 400:
+                self.log_test("POST Donations - Zero Amount", True, "Properly rejected zero donation amount")
+            else:
+                self.log_test("POST Donations - Zero Amount", False, f"Should reject zero amount, got: {response.status_code}")
+        except Exception as e:
+            self.log_test("POST Donations - Zero Amount", False, f"Exception: {str(e)}")
+        
+        # Test GET /api/donations - Fetch donation list
+        try:
+            response = self.session.get(f"{API_BASE_URL}/donations")
+            if response.status_code == 200:
+                donations_data = response.json()
+                donations = donations_data.get('donations', [])
+                self.log_test("GET Donations", True, f"Retrieved {len(donations)} donations")
+            else:
+                self.log_test("GET Donations", False, f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("GET Donations", False, f"Exception: {str(e)}")
+        
+        # Test GET /api/donations/{id} - Fetch specific donation
+        if donation_id:
+            try:
+                response = self.session.get(f"{API_BASE_URL}/donations/{donation_id}")
+                if response.status_code == 200:
+                    donation = response.json()
+                    self.log_test("GET Donation by ID", True, f"Retrieved donation: ${donation.get('amount')} from {donation.get('donor_name')}")
+                else:
+                    self.log_test("GET Donation by ID", False, f"Status: {response.status_code}", response.text)
+            except Exception as e:
+                self.log_test("GET Donation by ID", False, f"Exception: {str(e)}")
+        
+        # Test GET /api/donations/{id} - Non-existent donation (404)
+        try:
+            fake_id = str(uuid.uuid4())
+            response = self.session.get(f"{API_BASE_URL}/donations/{fake_id}")
+            if response.status_code == 404:
+                self.log_test("GET Donation - 404 Error", True, "Properly returns 404 for non-existent donation")
+            else:
+                self.log_test("GET Donation - 404 Error", False, f"Expected 404, got: {response.status_code}")
+        except Exception as e:
+            self.log_test("GET Donation - 404 Error", False, f"Exception: {str(e)}")
+        
+        # Test PUT /api/donations/{id}/status - Update donation status
+        if donation_id:
+            try:
+                # Test updating to completed status
+                response = self.session.put(
+                    f"{API_BASE_URL}/donations/{donation_id}/status",
+                    params={"status": "completed", "transaction_id": "TXN_12345"}
+                )
+                if response.status_code == 200:
+                    self.log_test("PUT Donation Status", True, "Successfully updated donation status to completed")
+                else:
+                    self.log_test("PUT Donation Status", False, f"Status: {response.status_code}", response.text)
+            except Exception as e:
+                self.log_test("PUT Donation Status", False, f"Exception: {str(e)}")
+        
+        # Test PUT /api/donations/{id}/status - Non-existent donation
+        try:
+            fake_id = str(uuid.uuid4())
+            response = self.session.put(
+                f"{API_BASE_URL}/donations/{fake_id}/status",
+                params={"status": "completed"}
+            )
+            if response.status_code == 404:
+                self.log_test("PUT Donation Status - 404", True, "Properly returns 404 for non-existent donation")
+            else:
+                self.log_test("PUT Donation Status - 404", False, f"Expected 404, got: {response.status_code}")
+        except Exception as e:
+            self.log_test("PUT Donation Status - 404", False, f"Exception: {str(e)}")
+        
+        # Test POST /api/donations/{id}/paypal-order - PayPal order creation (mock)
+        if donation_id:
+            try:
+                response = self.session.post(f"{API_BASE_URL}/donations/{donation_id}/paypal-order")
+                if response.status_code == 200:
+                    paypal_response = response.json()
+                    order_id = paypal_response.get('order_id')
+                    if order_id and 'MOCK_ORDER_' in order_id:
+                        self.log_test("POST PayPal Order Creation", True, f"Created mock PayPal order: {order_id}")
+                        
+                        # Test POST /api/donations/{id}/paypal-capture - PayPal payment capture
+                        try:
+                            capture_response = self.session.post(
+                                f"{API_BASE_URL}/donations/{donation_id}/paypal-capture",
+                                params={"order_id": order_id}
+                            )
+                            if capture_response.status_code == 200:
+                                capture_data = capture_response.json()
+                                if capture_data.get('status') == 'completed':
+                                    self.log_test("POST PayPal Payment Capture", True, f"Successfully captured payment: {capture_data.get('transaction_id')}")
+                                else:
+                                    self.log_test("POST PayPal Payment Capture", False, f"Unexpected status: {capture_data.get('status')}")
+                            else:
+                                self.log_test("POST PayPal Payment Capture", False, f"Status: {capture_response.status_code}", capture_response.text)
+                        except Exception as e:
+                            self.log_test("POST PayPal Payment Capture", False, f"Exception: {str(e)}")
+                    else:
+                        self.log_test("POST PayPal Order Creation", False, f"Invalid order ID format: {order_id}")
+                else:
+                    self.log_test("POST PayPal Order Creation", False, f"Status: {response.status_code}", response.text)
+            except Exception as e:
+                self.log_test("POST PayPal Order Creation", False, f"Exception: {str(e)}")
+        
+        # Test PayPal endpoints with non-existent donation
+        try:
+            fake_id = str(uuid.uuid4())
+            response = self.session.post(f"{API_BASE_URL}/donations/{fake_id}/paypal-order")
+            if response.status_code == 404:
+                self.log_test("PayPal Order - 404 Error", True, "Properly returns 404 for non-existent donation")
+            else:
+                self.log_test("PayPal Order - 404 Error", False, f"Expected 404, got: {response.status_code}")
+        except Exception as e:
+            self.log_test("PayPal Order - 404 Error", False, f"Exception: {str(e)}")
+    
         """Test error handling for invalid requests"""
         # Test invalid event creation
         try:
