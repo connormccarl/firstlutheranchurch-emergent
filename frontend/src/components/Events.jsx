@@ -481,11 +481,11 @@ const Events = () => {
                       onClick={() => handleEventClick(event)}
                     >
                       {event.image && (
-                        <div className="h-48 overflow-hidden">
+                        <div className="h-48 overflow-hidden bg-gray-100">
                           <img 
                             src={event.image} 
                             alt={event.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>
                       )}
