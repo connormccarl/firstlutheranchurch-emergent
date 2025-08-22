@@ -315,6 +315,11 @@ const Home = () => {
                     >
                       www.tingtingw.com
                     </a>
+                    <div className="pt-3">
+                      <Button asChild className="w-full bg-purple-600 hover:bg-purple-700">
+                        <Link to="/about#special-programs">Learn More</Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
