@@ -22,6 +22,7 @@ function App() {
           <Route path="/ai-assistant" element={<AIAssistant />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/about" element={<About />} />
+          <Route path="/gallery" element={<Gallery />} />
         </Routes>
         
         {/* Global Chat Widget */}
