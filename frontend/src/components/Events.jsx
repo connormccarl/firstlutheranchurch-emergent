@@ -247,16 +247,36 @@ const Events = () => {
     e.preventDefault();
     
     try {
-      // In a real app, this would send data to the backend
-      console.log('Registration data:', {
-        event: selectedEvent.title,
-        ...registrationData
+      const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      
+      // Send registration data to backend
+      const response = await fetch(`${backendUrl}/api/event-registrations`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event_title: selectedEvent.title,
+          name: registrationData.name,
+          email: registrationData.email,
+          phone: registrationData.phone,
+          notes: registrationData.notes
+        })
       });
 
-      toast({
-        title: "Registration Successful!",
-        description: `You've successfully registered for ${selectedEvent.title}. We'll send you a confirmation email shortly.`,
-      });
+      if (response.ok) {
+        const result = await response.json();
+        
+        toast({
+          title: "Registration Successful!",
+          description: `You've successfully registered for ${selectedEvent.title}. Pastor James will receive your registration and contact you directly.`,
+        });
+
+        logger.info('Event registration successful:', result);
+        
+      } else {
+        throw new Error('Registration failed');
+      }
 
       // Clear form and close dialog
       setRegistrationData({ name: '', email: '', phone: '', notes: '' });
@@ -264,9 +284,10 @@ const Events = () => {
       setSelectedEvent(null);
 
     } catch (error) {
+      console.error('Registration error:', error);
       toast({
         title: "Registration Failed",
-        description: "There was an error with your registration. Please try again.",
+        description: "There was an error with your registration. Please try contacting Pastor James directly at pastorjamesdunham@gmail.com or (313) 670-3830.",
         variant: "destructive"
       });
     }
