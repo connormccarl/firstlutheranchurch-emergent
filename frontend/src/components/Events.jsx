@@ -272,7 +272,7 @@ const Events = () => {
           description: `You've successfully registered for ${selectedEvent.title}. Pastor James will receive your registration and contact you directly.`,
         });
 
-        logger.info('Event registration successful:', result);
+        console.log('Event registration successful:', result);
         
       } else {
         throw new Error('Registration failed');
