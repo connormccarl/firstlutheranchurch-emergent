@@ -126,6 +126,30 @@ class Donation(DonationCreate):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     completed_at: Optional[datetime] = None
 
+class EventRegistrationCreate(BaseModel):
+    event_title: str
+    name: str
+    email: str
+    phone: Optional[str] = ""
+    notes: Optional[str] = ""
+
+class EventRegistration(EventRegistrationCreate):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    status: str = "confirmed"  # confirmed, cancelled
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class ContactFormCreate(BaseModel):
+    name: str
+    email: str
+    phone: Optional[str] = ""
+    subject: str
+    message: str
+
+class ContactForm(ContactFormCreate):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    status: str = "received"  # received, responded
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 # ===============================
 # AI CHAT INTEGRATION
 # ===============================
