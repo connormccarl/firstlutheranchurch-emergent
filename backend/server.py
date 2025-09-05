@@ -545,13 +545,38 @@ async def create_event_registration(registration: EventRegistrationCreate):
         # Store in database
         result = await db.event_registrations.insert_one(registration_dict)
         
+        # Send email notification to Pastor James
+        email_subject = f"🎉 New Event Registration: {registration.event_title}"
+        email_body = f"""
+New Event Registration Received!
+
+Event: {registration.event_title}
+Name: {registration.name}
+Email: {registration.email}
+Phone: {registration.phone or 'Not provided'}
+Notes: {registration.notes or 'None'}
+
+Registration ID: {new_registration.id}
+Date: {new_registration.created_at}
+
+Please contact the registrant to confirm their attendance.
+
+Best regards,
+First Lutheran Church of Miami Website
+        """
+        
+        # Send notification
+        await send_email_notification(email_subject, email_body, CHURCH_EMAIL)
+        
         logger.info(f"Event registration created: {new_registration.id} for event: {registration.event_title}")
+        logger.info(f"Email notification sent to: {CHURCH_EMAIL}")
         
         return {
             "id": new_registration.id,
             "message": f"Successfully registered for {registration.event_title}",
             "event": registration.event_title,
-            "status": "confirmed"
+            "status": "confirmed",
+            "notification_sent": True
         }
     except Exception as e:
         logger.error(f"Error creating event registration: {str(e)}")
