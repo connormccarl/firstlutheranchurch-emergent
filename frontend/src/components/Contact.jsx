@@ -38,24 +38,52 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log('Contact form submitted:', formData);
     
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon!",
-    });
+    try {
+      const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      
+      // Send contact form data to backend
+      const response = await fetch(`${backendUrl}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
+      if (response.ok) {
+        const result = await response.json();
+        
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for contacting us! Pastor James will respond to your message personally within 24-48 hours.",
+        });
+
+        console.log('Contact form successful:', result);
+        
+      } else {
+        throw new Error('Contact form submission failed');
+      }
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+      
+    } catch (error) {
+      console.error('Contact form error:', error);
+      toast({
+        title: "Message Failed",
+        description: "There was an error sending your message. Please try contacting Pastor James directly at pastorjamesdunham@gmail.com or (313) 670-3830.",
+        variant: "destructive"
+      });
+    }
   };
 
   // Gallery images for Contact page
