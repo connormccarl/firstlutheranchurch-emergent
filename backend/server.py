@@ -11,6 +11,9 @@ from typing import List, Optional
 import uuid
 from datetime import datetime
 from emergentintegrations.llm.chat import LlmChat, UserMessage
+import aiosmtplib
+from email.message import EmailMessage
+import emails
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
