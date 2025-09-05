@@ -303,6 +303,13 @@ export const calendarData = {
         events: [
           { time: '1:00 PM', title: 'Reformation Day Worship', type: 'worship' }
         ]
+      },
+      {
+        date: 31,
+        dayOfWeek: 'Thursday',
+        events: [
+          { time: '7:00 PM', title: 'FREE Tech Learning for Miami Children', type: 'education' }
+        ]
       }
     ]
   }
