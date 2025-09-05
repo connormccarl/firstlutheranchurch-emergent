@@ -797,6 +797,12 @@ class ChurchAPITester:
         
         self.test_ai_chat_api()
         self.test_donation_api()  # Add donation API testing
+        
+        # CRITICAL EMAIL NOTIFICATION TESTING
+        self.test_event_registration_email_notifications()
+        self.test_contact_form_email_notifications()
+        self.test_email_notification_verification()
+        
         self.test_error_handling()
         
         # Summary
