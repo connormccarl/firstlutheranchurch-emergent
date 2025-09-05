@@ -403,6 +403,43 @@ const About = () => {
           </Card>
         </div>
 
+        {/* FLC Constitution & Bylaws */}
+        <div className="mb-16">
+          <Card className="bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-xl">
+            <CardContent className="p-8">
+              <div className="text-center">
+                <div className="h-12 w-12 mx-auto mb-6 text-purple-200">
+                  📜
+                </div>
+                <h2 className="text-3xl font-bold mb-6">FLC Constitution & Bylaws</h2>
+                <div className="max-w-4xl mx-auto space-y-4 text-lg">
+                  <p className="text-purple-100">
+                    Our church operates under our official Constitution and Bylaws, adopted September 5, 2025. 
+                    These governing documents establish our structure, leadership, and operational procedures as a Lutheran congregation.
+                  </p>
+                  <p className="text-purple-100">
+                    The Constitution outlines our doctrinal basis, membership requirements, pastoral duties, and congregational governance. 
+                    Our Bylaws provide detailed procedures for meetings, elections, committees, and day-to-day operations.
+                  </p>
+                  <div className="pt-4">
+                    <a 
+                      href="https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/zbmj9wjs_FLC%20Constituion%20and%20bylaws.%20Sept%205%2C%202025.%20FINAL.docx"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors shadow-lg"
+                    >
+                      📄 Download FLC Constitution & Bylaws (PDF)
+                    </a>
+                  </div>
+                  <p className="text-purple-200 text-sm mt-4">
+                    Adopted: September 5, 2025 | For questions about our governance, contact Pastor James Dunham
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Contact Information */}
         <div className="text-center">
           <Card className="bg-white shadow-xl border-0">
