@@ -23,6 +23,28 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+# Email configuration
+CHURCH_EMAIL = "pastorjamesdunham@gmail.com"
+
+# Email notification function
+async def send_email_notification(subject: str, body: str, to_email: str = CHURCH_EMAIL):
+    """Send email notification using a simple SMTP approach"""
+    try:
+        # For now, we'll use a simple approach - in production you'd configure proper SMTP
+        # This is a placeholder that logs the email content for testing
+        logger.info(f"EMAIL NOTIFICATION:")
+        logger.info(f"To: {to_email}")
+        logger.info(f"Subject: {subject}")
+        logger.info(f"Body: {body}")
+        
+        # TODO: Configure proper SMTP settings when email credentials are provided
+        # For now, this will ensure the system works and logs what would be sent
+        
+        return True
+    except Exception as e:
+        logger.error(f"Email notification failed: {str(e)}")
+        return False
+
 # Create the main app without a prefix
 app = FastAPI()
 
