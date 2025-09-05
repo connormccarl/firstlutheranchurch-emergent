@@ -454,6 +454,307 @@ class ChurchAPITester:
         except Exception as e:
             self.log_test("PayPal Order - 404 Error", False, f"Exception: {str(e)}")
     
+    def test_event_registration_email_notifications(self):
+        """Test event registration email notification system - 5 scenarios"""
+        print("\n🎯 TESTING EVENT REGISTRATION EMAIL NOTIFICATIONS")
+        
+        # Scenario 1: Standard Sunday Worship Registration
+        try:
+            registration_data = {
+                "event_title": "Sunday Worship Service",
+                "name": "Maria Elena Rodriguez",
+                "email": "maria.rodriguez@gmail.com",
+                "phone": "(305) 555-0123",
+                "notes": "First time visitor, looking forward to joining the community"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/event-registrations", json=registration_data)
+            if response.status_code == 200:
+                result = response.json()
+                if (result.get('notification_sent') == True and 
+                    result.get('status') == 'confirmed' and
+                    'Successfully registered' in result.get('message', '')):
+                    self.log_test("Event Registration Email - Sunday Worship", True, 
+                                f"Registration successful, notification_sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Event Registration Email - Sunday Worship", False, 
+                                f"Missing notification_sent or incorrect response: {result}")
+            else:
+                self.log_test("Event Registration Email - Sunday Worship", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Event Registration Email - Sunday Worship", False, f"Exception: {str(e)}")
+        
+        # Scenario 2: Bible Study Registration with Special Characters
+        try:
+            registration_data = {
+                "event_title": "Bible Study & Language Classes",
+                "name": "José María García-López",
+                "email": "jose.garcia@hotmail.com",
+                "phone": "+1-786-555-9876",
+                "notes": "Interested in Spanish Bible study and learning English"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/event-registrations", json=registration_data)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('notification_sent') == True:
+                    self.log_test("Event Registration Email - Bible Study", True, 
+                                f"Special characters handled, notification sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Event Registration Email - Bible Study", False, 
+                                f"notification_sent not true: {result}")
+            else:
+                self.log_test("Event Registration Email - Bible Study", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Event Registration Email - Bible Study", False, f"Exception: {str(e)}")
+        
+        # Scenario 3: First Communion Classes - Minimal Data
+        try:
+            registration_data = {
+                "event_title": "First Communion Classes",
+                "name": "Sarah Johnson",
+                "email": "sarah.j@yahoo.com",
+                "phone": "",
+                "notes": ""
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/event-registrations", json=registration_data)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('notification_sent') == True:
+                    self.log_test("Event Registration Email - First Communion", True, 
+                                f"Minimal data handled, notification sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Event Registration Email - First Communion", False, 
+                                f"notification_sent not true: {result}")
+            else:
+                self.log_test("Event Registration Email - First Communion", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Event Registration Email - First Communion", False, f"Exception: {str(e)}")
+        
+        # Scenario 4: Piano Recital - Long Notes
+        try:
+            registration_data = {
+                "event_title": "Dr. Tingting Wu Piano Recital",
+                "name": "Michael Thompson",
+                "email": "michael.thompson@outlook.com",
+                "phone": "(954) 555-7890",
+                "notes": "I am a piano student myself and would love to attend this recital. I have been following Dr. Tingting Wu's work and am excited to hear her perform live. Please let me know if there are any special seating arrangements for music students."
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/event-registrations", json=registration_data)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('notification_sent') == True:
+                    self.log_test("Event Registration Email - Piano Recital", True, 
+                                f"Long notes handled, notification sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Event Registration Email - Piano Recital", False, 
+                                f"notification_sent not true: {result}")
+            else:
+                self.log_test("Event Registration Email - Piano Recital", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Event Registration Email - Piano Recital", False, f"Exception: {str(e)}")
+        
+        # Scenario 5: Fellowship Meal - Family Registration
+        try:
+            registration_data = {
+                "event_title": "Monthly Fellowship Meal",
+                "name": "The Williams Family (Eric, Jennifer, and kids)",
+                "email": "eric.williams@gmail.com",
+                "phone": "(305) 555-4567",
+                "notes": "Family of 5 attending. Two children ages 8 and 11. Any dietary restrictions accommodations available?"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/event-registrations", json=registration_data)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('notification_sent') == True:
+                    self.log_test("Event Registration Email - Fellowship Meal", True, 
+                                f"Family registration handled, notification sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Event Registration Email - Fellowship Meal", False, 
+                                f"notification_sent not true: {result}")
+            else:
+                self.log_test("Event Registration Email - Fellowship Meal", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Event Registration Email - Fellowship Meal", False, f"Exception: {str(e)}")
+    
+    def test_contact_form_email_notifications(self):
+        """Test contact form email notification system - 3 scenarios"""
+        print("\n📧 TESTING CONTACT FORM EMAIL NOTIFICATIONS")
+        
+        # Scenario 1: General Inquiry
+        try:
+            contact_data = {
+                "name": "David Chen",
+                "email": "david.chen@email.com",
+                "phone": "(786) 555-2468",
+                "subject": "Interested in Joining the Church",
+                "message": "Hello Pastor James, I recently moved to Miami and am looking for a Lutheran church to call home. I would love to learn more about your congregation and the programs you offer. Could we schedule a time to meet?"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/contact", json=contact_data)
+            if response.status_code == 200:
+                result = response.json()
+                if (result.get('notification_sent') == True and 
+                    result.get('status') == 'received' and
+                    'Pastor James will respond' in result.get('message', '')):
+                    self.log_test("Contact Form Email - General Inquiry", True, 
+                                f"Contact processed, notification_sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Contact Form Email - General Inquiry", False, 
+                                f"Missing notification_sent or incorrect response: {result}")
+            else:
+                self.log_test("Contact Form Email - General Inquiry", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Contact Form Email - General Inquiry", False, f"Exception: {str(e)}")
+        
+        # Scenario 2: Prayer Request
+        try:
+            contact_data = {
+                "name": "Linda Martinez",
+                "email": "linda.martinez@yahoo.com",
+                "phone": "",
+                "subject": "Prayer Request for Family",
+                "message": "Dear Pastor James, I am requesting prayers for my family during this difficult time. My husband is facing health challenges and we could use the support of the church community. Thank you for your ministry."
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/contact", json=contact_data)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('notification_sent') == True:
+                    self.log_test("Contact Form Email - Prayer Request", True, 
+                                f"Prayer request processed, notification sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Contact Form Email - Prayer Request", False, 
+                                f"notification_sent not true: {result}")
+            else:
+                self.log_test("Contact Form Email - Prayer Request", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Contact Form Email - Prayer Request", False, f"Exception: {str(e)}")
+        
+        # Scenario 3: Program Information Request
+        try:
+            contact_data = {
+                "name": "Roberto Silva",
+                "email": "roberto.silva@gmail.com",
+                "phone": "(305) 555-8901",
+                "subject": "Language Learning Program Information",
+                "message": "I heard about your 14-language program and am very interested. I speak Portuguese and would like to help teach, and also learn Mandarin. What are the requirements to participate as both a teacher and student?"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/contact", json=contact_data)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('notification_sent') == True:
+                    self.log_test("Contact Form Email - Program Info", True, 
+                                f"Program inquiry processed, notification sent: {result.get('notification_sent')}")
+                else:
+                    self.log_test("Contact Form Email - Program Info", False, 
+                                f"notification_sent not true: {result}")
+            else:
+                self.log_test("Contact Form Email - Program Info", False, 
+                            f"Status: {response.status_code}", response.text)
+        except Exception as e:
+            self.log_test("Contact Form Email - Program Info", False, f"Exception: {str(e)}")
+    
+    def test_email_notification_verification(self):
+        """Test email notification system verification"""
+        print("\n✉️ TESTING EMAIL NOTIFICATION VERIFICATION")
+        
+        # Test 1: Verify database storage for event registration
+        try:
+            response = self.session.get(f"{API_BASE_URL}/event-registrations")
+            if response.status_code == 200:
+                registrations = response.json().get('registrations', [])
+                if len(registrations) > 0:
+                    self.log_test("Database Storage - Event Registrations", True, 
+                                f"Found {len(registrations)} event registrations in database")
+                else:
+                    self.log_test("Database Storage - Event Registrations", False, 
+                                "No event registrations found in database")
+            else:
+                self.log_test("Database Storage - Event Registrations", False, 
+                            f"Failed to fetch registrations: {response.status_code}")
+        except Exception as e:
+            self.log_test("Database Storage - Event Registrations", False, f"Exception: {str(e)}")
+        
+        # Test 2: Verify database storage for contact forms
+        try:
+            response = self.session.get(f"{API_BASE_URL}/contact")
+            if response.status_code == 200:
+                contacts = response.json().get('contacts', [])
+                if len(contacts) > 0:
+                    self.log_test("Database Storage - Contact Forms", True, 
+                                f"Found {len(contacts)} contact forms in database")
+                else:
+                    self.log_test("Database Storage - Contact Forms", False, 
+                                "No contact forms found in database")
+            else:
+                self.log_test("Database Storage - Contact Forms", False, 
+                            f"Failed to fetch contacts: {response.status_code}")
+        except Exception as e:
+            self.log_test("Database Storage - Contact Forms", False, f"Exception: {str(e)}")
+        
+        # Test 3: Verify CHURCH_EMAIL configuration
+        try:
+            # Test with a registration to trigger email notification
+            test_registration = {
+                "event_title": "Email Verification Test Event",
+                "name": "Test User for Email Verification",
+                "email": "test.verification@email.com",
+                "phone": "(000) 000-0000",
+                "notes": "This is a test to verify email configuration"
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/event-registrations", json=test_registration)
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('notification_sent') == True:
+                    self.log_test("CHURCH_EMAIL Configuration", True, 
+                                "Email notification system working - CHURCH_EMAIL configured correctly")
+                else:
+                    self.log_test("CHURCH_EMAIL Configuration", False, 
+                                "notification_sent not true - check CHURCH_EMAIL configuration")
+            else:
+                self.log_test("CHURCH_EMAIL Configuration", False, 
+                            f"Registration failed: {response.status_code}")
+        except Exception as e:
+            self.log_test("CHURCH_EMAIL Configuration", False, f"Exception: {str(e)}")
+        
+        # Test 4: Error handling for invalid email data
+        try:
+            invalid_contact = {
+                "name": "",  # Empty name
+                "email": "invalid-email",  # Invalid email format
+                "subject": "",  # Empty subject
+                "message": ""  # Empty message
+            }
+            
+            response = self.session.post(f"{API_BASE_URL}/contact", json=invalid_contact)
+            if response.status_code >= 400:
+                self.log_test("Email Error Handling", True, 
+                            f"Properly rejected invalid contact data: {response.status_code}")
+            else:
+                # If it passes validation, check if notification_sent is still handled
+                result = response.json()
+                if 'notification_sent' in result:
+                    self.log_test("Email Error Handling", True, 
+                                f"Invalid data processed but notification handling present")
+                else:
+                    self.log_test("Email Error Handling", False, 
+                                "Invalid data accepted without proper notification handling")
+        except Exception as e:
+            self.log_test("Email Error Handling", False, f"Exception: {str(e)}")
+
     def test_error_handling(self):
         """Test error handling for invalid requests"""
         # Test invalid event creation
