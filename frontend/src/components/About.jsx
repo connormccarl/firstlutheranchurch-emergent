@@ -153,6 +153,11 @@ const About = () => {
                   <p className="text-gray-600">
                     Professional piano instruction with internationally acclaimed pianist Dr. Tingting.
                   </p>
+                  <div className="bg-purple-50 border-l-4 border-purple-500 p-3 text-sm italic text-gray-700 mx-2">
+                    <p>
+                      *Though Lumimusic and Dr Tingting's recitals are not 'church events', we give highest marks to her. Dr. Tingting is the sole propietor of "Lumimusic", and has 100% creative control in her recitals. Any donations go directly to Dr. Tingting for the long term success of "Lumimusic.*
+                    </p>
+                  </div>
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex items-center justify-center text-sm text-gray-700">
                       <Mail className="h-4 w-4 mr-2 text-purple-600" />
@@ -170,9 +175,17 @@ const About = () => {
                       href="https://www.tingtingw.com" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-purple-600 hover:text-purple-800 font-medium transition-colors"
+                      className="text-purple-600 hover:text-purple-800 font-medium transition-colors block"
                     >
                       www.tingtingw.com
+                    </a>
+                    <a 
+                      href="https://www.eventbrite.com/e/lumimusic-grand-opening-miamis-no1-piano-light-concert-experience-tickets-1645181765949" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-purple-600 hover:text-purple-800 font-medium transition-colors block"
+                    >
+                      🎹 Miami Piano Light Concert Experience!
                     </a>
                     <Link 
                       to="/dr-tingting-article" 
