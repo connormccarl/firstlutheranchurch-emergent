@@ -232,6 +232,14 @@ const About = () => {
                         561.674.3150
                       </a>
                     </div>
+                    <a 
+                      href="https://kccplus.org/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-blue-600 hover:text-blue-800 font-medium transition-colors block"
+                    >
+                      🏫 KCC STEAM in South Florida
+                    </a>
                     <Link 
                       to="/john-riley-article" 
                       className="text-blue-600 hover:text-blue-800 font-medium transition-colors block"
