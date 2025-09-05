@@ -506,6 +506,79 @@ async def create_chat_session():
         raise HTTPException(status_code=500, detail="Failed to create chat session")
 
 # ===============================
+# EVENT REGISTRATION ENDPOINTS  
+# ===============================
+
+@api_router.post("/event-registrations", response_model=dict)
+async def create_event_registration(registration: EventRegistrationCreate):
+    """Register for an event"""
+    try:
+        # Create registration record
+        new_registration = EventRegistration(**registration.dict())
+        registration_dict = new_registration.dict()
+        
+        # Store in database
+        result = await db.event_registrations.insert_one(registration_dict)
+        
+        logger.info(f"Event registration created: {new_registration.id} for event: {registration.event_title}")
+        
+        return {
+            "id": new_registration.id,
+            "message": f"Successfully registered for {registration.event_title}",
+            "event": registration.event_title,
+            "status": "confirmed"
+        }
+    except Exception as e:
+        logger.error(f"Error creating event registration: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to process registration")
+
+@api_router.get("/event-registrations")
+async def get_event_registrations(skip: int = 0, limit: int = 50):
+    """Get all event registrations (for admin purposes)"""
+    try:
+        registrations = await db.event_registrations.find().sort("created_at", -1).skip(skip).limit(limit).to_list(length=None)
+        return {"registrations": registrations}
+    except Exception as e:
+        logger.error(f"Error fetching event registrations: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch registrations")
+
+# ===============================
+# CONTACT FORM ENDPOINTS
+# ===============================
+
+@api_router.post("/contact", response_model=dict)
+async def create_contact_form(contact: ContactFormCreate):
+    """Submit contact form"""
+    try:
+        # Create contact record
+        new_contact = ContactForm(**contact.dict())
+        contact_dict = new_contact.dict()
+        
+        # Store in database
+        result = await db.contact_forms.insert_one(contact_dict)
+        
+        logger.info(f"Contact form submitted: {new_contact.id} from {contact.email}")
+        
+        return {
+            "id": new_contact.id,
+            "message": "Your message has been received. We'll get back to you soon!",
+            "status": "received"
+        }
+    except Exception as e:
+        logger.error(f"Error creating contact form: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to process contact form")
+
+@api_router.get("/contact")
+async def get_contact_forms(skip: int = 0, limit: int = 50):
+    """Get all contact forms (for admin purposes)"""
+    try:
+        contacts = await db.contact_forms.find().sort("created_at", -1).skip(skip).limit(limit).to_list(length=None)
+        return {"contacts": contacts}
+    except Exception as e:
+        logger.error(f"Error fetching contact forms: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch contact forms")
+
+# ===============================
 # DONATION ENDPOINTS
 # ===============================
 
