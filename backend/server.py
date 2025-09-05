@@ -607,12 +607,39 @@ async def create_contact_form(contact: ContactFormCreate):
         # Store in database
         result = await db.contact_forms.insert_one(contact_dict)
         
+        # Send email notification to Pastor James
+        email_subject = f"📧 New Contact Form: {contact.subject}"
+        email_body = f"""
+New Contact Form Submission!
+
+Name: {contact.name}
+Email: {contact.email}
+Phone: {contact.phone or 'Not provided'}
+Subject: {contact.subject}
+
+Message:
+{contact.message}
+
+Contact ID: {new_contact.id}
+Date: {new_contact.created_at}
+
+Please respond to the person directly at their email address.
+
+Best regards,
+First Lutheran Church of Miami Website
+        """
+        
+        # Send notification
+        await send_email_notification(email_subject, email_body, CHURCH_EMAIL)
+        
         logger.info(f"Contact form submitted: {new_contact.id} from {contact.email}")
+        logger.info(f"Email notification sent to: {CHURCH_EMAIL}")
         
         return {
             "id": new_contact.id,
-            "message": "Your message has been received. We'll get back to you soon!",
-            "status": "received"
+            "message": "Your message has been received. Pastor James will respond personally within 24-48 hours.",
+            "status": "received",
+            "notification_sent": True
         }
     except Exception as e:
         logger.error(f"Error creating contact form: {str(e)}")
