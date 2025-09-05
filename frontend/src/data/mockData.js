@@ -308,7 +308,7 @@ export const calendarData = {
         date: 31,
         dayOfWeek: 'Thursday',
         events: [
-          { time: '7:00 PM', title: 'FREE Tech Learning for Miami Children', type: 'education' }
+          { time: '7:00 PM', title: 'FREE Tech Learning for Miami Children (Ages 5-18)', type: 'education' }
         ]
       }
     ]
