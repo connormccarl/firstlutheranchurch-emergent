@@ -126,6 +126,18 @@ export const mockEvents = [
     type: 'worship',
     image: 'https://voyagemia.com/wp-content/uploads/2025/02/c-1739001069779-personal_1739001564590_1739001564590_pastorjames_dunham_pastor-james-santiago-dunham-first-lutheran-church-of-miami-1-1.jpg',
     pastor: 'Pastor James Dunham'
+  },
+  {
+    id: 208,
+    title: 'FREE Tech Learning for Miami Children (Ages 5-18)',
+    date: '2025-10-31',
+    time: '7:00 PM - 9:30 PM',
+    location: 'First Lutheran Learning Center, 1770 Brickell Ave, Miami, FL 33129',
+    description: 'Attention all Miami children ages 5-18: Learn everything you want to know about computers, AI, Web design, and computer help - FREE! Hosted by John Riley Jr, Sr (Miami computer experts) and Pastor James leads motivational devotion. Register now for FREE!',
+    type: 'education',
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/5opvgpmm_Screenshot_20250902_162337_Add%20Text.jpg',
+    contact: 'Email: johnrileytech­solutions7@gmail.com | Phone: (561) 674-3150',
+    hosts: 'John Riley Jr, Sr & Pastor James Dunham'
   }
 ];
 
