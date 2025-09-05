@@ -105,6 +105,14 @@ const Gallery = () => {
       description: 'Multilingual worship and classes invitation',
       category: 'community'
     },
+    {
+      id: 18,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/zr2830yy_20250826_133658.jpg',
+      title: 'Pastor James Community Outreach',
+      description: 'Pastor James connecting with local Miami businesses and community members',
+      category: 'community'
+    },
     
     // YouTube Videos - Music Category
     {
