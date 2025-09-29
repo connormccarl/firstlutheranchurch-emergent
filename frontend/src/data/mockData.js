@@ -138,6 +138,30 @@ export const mockEvents = [
     image: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/5opvgpmm_Screenshot_20250902_162337_Add%20Text.jpg',
     contact: 'Email: johnrileytech­solutions7@gmail.com | Phone: (561) 674-3150',
     hosts: 'John Riley Jr, Sr & Pastor James Dunham'
+  },
+  {
+    id: 209,
+    title: "Dr. Tingting's Student Piano Recital",
+    date: '2025-10-11',
+    time: '3:00 PM - 6:00 PM',
+    location: 'First Lutheran Church of Miami, 1770 Brickell Ave, Miami, FL 33129',
+    description: 'Join us for a beautiful afternoon of music as Dr. Tingting Wu\'s talented piano students showcase their skills in a special recital. Experience the joy of music and witness the progress of our young musicians under the guidance of our world-class pianist and instructor.',
+    type: 'music',
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/btvo34vs_Tingting%2BCoverPhoto%2Bfor%2BVoyageMIA%2B06282025.webp',
+    instructor: 'Dr. Tingting Wu',
+    contact: 'pianowtt@gmail.com | (857) 264-6097'
+  },
+  {
+    id: 210,
+    title: "Dr. Tingting's Piano Recital",
+    date: '2025-10-25',
+    time: '8:00 PM',
+    location: 'First Lutheran Church of Miami, 1770 Brickell Ave, Miami, FL 33129',
+    description: 'Experience an evening of extraordinary classical music with internationally acclaimed pianist Dr. Tingting Wu. This special recital will feature masterful performances of classical repertoire, showcasing Dr. Tingting\'s world-class artistry in our intimate church setting.',
+    type: 'music',
+    image: 'https://customer-assets.emergentagent.com/job_faith-connect-miami/artifacts/btvo34vs_Tingting%2BCoverPhoto%2Bfor%2BVoyageMIA%2B06282025.webp',
+    performer: 'Dr. Tingting Wu - International Concert Pianist',
+    contact: 'pianowtt@gmail.com | (857) 264-6097'
   }
 ];
 
