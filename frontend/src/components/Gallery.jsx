@@ -113,6 +113,46 @@ const Gallery = () => {
       description: 'Pastor James connecting with local Miami businesses and community members',
       category: 'community'
     },
+    {
+      id: 19,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/apat6neq_Cristina%20and%20James%20%282%29.JPG',
+      title: 'Cristina and Pastor James',
+      description: 'Pastor James with Cristina, building relationships in our church community',
+      category: 'community'
+    },
+    {
+      id: 20,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/1hprx8av_Dr.%20Tingting%20Wu%2C%20Pastor%20James%2C%20and%20amazing%20friends%20at%20First%20Lutheran%20Church%20of%20Miami..jpg',
+      title: 'Dr. Tingting Wu, Pastor James & Church Friends',
+      description: 'Dr. Tingting Wu, Pastor James, and amazing friends at First Lutheran Church of Miami',
+      category: 'community'
+    },
+    {
+      id: 21,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/qq07jghx_JR%20and%20Pastor%20James.jpg',
+      title: 'John Riley and Pastor James',
+      description: 'Pastor James with John Riley, our tech tutoring program leader',
+      category: 'community'
+    },
+    {
+      id: 22,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/2t2u1t2x_Ketler%2C%20Pastor%20Santiago%2C%20Gigi%21.jpg',
+      title: 'Ketler, Pastor Santiago & Gigi',
+      description: 'Pastor Santiago (James) with Ketler and Gigi - wonderful church fellowship',
+      category: 'community'
+    },
+    {
+      id: 23,
+      type: 'image',
+      src: 'https://customer-assets.emergentagent.com/job_faith-connect-30/artifacts/dsktzjhd_Ketler%2C%20Santiago%2C%20Gigi%202.0%21.jpg',
+      title: 'Ketler, Santiago & Gigi 2.0',
+      description: 'Another joyful moment with Pastor Santiago, Ketler and Gigi at our church',
+      category: 'community'
+    },
     
     // YouTube Videos - Music Category
     {
