@@ -314,11 +314,25 @@ export const calendarData = {
         ]
       },
       {
+        date: 11,
+        dayOfWeek: 'Saturday',
+        events: [
+          { time: '3:00 PM', title: "Dr. Tingting's Student Piano Recital", type: 'music' }
+        ]
+      },
+      {
         date: 19,
         dayOfWeek: 'Sunday',
         events: [
           { time: '1:00 PM', title: 'Sunday Worship Service', type: 'worship' },
           { time: '2:00 PM', title: 'Catechism Classes', type: 'study' }
+        ]
+      },
+      {
+        date: 25,
+        dayOfWeek: 'Saturday',
+        events: [
+          { time: '8:00 PM', title: "Dr. Tingting's Piano Recital", type: 'music' }
         ]
       },
       {
