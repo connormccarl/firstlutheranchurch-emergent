@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -42,7 +44,7 @@ const Contact = () => {
     e.preventDefault();
     
     try {
-      const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
       
       // Send contact form data to backend
       const response = await fetch(`${backendUrl}/api/contact`, {

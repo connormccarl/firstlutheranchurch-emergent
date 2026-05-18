@@ -1,3 +1,7 @@
+'use client';
+
+import Link from 'next/link';
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 import { Button } from './ui/button';
@@ -5,8 +9,6 @@ import { Badge } from './ui/badge';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { Church, Heart, Users, Calendar, Music, Award, Mail, Phone, Laptop } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
 const About = () => {
   return (
     <div className="min-h-screen">
@@ -109,7 +111,7 @@ const About = () => {
                       </a>
                     </div>
                     <Link 
-                      to="/pastor-james-article" 
+                      href="/pastor-james-article" 
                       className="text-blue-600 hover:text-blue-800 font-medium transition-colors block"
                     >
                       📰 Featured in Voyage MIA Magazine
@@ -178,7 +180,7 @@ const About = () => {
                         🎹 Miami Piano Light Concert Experience!
                       </a>
                       <Link 
-                        to="/dr-tingting-article" 
+                        href="/dr-tingting-article" 
                         className="text-purple-600 hover:text-purple-800 font-medium transition-colors block"
                       >
                         📰 Featured in Bold Journey Magazine
@@ -230,7 +232,7 @@ const About = () => {
                         🏫 KCC STEAM in South Florida
                       </a>
                       <Link 
-                        to="/john-riley-article" 
+                        href="/john-riley-article" 
                         className="text-blue-600 hover:text-blue-800 font-medium transition-colors block"
                       >
                         📰 Featured in Miami Herald

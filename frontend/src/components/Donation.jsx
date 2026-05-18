@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
@@ -163,7 +165,7 @@ const Donation = ({ isOpen, onClose }) => {
       };
 
       // Call backend API to record donation
-      const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
       
       const response = await fetch(`${backendUrl}/api/donations`, {
         method: 'POST',

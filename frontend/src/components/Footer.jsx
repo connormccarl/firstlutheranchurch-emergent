@@ -1,5 +1,8 @@
+'use client';
+
+import Link from 'next/link';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Church, Facebook, Instagram, Youtube, Mail, Phone, MapPin, Music, Globe } from 'lucide-react';
 
 const Footer = () => {
@@ -49,32 +52,32 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 text-amber-400">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
+                <Link href="/" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
+                <Link href="/about" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
+                <Link href="/events" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Events
                 </Link>
               </li>
               <li>
-                <Link to="/media" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
+                <Link href="/media" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Media
                 </Link>
               </li>
               <li>
-                <Link to="/ai-assistant" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
+                <Link href="/ai-assistant" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   AI Assistant
                 </Link>
               </li>
               <li>
-                <Link to="/schedule" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
+                <Link href="/schedule" className="text-white font-bold hover:text-amber-400 transition-colors duration-200">
                   Schedule Meeting
                 </Link>
               </li>

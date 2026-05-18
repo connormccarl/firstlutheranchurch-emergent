@@ -1,5 +1,8 @@
+'use client';
+
+import Link from 'next/link';
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -303,7 +306,7 @@ const Gallery = () => {
               // Special handling for Eric Williams & Family - route to video page
               if (item.id === 1) {
                 return (
-                  <Link key={item.id} to="/pastor-james-video">
+                  <Link key={item.id} href="/pastor-james-video">
                     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">
                       <div className="relative">
                         <div className="h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
@@ -336,7 +339,7 @@ const Gallery = () => {
                 return (
                   <Link
                     key={item.id}
-                    to={`/video/${item.videoId}`}
+                    href={`/video/${item.videoId}`}
                     className="block"
                   >
                     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group">

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Play, Upload, Filter, Search, Video, Music, Image as ImageIcon, Calendar, User } from 'lucide-react';
 import { Button } from './ui/button';

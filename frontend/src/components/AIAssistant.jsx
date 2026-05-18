@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User, Clock, BookOpen, Heart, MessageCircle, Lightbulb } from 'lucide-react';
 import { Button } from './ui/button';

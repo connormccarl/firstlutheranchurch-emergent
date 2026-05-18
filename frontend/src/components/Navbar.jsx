@@ -1,5 +1,9 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Church, MessageCircle, Calendar, Image, Info, Home, Globe, Camera, Mail, Heart } from 'lucide-react';
 import { Button } from './ui/button';
 import Donation from './Donation';
@@ -9,7 +13,8 @@ const Navbar = () => {
   const [languageOpen, setLanguageOpen] = useState(false);
   const [donationOpen, setDonationOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('English');
-  const location = useLocation();
+  const pathname = usePathname();
+  const location = { pathname };
 
   const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -224,7 +229,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 min-w-0">
+          <Link href="/" className="flex items-center space-x-3 min-w-0">
             <img 
               src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
               alt="First Lutheran Church of Miami Logo" 
@@ -247,7 +252,7 @@ const Navbar = () => {
               return (
                 <Link
                   key={item.path}
-                  to={item.path}
+                  href={item.path}
                   className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     location.pathname === item.path
                       ? 'bg-amber-100 text-amber-700'
@@ -310,7 +315,7 @@ const Navbar = () => {
               return (
                 <Link
                   key={item.path}
-                  to={item.path}
+                  href={item.path}
                   className={`flex items-center justify-center p-2 rounded-md transition-colors duration-200 ${
                     location.pathname === item.path
                       ? 'bg-amber-100 text-amber-700'
@@ -392,7 +397,7 @@ const Navbar = () => {
                 return (
                   <Link
                     key={item.path}
-                    to={item.path}
+                    href={item.path}
                     className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                       location.pathname === item.path
                         ? 'bg-amber-100 text-amber-700'

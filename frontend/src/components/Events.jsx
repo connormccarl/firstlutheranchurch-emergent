@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Plus, Upload, Filter, Search, UserPlus, Users, CheckCircle, Edit, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
@@ -247,7 +249,7 @@ const Events = () => {
     e.preventDefault();
     
     try {
-      const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
       
       // Send registration data to backend
       const response = await fetch(`${backendUrl}/api/event-registrations`, {

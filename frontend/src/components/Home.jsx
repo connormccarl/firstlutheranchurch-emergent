@@ -1,5 +1,8 @@
+'use client';
+
+import Link from 'next/link';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Clock, Phone, Mail, MessageCircle, Users, Heart, BookOpen, Music, Globe } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
@@ -118,7 +121,7 @@ const Home = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg">
-              <Link to="/schedule">Schedule with Pastor</Link>
+              <Link href="/schedule">Schedule with Pastor</Link>
             </Button>
             <Button 
               variant="outline" 
@@ -239,7 +242,7 @@ const Home = () => {
                     <CardDescription className="text-base mb-4">{feature.description}</CardDescription>
                     {feature.link ? (
                       <Button asChild className="w-full bg-blue-900 hover:bg-blue-800">
-                        <Link to={feature.link}>Learn More</Link>
+                        <Link href={feature.link}>Learn More</Link>
                       </Button>
                     ) : (
                       <div className="text-sm text-amber-700 font-medium bg-amber-50 p-2 rounded">
@@ -275,7 +278,7 @@ const Home = () => {
                   </p>
                   <div className="border-t pt-4">
                     <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                      <Link to="/about">Learn More</Link>
+                      <Link href="/about">Learn More</Link>
                     </Button>
                   </div>
                 </div>
@@ -317,7 +320,7 @@ const Home = () => {
                     </a>
                     <div className="pt-3">
                       <Button asChild className="w-full bg-purple-600 hover:bg-purple-700">
-                        <Link to="/about#special-programs">Learn More</Link>
+                        <Link href="/about#special-programs">Learn More</Link>
                       </Button>
                     </div>
                   </div>
@@ -355,7 +358,7 @@ const Home = () => {
                     </div>
                     <div className="pt-3">
                       <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                        <Link to="/about#special-programs">Learn More</Link>
+                        <Link href="/about#special-programs">Learn More</Link>
                       </Button>
                     </div>
                   </div>
@@ -375,7 +378,7 @@ const Home = () => {
               <p className="text-lg text-gray-600 mt-2">{formatSundayDate()}</p>
             </div>
             <Button asChild variant="outline">
-              <Link to="/events">View All Events</Link>
+              <Link href="/events">View All Events</Link>
             </Button>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -427,7 +430,7 @@ const Home = () => {
                   We also offer Spanish classes and evangelism training.
                 </p>
                 <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                  <Link to="/about">Learn More</Link>
+                  <Link href="/about">Learn More</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -443,7 +446,7 @@ const Home = () => {
                   top 10 pianist worldwide, offers lessons for children and adults.
                 </p>
                 <Button asChild className="w-full bg-purple-600 hover:bg-purple-700">
-                  <Link to="/about">Contact Dr. Tingting</Link>
+                  <Link href="/about">Contact Dr. Tingting</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -505,7 +508,7 @@ const Home = () => {
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button asChild className="bg-amber-600 hover:bg-amber-700">
-                  <Link to="/schedule">Schedule a Meeting</Link>
+                  <Link href="/schedule">Schedule a Meeting</Link>
                 </Button>
                 <Button 
                   variant="outline" 
