@@ -1,13 +1,13 @@
 {
   "name": "@flc/cms",
-  "version": "0.1.0",
-  "description": "Lightweight, opinionated CMS toolkit for Next.js + MongoDB applications. Built for First Lutheran Church of Miami; reusable anywhere.",
+  "version": "0.2.0",
+  "description": "Lightweight, opinionated CMS toolkit for Next.js + PostgreSQL applications. Built for First Lutheran Church of Miami; reusable anywhere.",
   "license": "MIT",
   "author": "First Lutheran Church of Miami",
   "keywords": [
     "cms",
     "next.js",
-    "mongodb",
+    "postgresql",
     "admin",
     "dashboard"
   ],
@@ -23,8 +23,7 @@
     "./server": {
       "types": "./dist/server.d.ts",
       "import": "./dist/server.js"
-    },
-    "./styles.css": "./dist/styles.css"
+    }
   },
   "files": [
     "dist",
@@ -38,8 +37,8 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "mongodb": ">=6",
     "next": ">=14",
+    "pg": ">=8",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -48,9 +47,10 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/pg": "^8.11.10",
     "@types/react": "^19",
-    "mongodb": "^6.10.0",
     "next": "^15.1.6",
+    "pg": "^8.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^8.3.5",

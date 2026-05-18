@@ -9,9 +9,7 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  external: ["react", "react-dom", "next", "mongodb"],
+  external: ["react", "react-dom", "next", "pg"],
   splitting: false,
   treeshake: true,
-  loader: { ".css": "copy" },
-  onSuccess: "cp src/styles.css dist/styles.css 2>/dev/null || true",
 });

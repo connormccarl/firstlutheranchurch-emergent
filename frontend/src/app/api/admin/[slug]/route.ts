@@ -6,9 +6,9 @@ import {
   createRecord,
 } from "@flc/cms/server";
 import { cms } from "@/cms.config";
-import { getDb } from "@/lib/mongo";
+import { getPool } from "@/lib/pg";
 
-const deps = { config: cms, getDb };
+const deps = { config: cms, getPool };
 
 async function requireAuth() {
   const c = (await cookies()).get("flc_cms_admin")?.value;

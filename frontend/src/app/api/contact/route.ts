@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { getDb } from "@/lib/mongo";
+import { query } from "@/lib/pg";
 import { sendEmailNotification, CHURCH_EMAIL } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
@@ -18,8 +18,11 @@ export async function POST(req: NextRequest) {
       created_at: now,
     };
 
-    const db = await getDb();
-    await db.collection("contact_forms").insertOne({ ...contact });
+    await query(
+      `INSERT INTO contact_forms (id,name,email,phone,subject,message,status,created_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
+      [contact.id, contact.name, contact.email, contact.phone, contact.subject, contact.message, contact.status, contact.created_at],
+    );
 
     const subject = `📧 New Contact Form: ${contact.subject}`;
     const emailBody = `
@@ -41,13 +44,13 @@ Please respond to the person directly at their email address.
 Best regards,
 First Lutheran Church of Miami Website
     `.trim();
-    await sendEmailNotification(subject, emailBody, CHURCH_EMAIL);
+    const sent = await sendEmailNotification(subject, emailBody, CHURCH_EMAIL);
 
     return NextResponse.json({
       id: contact.id,
       message: "Your message has been received. Pastor James will respond personally within 24-48 hours.",
       status: "received",
-      notification_sent: true,
+      notification_sent: sent,
     });
   } catch (e) {
     console.error("Error creating contact form:", e);
@@ -60,14 +63,10 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const skip = parseInt(searchParams.get("skip") || "0", 10);
     const limit = parseInt(searchParams.get("limit") || "50", 10);
-    const db = await getDb();
-    const contacts = await db
-      .collection("contact_forms")
-      .find({}, { projection: { _id: 0 } })
-      .sort({ created_at: -1 })
-      .skip(skip)
-      .limit(limit)
-      .toArray();
+    const contacts = await query(
+      "SELECT * FROM contact_forms ORDER BY created_at DESC NULLS LAST LIMIT $1 OFFSET $2",
+      [limit, skip],
+    );
     return NextResponse.json({ contacts });
   } catch (e) {
     console.error("Error fetching contact forms:", e);

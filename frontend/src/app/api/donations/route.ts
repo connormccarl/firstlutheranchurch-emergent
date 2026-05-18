@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { getDb } from "@/lib/mongo";
+import { query } from "@/lib/pg";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,25 +9,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ detail: "Donation amount must be greater than 0" }, { status: 400 });
     }
     const now = new Date().toISOString();
-    const donation = {
-      id: randomUUID(),
-      amount: body.amount,
-      donor_name: body.donor_name,
-      donor_email: body.donor_email,
-      message: body.message || "",
-      payment_method: body.payment_method || "paypal",
-      status: "pending" as const,
-      paypal_order_id: null as string | null,
-      transaction_id: null as string | null,
-      created_at: now,
-      completed_at: null as string | null,
-    };
-    const db = await getDb();
-    await db.collection("donations").insertOne({ ...donation });
+    const id = randomUUID();
+    await query(
+      `INSERT INTO donations (id, amount, donor_name, donor_email, message, payment_method, status, created_at)
+       VALUES ($1,$2,$3,$4,$5,$6,'pending',$7)`,
+      [
+        id,
+        body.amount,
+        body.donor_name,
+        body.donor_email,
+        body.message || "",
+        body.payment_method || "paypal",
+        now,
+      ],
+    );
     return NextResponse.json({
-      id: donation.id,
+      id,
       message: "Donation record created successfully",
-      amount: donation.amount,
+      amount: body.amount,
       status: "pending",
     });
   } catch (e) {
@@ -41,14 +40,10 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const skip = parseInt(searchParams.get("skip") || "0", 10);
     const limit = parseInt(searchParams.get("limit") || "50", 10);
-    const db = await getDb();
-    const donations = await db
-      .collection("donations")
-      .find({}, { projection: { _id: 0 } })
-      .sort({ created_at: -1 })
-      .skip(skip)
-      .limit(limit)
-      .toArray();
+    const donations = await query(
+      "SELECT * FROM donations ORDER BY created_at DESC NULLS LAST LIMIT $1 OFFSET $2",
+      [limit, skip],
+    );
     return NextResponse.json({ donations });
   } catch (e) {
     console.error("Error fetching donations:", e);

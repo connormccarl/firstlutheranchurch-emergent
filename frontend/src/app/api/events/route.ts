@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { getDb } from "@/lib/mongo";
+import { query } from "@/lib/pg";
 
 export async function GET() {
   try {
-    const db = await getDb();
-    const events = await db.collection("events").find({}, { projection: { _id: 0 } }).toArray();
+    const events = await query(
+      "SELECT * FROM events ORDER BY date NULLS LAST, time NULLS LAST"
+    );
     return NextResponse.json(events);
   } catch (e) {
     console.error("Error fetching events:", e);
@@ -17,22 +18,25 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const now = new Date().toISOString();
-    const ev = {
-      id: randomUUID(),
-      title: body.title,
-      description: body.description || "",
-      date: body.date,
-      time: body.time,
-      location: body.location || "",
-      type: body.type,
-      pastor: body.pastor || "",
-      image: body.image || "",
-      created_at: now,
-      updated_at: now,
-    };
-    const db = await getDb();
-    await db.collection("events").insertOne({ ...ev });
-    return NextResponse.json(ev);
+    const id = randomUUID();
+    const rows = await query(
+      `INSERT INTO events (id, title, description, date, time, location, type, pastor, image, created_at, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$10)
+       RETURNING *`,
+      [
+        id,
+        body.title,
+        body.description || "",
+        body.date,
+        body.time,
+        body.location || "",
+        body.type,
+        body.pastor || "",
+        body.image || "",
+        now,
+      ],
+    );
+    return NextResponse.json(rows[0]);
   } catch (e) {
     console.error("Error creating event:", e);
     return NextResponse.json({ detail: "Failed to create event" }, { status: 500 });

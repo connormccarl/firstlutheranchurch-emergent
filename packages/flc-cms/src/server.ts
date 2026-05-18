@@ -1,11 +1,10 @@
 /**
  * Server-side exports for @flc/cms.
- * Includes:
- *  - createCMSHandlers: generic Next.js route handlers for CRUD on any resource
+ *  - createCMSHandlers: generic CRUD helpers backed by PostgreSQL (pg)
  *  - verifyAdminCookie / signAdminCookie: stateless password-gate helpers
  */
 import { randomUUID, createHmac, timingSafeEqual } from "crypto";
-import type { Db } from "mongodb";
+import type { Pool } from "pg";
 import type { CmsConfig, ResourceDef, ResourceRecord } from "./types.js";
 
 const COOKIE_NAME = "flc_cms_admin";
@@ -63,10 +62,11 @@ export function checkAdminPassword(provided: string): boolean {
   return timingSafeEqual(Buffer.from(provided), Buffer.from(expected));
 }
 
-/* ---------- CRUD handlers ---------- */
+/* ---------- CRUD handlers (PostgreSQL) ---------- */
 
 export interface CMSHandlerDeps {
-  getDb: () => Promise<Db>;
+  /** Returns a pg Pool (re-used across calls) */
+  getPool: () => Pool;
   config: CmsConfig;
 }
 
@@ -74,17 +74,27 @@ function findResource(config: CmsConfig, slug: string): ResourceDef | undefined 
   return config.resources.find((r) => r.slug === slug);
 }
 
-function sanitize(input: Record<string, unknown>, resource: ResourceDef): Record<string, unknown> {
+/** Safe identifier: letters, digits, underscore only. */
+function ident(name: string): string {
+  if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
+    throw new Error(`Unsafe identifier: ${name}`);
+  }
+  return `"${name}"`;
+}
+
+function castInputs(input: Record<string, unknown>, resource: ResourceDef): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const f of resource.fields) {
     if (f.key in input) {
       const v = input[f.key];
-      if (f.type === "number") {
+      if (v === "" || v === undefined) {
+        out[f.key] = null;
+      } else if (f.type === "number") {
         out[f.key] = typeof v === "number" ? v : parseFloat(String(v));
       } else if (f.type === "boolean") {
         out[f.key] = Boolean(v);
       } else {
-        out[f.key] = v ?? "";
+        out[f.key] = v;
       }
     }
   }
@@ -99,66 +109,95 @@ export interface ListOptions {
 export async function listRecords(
   deps: CMSHandlerDeps,
   slug: string,
-  opts: ListOptions = {}
+  opts: ListOptions = {},
 ): Promise<ResourceRecord[]> {
   const resource = findResource(deps.config, slug);
   if (!resource) throw new Error(`Unknown resource: ${slug}`);
-  const db = await deps.getDb();
-  return (await db
-    .collection(resource.collection)
-    .find({}, { projection: { _id: 0 } })
-    .sort({ created_at: -1 })
-    .skip(opts.skip || 0)
-    .limit(opts.limit || 500)
-    .toArray()) as unknown as ResourceRecord[];
+  const limit = opts.limit ?? 500;
+  const skip = opts.skip ?? 0;
+  const sql = `
+    SELECT * FROM ${ident(resource.collection)}
+    ORDER BY created_at DESC NULLS LAST
+    LIMIT $1 OFFSET $2
+  `;
+  const result = await deps.getPool().query(sql, [limit, skip]);
+  return result.rows as ResourceRecord[];
 }
 
 export async function createRecord(
   deps: CMSHandlerDeps,
   slug: string,
-  data: Record<string, unknown>
+  data: Record<string, unknown>,
 ): Promise<ResourceRecord> {
   const resource = findResource(deps.config, slug);
   if (!resource) throw new Error(`Unknown resource: ${slug}`);
   if (resource.readOnly) throw new Error(`Resource is read-only: ${slug}`);
+
+  const sanitized = castInputs(data, resource);
   const now = new Date().toISOString();
-  const record: ResourceRecord = {
-    id: randomUUID(),
-    ...sanitize(data, resource),
-    created_at: now,
-    updated_at: now,
-  };
-  const db = await deps.getDb();
-  await db.collection(resource.collection).insertOne({ ...record });
-  return record;
+  const id = randomUUID();
+  const cols = ["id", ...Object.keys(sanitized), "created_at", "updated_at"];
+  const values = [id, ...Object.values(sanitized), now, now];
+  const placeholders = cols.map((_, i) => `$${i + 1}`).join(", ");
+
+  const sql = `
+    INSERT INTO ${ident(resource.collection)} (${cols.map(ident).join(", ")})
+    VALUES (${placeholders})
+    RETURNING *
+  `;
+  const result = await deps.getPool().query(sql, values);
+  return result.rows[0] as ResourceRecord;
 }
 
 export async function updateRecord(
   deps: CMSHandlerDeps,
   slug: string,
   id: string,
-  data: Record<string, unknown>
+  data: Record<string, unknown>,
 ): Promise<ResourceRecord | null> {
   const resource = findResource(deps.config, slug);
   if (!resource) throw new Error(`Unknown resource: ${slug}`);
   if (resource.readOnly) throw new Error(`Resource is read-only: ${slug}`);
-  const update = { ...sanitize(data, resource), updated_at: new Date().toISOString() };
-  const db = await deps.getDb();
-  const result = await db
-    .collection(resource.collection)
-    .findOneAndUpdate({ id }, { $set: update }, { returnDocument: "after", projection: { _id: 0 } });
-  return (result as unknown as ResourceRecord | null) ?? null;
+
+  const sanitized = castInputs(data, resource);
+  const keys = Object.keys(sanitized);
+  if (!keys.length) {
+    // Nothing to update; just bump updated_at
+    const result = await deps
+      .getPool()
+      .query(
+        `UPDATE ${ident(resource.collection)} SET updated_at=$1 WHERE id=$2 RETURNING *`,
+        [new Date().toISOString(), id],
+      );
+    return (result.rows[0] as ResourceRecord) ?? null;
+  }
+
+  const sets = keys
+    .map((k, i) => `${ident(k)}=$${i + 1}`)
+    .concat([`"updated_at"=$${keys.length + 1}`])
+    .join(", ");
+
+  const values = [...Object.values(sanitized), new Date().toISOString(), id];
+  const sql = `
+    UPDATE ${ident(resource.collection)}
+    SET ${sets}
+    WHERE id=$${values.length}
+    RETURNING *
+  `;
+  const result = await deps.getPool().query(sql, values);
+  return (result.rows[0] as ResourceRecord) ?? null;
 }
 
 export async function deleteRecord(
   deps: CMSHandlerDeps,
   slug: string,
-  id: string
+  id: string,
 ): Promise<boolean> {
   const resource = findResource(deps.config, slug);
   if (!resource) throw new Error(`Unknown resource: ${slug}`);
   if (resource.readOnly) throw new Error(`Resource is read-only: ${slug}`);
-  const db = await deps.getDb();
-  const result = await db.collection(resource.collection).deleteOne({ id });
-  return result.deletedCount > 0;
+  const result = await deps
+    .getPool()
+    .query(`DELETE FROM ${ident(resource.collection)} WHERE id=$1`, [id]);
+  return (result.rowCount ?? 0) > 0;
 }

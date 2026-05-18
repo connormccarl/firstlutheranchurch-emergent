@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { getDb } from "@/lib/mongo";
+import { query } from "@/lib/pg";
 import { sendEmailNotification, CHURCH_EMAIL } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
@@ -18,8 +18,11 @@ export async function POST(req: NextRequest) {
       created_at: now,
     };
 
-    const db = await getDb();
-    await db.collection("event_registrations").insertOne({ ...reg });
+    await query(
+      `INSERT INTO event_registrations (id,event_title,name,email,phone,notes,status,created_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
+      [reg.id, reg.event_title, reg.name, reg.email, reg.phone, reg.notes, reg.status, reg.created_at],
+    );
 
     const subject = `🎉 New Event Registration: ${reg.event_title}`;
     const emailBody = `
@@ -39,14 +42,14 @@ Please contact the registrant to confirm their attendance.
 Best regards,
 First Lutheran Church of Miami Website
     `.trim();
-    await sendEmailNotification(subject, emailBody, CHURCH_EMAIL);
+    const sent = await sendEmailNotification(subject, emailBody, CHURCH_EMAIL);
 
     return NextResponse.json({
       id: reg.id,
       message: `Successfully registered for ${reg.event_title}`,
       event: reg.event_title,
       status: "confirmed",
-      notification_sent: true,
+      notification_sent: sent,
     });
   } catch (e) {
     console.error("Error creating event registration:", e);
@@ -59,14 +62,10 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const skip = parseInt(searchParams.get("skip") || "0", 10);
     const limit = parseInt(searchParams.get("limit") || "50", 10);
-    const db = await getDb();
-    const registrations = await db
-      .collection("event_registrations")
-      .find({}, { projection: { _id: 0 } })
-      .sort({ created_at: -1 })
-      .skip(skip)
-      .limit(limit)
-      .toArray();
+    const registrations = await query(
+      "SELECT * FROM event_registrations ORDER BY created_at DESC NULLS LAST LIMIT $1 OFFSET $2",
+      [limit, skip],
+    );
     return NextResponse.json({ registrations });
   } catch (e) {
     console.error("Error fetching event registrations:", e);
