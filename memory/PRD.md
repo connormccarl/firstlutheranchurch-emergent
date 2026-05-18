@@ -1,45 +1,55 @@
 # First Lutheran Church of Miami — PRD
 
 ## Original Problem Statement
-First Lutheran Church of Miami web app — multilingual church site featuring worship info, events with online registration, donation system (PayPal + Zeffy), media gallery (YouTube embeds), AI spiritual assistant, contact form, scheduling with Pastor James, and pastor/musician articles.
+First Lutheran Church of Miami web app — multilingual church site with worship info, events with online registration, donation system (PayPal + Zeffy), media gallery (YouTube embeds), AI spiritual assistant, contact form, scheduling, and pastor/musician articles. **Now also bundled with a reusable CMS package (`@flc/cms`)** for pastor & staff to manage content.
 
-## Architecture (as of Feb 2026 — Next.js migration)
+## Architecture (Feb 2026)
 - **Frontend & Backend**: Next.js 15 App Router (TypeScript) at `/app/frontend` — port 3000
-  - All pages use App Router (`src/app/<route>/page.tsx`)
-  - All React components: `'use client'` directives, located in `src/components/`
-  - API routes under `src/app/api/...` (TypeScript) — replaces the previous FastAPI server
-- **Database**: MongoDB (via `mongodb` Node driver) — `MONGO_URL`, `DB_NAME` from `.env`
-- **Email notifications**: Nodemailer (logs only if SMTP not configured) — routed to `pastorjamesdunham@gmail.com`
-- **Legacy FastAPI backend** still runs at `/app/backend` on port 8001 (no longer called from the frontend; can be retired)
-- **Old CRA frontend** preserved at `/app/frontend-old` as a rollback backup
+- **API Proxy**: thin FastAPI at `/app/backend/server.py` on port 8001 that forwards every `/api/*` request to Next.js (the platform's ingress hardcodes `/api/*` → 8001)
+- **Database**: MongoDB
+- **CMS package**: standalone publishable `@flc/cms` at `/app/packages/flc-cms`
+- **Old CRA frontend**: preserved at `/app/frontend-old` for rollback
 
-## Routes
-- `/` Home, `/about`, `/events`, `/media`, `/ai-assistant`, `/schedule`, `/gallery`, `/contact`
-- `/dr-tingting-article`, `/john-riley-article`, `/pastor-james-article`, `/pastor-james-video`
-- `/video/[videoId]` — generic YouTube embed page
+## /admin section
+- Password-gated (HMAC-signed cookie, 12 h TTL)
+- Distinct dashboard with dark sidebar
+- Manages: Events (CRUD), Gallery (CRUD), Media (CRUD), Site Content (CRUD), Registrations (read-only), Contact Submissions (read-only), Donations (read-only)
+- Plus: `/admin/export` — Excel workbook export
 
-## API endpoints (Next.js route handlers)
-- `GET /api` — health
+## @flc/cms — NPM package
+Standalone, publishable at `/app/packages/flc-cms`. Two entry points:
+- `@flc/cms` — React components: `AdminShell`, `Sidebar`, `PasswordGate`, `DataTable`, `RecordForm`, `ResourcePage`, `defineCmsConfig`
+- `@flc/cms/server` — server helpers: `signAdminCookie`, `verifyAdminCookie`, `checkAdminPassword`, `listRecords`, `createRecord`, `updateRecord`, `deleteRecord`
+
+**Build**: `tsup` → ESM + `.d.ts`.
+**Tests**: 7 passing (`tsx --test`).
+
+## Routes (host app)
+- Public: `/`, `/events`, `/media`, `/ai-assistant`, `/schedule`, `/about`, `/gallery`, `/contact`, `/dr-tingting-article`, `/john-riley-article`, `/pastor-james-article`, `/pastor-james-video`, `/video/[videoId]`
+- Admin (password-gated): `/admin`, `/admin/events`, `/admin/gallery`, `/admin/media`, `/admin/site-content`, `/admin/registrations`, `/admin/contact`, `/admin/donations`, `/admin/export`
+
+## API endpoints
+### Public
 - `GET/POST /api/events`, `GET/PUT/DELETE /api/events/[id]`
-- `POST /api/event-registrations` (writes to MongoDB + sends email notification)
-- `POST /api/contact` (writes to MongoDB + sends email notification)
-- `POST /api/donations`, `GET /api/donations`
+- `POST /api/event-registrations`, `POST /api/contact`, `POST /api/donations`
+- `GET /api/export/excel`, `GET /api/export/counts`
 
-## Completed (Feb 18, 2026 — this session)
-- Full migration of CRA + React Router + FastAPI to Next.js 15 App Router + TypeScript
-- All 17 components migrated with router shims (`useLocation` → `usePathname`, `<Link to>` → `<Link href>`)
-- All shadcn UI components have `'use client'` directive
-- MongoDB + email API routes ported from FastAPI to Next.js route handlers
-- Live tested end-to-end through preview URL (https://miami-lutheran-app.preview.emergentagent.com)
-- All 13 page routes return 200; all 3 form endpoints (contact, event-registrations, donations) persist to MongoDB
+### Admin (cookie-gated)
+- `POST /api/admin/login`, `POST /api/admin/logout`, `GET /api/admin/me`
+- `GET/POST /api/admin/[slug]`, `PUT/DELETE /api/admin/[slug]/[id]`
+
+## Completed in current session (May 18 2026)
+- Full CRA → Next.js 15 App Router (TS) migration
+- FastAPI → Next.js API routes for all backend logic, plus FastAPI proxy shim
+- Excel export feature (admin + direct API)
+- `@flc/cms` standalone NPM package (src, build, tsup, 7 unit tests, README)
+- `/admin` dashboard: password gate, sidebar, dashboard with live counts, CRUD pages for Events / Gallery / Media / Site Content, read-only views for Registrations / Contact / Donations
 
 ## Backlog / Next steps
-- P1: Configure real SMTP credentials (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`) so emails actually send instead of logging only
-- P1: Decommission `/app/backend` FastAPI process (no longer called)
-- P2: Convert remaining `.jsx` components to `.tsx` for full TypeScript strictness
-- P2: Add SSR/SSG where appropriate (Home, About can be statically generated)
-- P3: Run full testing-agent regression pass on the migrated site
-- P3: Deploy to production
-
-## Test credentials
-None required — all routes are public.
+- P1: Wire real SMTP credentials so contact/registration emails actually send
+- P1: Rotate `ADMIN_PASSWORD` and `CMS_SECRET` before going to production
+- P2: Decommission FastAPI proxy at deploy time (route `/api/*` directly to Next.js)
+- P2: Convert remaining `.jsx` to `.tsx`
+- P2: Add SSR/SSG to Home/About/Articles for SEO
+- P3: Publish `@flc/cms` to npm (`npm publish --access public`)
+- P3: Run full testing-agent regression pass on the new CMS flows
