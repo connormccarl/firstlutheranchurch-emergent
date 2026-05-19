@@ -33,9 +33,11 @@ const Donation = ({ isOpen, onClose }) => {
         return;
       }
 
-      // Create script element
+      // Create script element. Client ID is sourced from env so it can be
+      // rotated/replaced per environment without changing source.
+      const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
       const script = document.createElement('script');
-      script.src = 'https://www.paypal.com/sdk/js?client-id=BAAvQSKEbfIoZAHW1ywBJZVJfgfhu1kV0H74ILTrzdYUfeDMHE0ZgMge_1My6f3AOOAl-sib6HnHAxg5Do&components=hosted-buttons&enable-funding=venmo&currency=USD';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${paypalClientId}&components=hosted-buttons&enable-funding=venmo&currency=USD`;
       script.async = true;
       script.onload = () => {
         setPaypalLoaded(true);
@@ -65,9 +67,10 @@ const Donation = ({ isOpen, onClose }) => {
       if (container) {
         container.innerHTML = '';
         
-        // Render PayPal hosted button
+        // Render PayPal hosted button (ID from env so it can be swapped per env).
+        const hostedButtonId = process.env.NEXT_PUBLIC_PAYPAL_HOSTED_BUTTON_ID;
         window.paypal.HostedButtons({
-          hostedButtonId: "4Q83P6E6UGSV6",
+          hostedButtonId,
         }).render("#paypal-container").catch(err => {
           console.error('PayPal render error:', err);
           toast({

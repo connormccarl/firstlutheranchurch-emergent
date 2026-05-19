@@ -1,10 +1,18 @@
+/**
+ * Auth API surface — login, logout, /me, request-reset, reset.
+ *
+ * Implementation lives in `@connormccarl/nextos/server`. We pass a *relative*
+ * `resetUrlBase` so the package can derive the live origin from each request
+ * (x-forwarded-host / host headers). This means the same code works on the
+ * Emergent preview URL, Vercel production, and any custom domain without
+ * touching environment variables.
+ */
 import { authHandlers } from "@connormccarl/nextos/server";
 import { ensureBootstrap } from "@/lib/bootstrap";
 
 const { GET: _GET, POST: _POST } = authHandlers({
-  resetUrlBase:
-    (process.env.NEXT_PUBLIC_SITE_URL || "https://miami-lutheran-app.preview.emergentagent.com") +
-    "/reset-password",
+  // Relative path → origin is resolved per-request inside the package.
+  resetUrlBase: "/reset-password",
   allowRegistration: false,
   defaultRole: "viewer",
 });

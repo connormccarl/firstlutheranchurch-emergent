@@ -38,12 +38,42 @@ import {
 import { requestPasswordReset, consumePasswordResetToken } from "./reset.js";
 
 export interface AuthHandlerOptions {
-  /** Where the reset-password page lives on the consuming app (full URL). */
+  /**
+   * Where the reset-password page lives on the consuming app.
+   *
+   * Accepts either:
+   *   - A relative path (e.g. `"/reset-password"`) — the handler will prepend
+   *     the request's own origin at runtime. This is the recommended form
+   *     because it works correctly across preview, production, and custom
+   *     domains without any per-environment config.
+   *   - An absolute URL (e.g. `"https://example.com/reset-password"`) — used
+   *     verbatim. Useful when reset links must point to a different domain.
+   */
   resetUrlBase: string;
   /** Allow self-registration via POST /api/auth/register. Default: false. */
   allowRegistration?: boolean;
   /** Override default role assigned at registration. Default: "viewer". */
   defaultRole?: string;
+}
+
+/**
+ * Resolve `resetUrlBase` against the incoming request when it is a relative
+ * path. Absolute URLs (http/https) pass through unchanged.
+ */
+function resolveResetUrlBase(req: NextRequest, configured: string): string {
+  if (/^https?:\/\//i.test(configured)) return configured;
+  // Trust the platform's forwarded host (preview, production, custom domain).
+  const proto =
+    req.headers.get("x-forwarded-proto") ??
+    req.nextUrl.protocol.replace(":", "") ??
+    "https";
+  const host =
+    req.headers.get("x-forwarded-host") ??
+    req.headers.get("host") ??
+    req.nextUrl.host;
+  const origin = `${proto}://${host}`;
+  const path = configured.startsWith("/") ? configured : `/${configured}`;
+  return `${origin}${path}`;
 }
 
 function jsonError(message: string, status: number, extras: Record<string, unknown> = {}) {
@@ -162,7 +192,10 @@ async function handleRequestReset(
 ): Promise<NextResponse> {
   const body = await req.json().catch(() => null);
   if (!body?.email) return jsonError("Email required", 400);
-  const result = await requestPasswordReset(body.email, { resetUrlBase: opts.resetUrlBase });
+  // Derive the reset URL from the live request so preview/production/custom
+  // domain users all get a link pointing back to the host they're using.
+  const resetUrlBase = resolveResetUrlBase(req, opts.resetUrlBase);
+  const result = await requestPasswordReset(body.email, { resetUrlBase });
   // Don't leak account existence
   return NextResponse.json({ ok: true, devToken: result.devToken });
 }
