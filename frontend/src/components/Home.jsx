@@ -103,7 +103,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-8">
             <img 
-              src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+              src="/flc-logo.png" 
               alt="First Lutheran Church of Miami Logo" 
               className="h-48 w-48 md:h-64 md:w-64 lg:h-80 lg:w-80 object-contain filter drop-shadow-lg"
             />

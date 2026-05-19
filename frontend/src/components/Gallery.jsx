@@ -71,7 +71,7 @@ const Gallery = () => {
     {
       id: 6,
       type: 'image',
-      src: 'https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png',
+      src: '/flc-logo.png',
       title: 'First Lutheran Church of Miami Logo',
       description: 'Official church logo and branding',
       category: 'branding'
@@ -269,7 +269,7 @@ const Gallery = () => {
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
               <img 
-                src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+                src="/flc-logo.png" 
                 alt="First Lutheran Church of Miami Logo" 
                 className="h-28 w-28 md:h-32 md:w-32 object-contain filter drop-shadow-lg"
               />

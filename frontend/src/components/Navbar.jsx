@@ -231,8 +231,8 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 min-w-0">
             <img 
-              src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
-              alt="First Lutheran Church of Miami Logo" 
+              src="/flc-logo.png"
+              alt="First Lutheran Church of Miami Logo"
               className="h-20 w-20 md:h-24 md:w-24 flex-shrink-0 object-contain"
             />
             <div className="flex flex-col min-w-0">

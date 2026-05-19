@@ -19,7 +19,7 @@ const About = () => {
         <div className="max-w-5xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <img 
-              src="https://customer-assets.emergentagent.com/job_lutheran-church-web/artifacts/hskzjb5m_image.png" 
+              src="/flc-logo.png" 
               alt="First Lutheran Church of Miami Logo" 
               className="h-20 w-20 md:h-24 md:w-24 object-contain filter drop-shadow-lg"
             />
