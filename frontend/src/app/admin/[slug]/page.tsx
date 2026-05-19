@@ -1,8 +1,8 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
-import { ResourcePage } from "@flc/cms";
+import { ResourcePage } from "@connormccarl/nextos";
 import { cms } from "@/cms.config";
 
 interface Props {
@@ -11,9 +11,15 @@ interface Props {
 
 export default function Page({ params }: Props) {
   const { slug } = use(params);
-  // Don't intercept reserved children (export already has its own page)
+  const [csrf, setCsrf] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const t = (window as unknown as { __NEXTOS_CSRF__?: string }).__NEXTOS_CSRF__;
+    setCsrf(t);
+  }, []);
+
   if (slug === "export") return null;
   const resource = cms.resources.find((r) => r.slug === slug);
   if (!resource) notFound();
-  return <ResourcePage resource={resource!} />;
+  return <ResourcePage resource={resource!} csrfToken={csrf} />;
 }

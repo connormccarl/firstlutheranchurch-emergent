@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { query } from "@/lib/pg";
+import { query } from "@connormccarl/nextos/server";
 
 export const dynamic = "force-dynamic";
 

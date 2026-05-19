@@ -3,7 +3,7 @@ module.exports = {
   darkMode: ["class"],
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/@flc/cms/dist/**/*.{js,mjs}",
+    "./node_modules/@connormccarl/nextos/dist/**/*.{js,mjs}",
   ],
   theme: {
     extend: {

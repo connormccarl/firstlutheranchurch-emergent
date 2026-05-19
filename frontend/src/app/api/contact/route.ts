@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { query } from "@/lib/pg";
-import { sendEmailNotification, CHURCH_EMAIL } from "@/lib/email";
+import { query, sendEmail } from "@connormccarl/nextos/server";
+
+const CHURCH_EMAIL = process.env.CHURCH_EMAIL || "pastorjamesdunham@gmail.com";
 
 export async function POST(req: NextRequest) {
   try {
@@ -44,13 +45,13 @@ Please respond to the person directly at their email address.
 Best regards,
 First Lutheran Church of Miami Website
     `.trim();
-    const sent = await sendEmailNotification(subject, emailBody, CHURCH_EMAIL);
+    const sent = await sendEmail({ subject, body: emailBody, to: CHURCH_EMAIL, html: false });
 
     return NextResponse.json({
       id: contact.id,
       message: "Your message has been received. Pastor James will respond personally within 24-48 hours.",
       status: "received",
-      notification_sent: sent,
+      notification_sent: sent.ok,
     });
   } catch (e) {
     console.error("Error creating contact form:", e);

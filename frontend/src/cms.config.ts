@@ -1,4 +1,4 @@
-import { defineCmsConfig } from "@flc/cms";
+import { defineCmsConfig } from "@connormccarl/nextos";
 
 export const cms = defineCmsConfig({
   siteName: "First Lutheran Miami",

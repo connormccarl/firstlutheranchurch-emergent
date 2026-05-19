@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { query } from "@/lib/pg";
-import { sendEmailNotification, CHURCH_EMAIL } from "@/lib/email";
+import { query, sendEmail } from "@connormccarl/nextos/server";
+
+const CHURCH_EMAIL = process.env.CHURCH_EMAIL || "pastorjamesdunham@gmail.com";
 
 export async function POST(req: NextRequest) {
   try {
@@ -42,14 +43,14 @@ Please contact the registrant to confirm their attendance.
 Best regards,
 First Lutheran Church of Miami Website
     `.trim();
-    const sent = await sendEmailNotification(subject, emailBody, CHURCH_EMAIL);
+    const sent = await sendEmail({ subject, body: emailBody, to: CHURCH_EMAIL, html: false });
 
     return NextResponse.json({
       id: reg.id,
       message: `Successfully registered for ${reg.event_title}`,
       event: reg.event_title,
       status: "confirmed",
-      notification_sent: sent,
+      notification_sent: sent.ok,
     });
   } catch (e) {
     console.error("Error creating event registration:", e);

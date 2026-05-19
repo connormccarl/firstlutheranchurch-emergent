@@ -2,59 +2,65 @@
 
 ## Architecture (May 2026)
 - **Frontend & Backend**: Next.js 15 App Router (TypeScript) at `/app/frontend` — port 3000
-- **API proxy**: FastAPI at `/app/backend/server.py` forwards `/api/*` → Next.js (because the platform's ingress is hard-coded to port 8001)
-- **Database**: **PostgreSQL 17** — remote managed DB at `74.208.24.75:1691` (connection string in `DATABASE_URL`). All previous MongoDB collections migrated.
-- **Email**: **Zoho Mail Send API** with OAuth2 refresh-token flow (`/app/frontend/src/lib/email.ts`). Graceful fallback to console-log when Zoho env vars are unset.
-- **CMS package**: standalone publishable `@flc/cms` at `/app/packages/flc-cms` (now Postgres-backed; v0.2.0)
-- **Legacy**: MongoDB service is stopped. Old CRA frontend preserved at `/app/frontend-old` for rollback.
+- **API proxy**: FastAPI at `/app/backend/server.py` forwards `/api/*` → Next.js (because the platform ingress is hard-coded to port 8001)
+- **Database**: PostgreSQL 17 — managed by [@connormccarl/nextos](../packages/nextos)
+- **Email**: Zoho Mail Send API — managed by [@connormccarl/nextos](../packages/nextos)
+- **CMS + Auth toolkit**: standalone publishable `@connormccarl/nextos` v0.1.0 at `/app/packages/nextos`
+- **Legacy**: MongoDB stopped. Old CRA frontend at `/app/frontend-old` for rollback.
 
-## PostgreSQL schema (`/app/frontend/src/lib/schema.sql`)
-Tables: `events`, `event_registrations`, `contact_forms`, `donations`, `gallery`, `media`, `site_content` — each has `id` PK, `created_at`, `updated_at`, plus a JSONB `extra` for forward-compat.
+## @connormccarl/nextos v0.1.0
+Generic Next.js + PostgreSQL backend toolkit. Two entry points:
+- `@connormccarl/nextos` — `AdminShell`, `Sidebar`, `LoginForm`, `DataTable`, `RecordForm`, `ResourcePage`, `defineCmsConfig`
+- `@connormccarl/nextos/server` — DB pool, migrations, full auth (passwords, sessions, CSRF, password reset, brute-force lockout, role hierarchy), Zoho Mail client, CMS CRUD, ready-to-mount `authHandlers()`
 
-## @flc/cms v0.2.0
-PostgreSQL-backed CMS toolkit. Two entry points:
-- `@flc/cms` — `AdminShell`, `Sidebar`, `PasswordGate`, `DataTable`, `RecordForm`, `ResourcePage`, `defineCmsConfig`
-- `@flc/cms/server` — `signAdminCookie`, `verifyAdminCookie`, `checkAdminPassword`, generic `listRecords` / `createRecord` / `updateRecord` / `deleteRecord` (parameterized `pg` queries with safe identifier quoting)
-
-Build: `tsup` → ESM + `.d.ts`. Tests: 7 passing (`tsx --test`).
-
-## Zoho Mail integration
-`/app/frontend/src/lib/email.ts` exposes:
-- `sendEmail(opts)` — full-featured: subject, body, to, cc, bcc, html flag, askReceipt
-- `sendEmailNotification(subject, body, to)` — backward-compatible boolean helper
-- In-memory access-token cache (refreshed at ≥1 min before expiry)
-- Region-aware base URLs (`com` / `eu` / `in` / `au`)
-- Auth header uses `Zoho-oauthtoken` prefix (not `Bearer`) per Zoho docs
-- Falls back to console log when any of `ZOHO_CLIENT_ID/SECRET/REFRESH_TOKEN/ACCOUNT_ID/FROM_ADDRESS` are missing
+Features in the package:
+- bcrypt password hashing (cost 12, configurable via `BCRYPT_COST`)
+- Opaque 32-byte session tokens, only SHA-256 hash stored in DB
+- HTTP-only `Secure` `SameSite=Lax` session cookies + non-HttpOnly CSRF cookie (double-submit pattern)
+- 30-day rolling sessions with sliding `last_seen_at` updates
+- Brute-force lockout (5 failures/15 min → HTTP 429)
+- User-enumeration timing protection (always runs bcrypt)
+- One-shot password reset tokens (SHA-256 hashed, 60-min TTL, invalidates all sessions on use)
+- Role hierarchy `admin > editor > viewer` with `hasRole()` / `requireRole()` helpers
+- Idempotent SQL schema with `migrate()`; `seedAdmin()` reads `ADMIN_EMAIL`/`ADMIN_PASSWORD`
+- Zoho Mail Send API (OAuth2 refresh-token, region-aware) with console-log fallback
+- 10 unit tests, all passing
 
 ## Routes
 ### Public pages
 `/`, `/events`, `/media`, `/ai-assistant`, `/schedule`, `/about`, `/gallery`, `/contact`, `/dr-tingting-article`, `/john-riley-article`, `/pastor-james-article`, `/pastor-james-video`, `/video/[videoId]`
 
-### Admin (password-gated)
-`/admin`, `/admin/events`, `/admin/gallery`, `/admin/media`, `/admin/site-content`, `/admin/registrations`, `/admin/contact`, `/admin/donations`, `/admin/export`
+### Admin (session + role gated)
+`/admin`, `/admin/events`, `/admin/gallery`, `/admin/media`, `/admin/site-content`, `/admin/registrations`, `/admin/contact`, `/admin/donations`, `/admin/users`, `/admin/export`
 
 ### Public APIs
 - `GET/POST /api/events`, `GET/PUT/DELETE /api/events/[id]`
 - `POST /api/event-registrations`, `POST /api/contact`, `POST /api/donations`
 - `GET /api/export/excel`, `GET /api/export/counts`
 
-### Admin APIs (cookie-gated)
-- `POST /api/admin/login`, `POST /api/admin/logout`, `GET /api/admin/me`
+### Auth APIs (mounted via `authHandlers`)
+- `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
+- `POST /api/auth/register` (currently disabled; only admins create users)
+- `POST /api/auth/request-reset`, `POST /api/auth/reset`
+
+### Admin APIs (session + CSRF + role gated)
 - `GET/POST /api/admin/[slug]`, `PUT/DELETE /api/admin/[slug]/[id]`
+- `GET/POST /api/admin-users`, `PUT/DELETE /api/admin-users/[id]`
 
 ## Completed this session (May 18 2026)
-- Migrated all collections from MongoDB → PostgreSQL (12 events, 28 reg, 16 contact, 22 donations, 12 media)
-- Built `lib/pg.ts` connection pool; rewrote every API route to use parameterized SQL
-- Refactored `@flc/cms` server CRUD helpers from Mongo to Postgres; package version bumped to 0.2.0
-- Implemented Zoho Mail integration with OAuth refresh-token flow
-- Stopped MongoDB service; removed `mongodb` dep from the host app
+- Refactored CMS + DB + Email into a single standalone package `@connormccarl/nextos`
+- Built complete user-account auth: hashing, sessions, CSRF, password reset, brute-force lockout, role hierarchy
+- Added admin Users management page (`/admin/users`)
+- Wrote comprehensive README (300+ lines) with examples for any Next.js app
+- Added 10 unit tests; build green
+- Verified end-to-end live: login, dashboard, CMS list/create/delete with CSRF, role gating, brute-force lockout
 
 ## Backlog / Next steps
-- P1: Fill in the 5 `ZOHO_*` env vars to enable real email sending
-- P1: Rotate `ADMIN_PASSWORD` and `CMS_SECRET` for production
-- P2: Add a re-run script for the MongoDB → PG migration if MongoDB is ever revived
-- P2: Decommission the FastAPI proxy at deploy time
-- P2: Convert remaining `.jsx` → `.tsx`
+- P1: Fill 5 `ZOHO_*` env vars to enable real password-reset & notification emails
+- P1: Rotate `ADMIN_PASSWORD`
+- P2: Add password-reset UI pages (`/forgot-password`, `/reset-password`)
+- P2: Add Vercel cron route calling `purgeExpiredSessions()` daily
+- P2: Decommission FastAPI proxy at deploy time
+- P3: `npm publish @connormccarl/nextos` to the public npm registry
+- P3: Convert remaining `.jsx` → `.tsx`
 - P3: Add SSR/SSG to Home/About/Articles for SEO
-- P3: Publish `@flc/cms@0.2.0` to npm

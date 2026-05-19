@@ -1,47 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import {
-  verifyAdminCookie,
-  listRecords,
-  createRecord,
-} from "@flc/cms/server";
+  cmsListRecords,
+  cmsCreateRecord,
+  requireSession,
+  assertCsrf,
+  AuthError,
+} from "@connormccarl/nextos/server";
 import { cms } from "@/cms.config";
-import { getPool } from "@/lib/pg";
 
-const deps = { config: cms, getPool };
-
-async function requireAuth() {
-  const c = (await cookies()).get("flc_cms_admin")?.value;
-  return verifyAdminCookie(c);
+function err(e: unknown) {
+  if (e instanceof AuthError) return NextResponse.json({ detail: e.message }, { status: e.status });
+  return NextResponse.json(
+    { detail: e instanceof Error ? e.message : "Failed" },
+    { status: 400 },
+  );
 }
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
-  if (!(await requireAuth()))
-    return NextResponse.json({ detail: "Unauthorized" }, { status: 401 });
   try {
+    await requireSession("viewer");
     const { slug } = await params;
-    const records = await listRecords(deps, slug);
-    return NextResponse.json(records);
+    return NextResponse.json(await cmsListRecords(cms, slug));
   } catch (e) {
-    return NextResponse.json(
-      { detail: e instanceof Error ? e.message : "Failed" },
-      { status: 400 },
-    );
+    return err(e);
   }
 }
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
-  if (!(await requireAuth()))
-    return NextResponse.json({ detail: "Unauthorized" }, { status: 401 });
   try {
+    await requireSession("editor");
+    await assertCsrf(req);
     const { slug } = await params;
-    const data = await req.json();
-    const created = await createRecord(deps, slug, data);
+    const created = await cmsCreateRecord(cms, slug, await req.json());
     return NextResponse.json(created);
   } catch (e) {
-    return NextResponse.json(
-      { detail: e instanceof Error ? e.message : "Failed" },
-      { status: 400 },
-    );
+    return err(e);
   }
 }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { query } from "@/lib/pg";
+import { query } from "@connormccarl/nextos/server";
 
 export async function POST(req: NextRequest) {
   try {

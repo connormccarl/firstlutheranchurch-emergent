@@ -1,0 +1,77 @@
+{
+  "name": "@connormccarl/nextos",
+  "version": "0.1.0",
+  "description": "A batteries-included Next.js + PostgreSQL backend toolkit: authentication, sessions, password reset, transactional email (Zoho), and a drop-in CMS. Designed for Next.js 14+/15 App Router.",
+  "license": "MIT",
+  "author": "Connor McCarl",
+  "homepage": "https://github.com/connormccarl/nextos",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/connormccarl/nextos"
+  },
+  "keywords": [
+    "next.js",
+    "next",
+    "auth",
+    "authentication",
+    "postgresql",
+    "cms",
+    "zoho",
+    "sessions",
+    "rbac"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./schema.sql": "./dist/schema.sql"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup && cp src/schema.sql dist/schema.sql",
+    "dev": "tsup --watch",
+    "test": "tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "next": ">=14",
+    "pg": ">=8",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.507.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20",
+    "@types/pg": "^8.11.10",
+    "@types/react": "^19",
+    "next": "^15.1.6",
+    "pg": "^8.13.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.22.2",
+    "typescript": "^5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
