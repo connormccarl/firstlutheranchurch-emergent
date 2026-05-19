@@ -25,6 +25,7 @@ export {
   listUsers,
   setUserRole,
   setUserActive,
+  updateUserProfile,
   deleteUser,
   hasRole,
   requireRole,
@@ -33,7 +34,7 @@ export {
   AuthenticationError,
   AuthorizationError,
 } from "./auth/users.js";
-export type { Role, RegisterInput, LoginInput, LockoutCheck } from "./auth/users.js";
+export type { Role, RegisterInput, LoginInput, LockoutCheck, UpdateUserProfileInput } from "./auth/users.js";
 
 /* ---------- Auth: sessions ---------- */
 export {

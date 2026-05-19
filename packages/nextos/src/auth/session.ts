@@ -17,6 +17,10 @@ export interface User {
   id: string;
   email: string;
   name: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  phone: string | null;
+  title: string | null;
   role: string;
   is_active: boolean;
   email_verified: boolean;
@@ -92,7 +96,8 @@ export async function validateSession(
   const tokenHash = hashToken(token);
   const rows = await query<User & Session>(
     `SELECT
-       u.id, u.email, u.name, u.role, u.is_active, u.email_verified,
+       u.id, u.email, u.name, u.first_name, u.last_name, u.phone, u.title,
+       u.role, u.is_active, u.email_verified,
        u.created_at, u.last_login_at, u.metadata,
        s.id AS session_id, s.user_id, s.csrf_token, s.expires_at,
        s.user_agent, s.ip_address
@@ -107,6 +112,10 @@ export async function validateSession(
     id: string;
     email: string;
     name: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    phone: string | null;
+    title: string | null;
     role: string;
     is_active: boolean;
     email_verified: boolean;
@@ -132,6 +141,10 @@ export async function validateSession(
       id: r.id,
       email: r.email,
       name: r.name,
+      first_name: r.first_name,
+      last_name: r.last_name,
+      phone: r.phone,
+      title: r.title,
       role: r.role,
       is_active: r.is_active,
       email_verified: r.email_verified,

@@ -3,6 +3,7 @@ import {
   setUserRole,
   setUserActive,
   deleteUser,
+  updateUserProfile,
   requireSession,
   assertCsrf,
   AuthError,
@@ -19,9 +20,20 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     await assertCsrf(req);
     const { id } = await params;
     const body = await req.json();
+
+    // Profile fields (always update if any are present)
+    const profileKeys = ["email", "first_name", "last_name", "phone", "title", "name"];
+    const profileUpdate: Record<string, unknown> = {};
+    for (const k of profileKeys) {
+      if (k in body) profileUpdate[k] = body[k];
+    }
     let user = null;
+    if (Object.keys(profileUpdate).length > 0) {
+      user = await updateUserProfile(id, profileUpdate);
+    }
     if (typeof body.role === "string") user = await setUserRole(id, body.role);
     if (typeof body.is_active === "boolean") user = await setUserActive(id, body.is_active);
+
     return NextResponse.json(user ?? { ok: true });
   } catch (e) {
     return err(e);

@@ -9,6 +9,10 @@ CREATE TABLE IF NOT EXISTS users (
   email           TEXT NOT NULL UNIQUE,
   password_hash   TEXT NOT NULL,
   name            TEXT,
+  first_name      TEXT,
+  last_name       TEXT,
+  phone           TEXT,
+  title           TEXT,
   role            TEXT NOT NULL DEFAULT 'viewer',
   is_active       BOOLEAN NOT NULL DEFAULT true,
   email_verified  BOOLEAN NOT NULL DEFAULT false,
@@ -17,6 +21,11 @@ CREATE TABLE IF NOT EXISTS users (
   last_login_at   TIMESTAMPTZ,
   metadata        JSONB NOT NULL DEFAULT '{}'::jsonb
 );
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS first_name TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS last_name  TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS phone      TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS title      TEXT;
 
 CREATE INDEX IF NOT EXISTS idx_users_email_lower ON users (LOWER(email));
 

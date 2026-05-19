@@ -4,25 +4,27 @@
 - **URL**: https://miami-lutheran-app.preview.emergentagent.com/admin
 - **Email**: `pastorjamesdunham@gmail.com`
 - **Password**: `ChangeMe2026!`
+- **Profile**: James Dunham, Senior Pastor, 305-373-4457
 - **Role**: `admin`
 - Environment variables (in `/app/frontend/.env`):
   - `ADMIN_EMAIL=pastorjamesdunham@gmail.com`
   - `ADMIN_PASSWORD=ChangeMe2026!`
 
+## Additional test user
+- **Email**: `tingting@flc.org`
+- **Password**: `TestPass2026!`
+- **Profile**: Tingting Chen, Director of Music, 305-555-9999
+- **Role**: `editor`
+
 ## Public auth pages
 - **Forgot password**: https://miami-lutheran-app.preview.emergentagent.com/forgot-password
-  - When Zoho creds are missing, the response includes a `devToken` and the page shows a dev-mode reset link to click directly.
 - **Reset password**: https://miami-lutheran-app.preview.emergentagent.com/reset-password?token=…
-  - Accepts a `token` query parameter from the email link.
 
 ## Cron
-- **Endpoint**: `GET/POST /api/cron/cleanup`
-- **Auth**: If `CRON_SECRET` env var is set, requires `Authorization: Bearer <CRON_SECRET>`. Open otherwise (preview).
-- **Schedule** (Vercel): `0 3 * * *` (daily at 03:00 UTC) — see `/app/frontend/vercel.json`.
-- **What it does**: purges expired sessions, login attempts older than 7 days, and password resets older than 1 day.
+- **Endpoint**: `GET/POST /api/cron/cleanup` (Vercel cron daily at 03:00 UTC via `vercel.json`)
 
 ## PostgreSQL
-- Connection: `DATABASE_URL=postgresql://firstlutheranchurch:xRkokVfKiAKW@74.208.24.75:1691/firstlutheranchurch`
+- `DATABASE_URL=postgresql://firstlutheranchurch:xRkokVfKiAKW@74.208.24.75:1691/firstlutheranchurch`
 
 ## Roles
 - `admin` — full access (CRUD on resources, manage users)

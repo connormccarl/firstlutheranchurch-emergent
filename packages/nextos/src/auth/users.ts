@@ -51,10 +51,16 @@ export class AuthenticationError extends AuthError {
 
 /* ---------- User CRUD ---------- */
 
+const USER_COLS = `id, email, name, first_name, last_name, phone, title, role, is_active, email_verified, created_at, last_login_at, metadata`;
+
 export interface RegisterInput {
   email: string;
   password: string;
   name?: string;
+  first_name?: string;
+  last_name?: string;
+  phone?: string;
+  title?: string;
   role?: Role;
 }
 
@@ -64,8 +70,7 @@ function normalizeEmail(email: string): string {
 
 export async function findUserByEmail(email: string): Promise<User | null> {
   const rows = await query<User>(
-    `SELECT id, email, name, role, is_active, email_verified, created_at, last_login_at, metadata
-     FROM users WHERE LOWER(email) = $1`,
+    `SELECT ${USER_COLS} FROM users WHERE LOWER(email) = $1`,
     [normalizeEmail(email)],
   );
   return rows[0] ?? null;
@@ -73,8 +78,7 @@ export async function findUserByEmail(email: string): Promise<User | null> {
 
 export async function findUserById(id: string): Promise<User | null> {
   const rows = await query<User>(
-    `SELECT id, email, name, role, is_active, email_verified, created_at, last_login_at, metadata
-     FROM users WHERE id = $1`,
+    `SELECT ${USER_COLS} FROM users WHERE id = $1`,
     [id],
   );
   return rows[0] ?? null;
@@ -90,11 +94,23 @@ export async function registerUser(input: RegisterInput): Promise<User> {
 
   const password_hash = await hashPassword(input.password);
   const role = input.role ?? "viewer";
+  const fullName =
+    input.name ??
+    ([input.first_name, input.last_name].filter(Boolean).join(" ") || null);
   const rows = await query<User>(
-    `INSERT INTO users (email, password_hash, name, role)
-     VALUES ($1, $2, $3, $4)
-     RETURNING id, email, name, role, is_active, email_verified, created_at, last_login_at, metadata`,
-    [email, password_hash, input.name ?? null, role],
+    `INSERT INTO users (email, password_hash, name, first_name, last_name, phone, title, role)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+     RETURNING ${USER_COLS}`,
+    [
+      email,
+      password_hash,
+      fullName,
+      input.first_name ?? null,
+      input.last_name ?? null,
+      input.phone ?? null,
+      input.title ?? null,
+      role,
+    ],
   );
   return rows[0];
 }
@@ -141,16 +157,12 @@ export async function changePassword(userId: string, newPassword: string): Promi
 }
 
 export async function listUsers(): Promise<User[]> {
-  return query<User>(
-    `SELECT id, email, name, role, is_active, email_verified, created_at, last_login_at, metadata
-     FROM users ORDER BY created_at DESC`,
-  );
+  return query<User>(`SELECT ${USER_COLS} FROM users ORDER BY created_at DESC`);
 }
 
 export async function setUserRole(userId: string, role: Role): Promise<User | null> {
   const rows = await query<User>(
-    `UPDATE users SET role = $1, updated_at = now() WHERE id = $2
-     RETURNING id, email, name, role, is_active, email_verified, created_at, last_login_at, metadata`,
+    `UPDATE users SET role = $1, updated_at = now() WHERE id = $2 RETURNING ${USER_COLS}`,
     [role, userId],
   );
   return rows[0] ?? null;
@@ -158,9 +170,85 @@ export async function setUserRole(userId: string, role: Role): Promise<User | nu
 
 export async function setUserActive(userId: string, isActive: boolean): Promise<User | null> {
   const rows = await query<User>(
-    `UPDATE users SET is_active = $1, updated_at = now() WHERE id = $2
-     RETURNING id, email, name, role, is_active, email_verified, created_at, last_login_at, metadata`,
+    `UPDATE users SET is_active = $1, updated_at = now() WHERE id = $2 RETURNING ${USER_COLS}`,
     [isActive, userId],
+  );
+  return rows[0] ?? null;
+}
+
+export interface UpdateUserProfileInput {
+  email?: string;
+  first_name?: string | null;
+  last_name?: string | null;
+  phone?: string | null;
+  title?: string | null;
+  name?: string | null;
+}
+
+/**
+ * Update one or more profile fields for a user. Email change is validated for
+ * uniqueness. `name` is auto-derived from first+last when both are provided
+ * and `name` was not explicitly passed.
+ */
+export async function updateUserProfile(
+  userId: string,
+  input: UpdateUserProfileInput,
+): Promise<User | null> {
+  const sets: string[] = [];
+  const values: unknown[] = [];
+  let p = 1;
+
+  if (input.email !== undefined) {
+    const email = normalizeEmail(input.email);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw new AuthError("Invalid email address");
+    }
+    const existing = await query<{ id: string }>(
+      `SELECT id FROM users WHERE LOWER(email) = $1 AND id <> $2`,
+      [email, userId],
+    );
+    if (existing.length) throw new AuthError("Email already in use");
+    sets.push(`email = $${p++}`);
+    values.push(email);
+  }
+  if (input.first_name !== undefined) {
+    sets.push(`first_name = $${p++}`);
+    values.push(input.first_name ?? null);
+  }
+  if (input.last_name !== undefined) {
+    sets.push(`last_name = $${p++}`);
+    values.push(input.last_name ?? null);
+  }
+  if (input.phone !== undefined) {
+    sets.push(`phone = $${p++}`);
+    values.push(input.phone ?? null);
+  }
+  if (input.title !== undefined) {
+    sets.push(`title = $${p++}`);
+    values.push(input.title ?? null);
+  }
+
+  let derivedName: string | null | undefined;
+  if (input.name !== undefined) {
+    derivedName = input.name;
+  } else if (input.first_name !== undefined || input.last_name !== undefined) {
+    const first = input.first_name ?? "";
+    const last = input.last_name ?? "";
+    derivedName = [first, last].filter(Boolean).join(" ") || null;
+  }
+  if (derivedName !== undefined) {
+    sets.push(`name = $${p++}`);
+    values.push(derivedName);
+  }
+
+  if (!sets.length) return findUserById(userId);
+
+  sets.push(`updated_at = now()`);
+  values.push(userId);
+
+  const rows = await query<User>(
+    `UPDATE users SET ${sets.join(", ")} WHERE id = $${values.length} RETURNING ${USER_COLS}`,
+    values,
   );
   return rows[0] ?? null;
 }
