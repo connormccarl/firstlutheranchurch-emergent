@@ -1,0 +1,20 @@
+# .vercelignore — files Vercel must NOT bundle when deploying /app/frontend.
+#
+# The repository root is /app, but the Vercel project root is /app/frontend.
+# Anything inside /app/frontend that we don't want shipped goes here.
+#
+# Note: /app/backend (the FastAPI proxy) lives OUTSIDE this folder so Vercel
+# already ignores it by default. This file exists for in-folder hygiene.
+
+# Local build artefacts
+.next
+node_modules
+.turbo
+
+# Local-only test fixtures and credentials
+**/test_credentials.md
+../memory/test_credentials.md
+
+# Editor / OS noise
+.DS_Store
+*.log

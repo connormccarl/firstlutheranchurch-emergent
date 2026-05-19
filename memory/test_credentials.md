@@ -19,6 +19,8 @@
 ## Public auth pages
 - **Forgot password**: https://miami-lutheran-app.preview.emergentagent.com/forgot-password
 - **Reset password**: https://miami-lutheran-app.preview.emergentagent.com/reset-password?token=…
+- Note: reset links now resolve their origin from the live request, so they
+  also work on the production Vercel domain and any custom DNS host.
 
 ## Cron
 - **Endpoint**: `GET/POST /api/cron/cleanup` (Vercel cron daily at 03:00 UTC via `vercel.json`)
@@ -30,3 +32,7 @@
 - `admin` — full access (CRUD on resources, manage users)
 - `editor` — CRUD on resources, no user management
 - `viewer` — read-only access
+
+## PayPal (test sandbox)
+- `NEXT_PUBLIC_PAYPAL_CLIENT_ID` — set in `/app/frontend/.env`
+- `NEXT_PUBLIC_PAYPAL_HOSTED_BUTTON_ID` — set in `/app/frontend/.env`

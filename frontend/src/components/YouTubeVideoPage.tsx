@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module YouTubeVideoPage
+ * Generic in-app YouTube player. Loaded from `/video/[videoId]` so
+ * users stay on the church domain instead of being redirected to youtube.com.
+ */
+
 import { useParams } from 'next/navigation';
 
 import React from 'react';

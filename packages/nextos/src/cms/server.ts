@@ -1,5 +1,15 @@
 /**
- * CMS server helpers: generic CRUD over Postgres tables, with safe identifier quoting.
+ * CMS server helpers: generic CRUD over arbitrary Postgres tables.
+ *
+ * Safety model:
+ *   - All table / column identifiers are validated against `/^[A-Za-z_][A-Za-z0-9_]*$/`
+ *     and then double-quoted (`ident()`), so a malicious slug never reaches
+ *     the SQL parser.
+ *   - All values use parameterised queries (`$1, $2, …`) — no string concat.
+ *   - `readOnly` resources reject create/update/delete with a clear error.
+ *
+ * The CMS UI calls these helpers through `/api/admin/[slug]` route handlers.
+ * Resources are declared in the consuming app's `cms.config.ts`.
  */
 import { randomUUID } from "crypto";
 import { query } from "../db/pg.js";
@@ -9,6 +19,11 @@ function findResource(config: CmsConfig, slug: string): ResourceDef | undefined 
   return config.resources.find((r) => r.slug === slug);
 }
 
+/**
+ * Validate an identifier (table or column name) and wrap it in double-quotes.
+ * Rejects anything that isn't a plain alphanumeric/underscore identifier — so
+ * a user-supplied slug like `"; DROP TABLE users; --` will throw, not execute.
+ */
 function ident(name: string): string {
   if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name)) {
     throw new Error(`Unsafe identifier: ${name}`);
@@ -16,6 +31,11 @@ function ident(name: string): string {
   return `"${name}"`;
 }
 
+/**
+ * Coerce incoming form values to the column type declared in the resource
+ * definition. Empty strings become NULL so a blank text input doesn't write
+ * "" into a column that should be null.
+ */
 function castInputs(
   input: Record<string, unknown>,
   resource: ResourceDef,
@@ -43,6 +63,10 @@ export interface ListOptions {
   skip?: number;
 }
 
+/**
+ * List rows for a resource, newest first. Defaults to 500 rows max — bump
+ * via `limit` for large tables, but consider pagination instead.
+ */
 export async function listRecords(
   config: CmsConfig,
   slug: string,
@@ -60,6 +84,10 @@ export async function listRecords(
   );
 }
 
+/**
+ * Insert a new row. Generates a UUID for `id`, sets `created_at`/`updated_at`,
+ * and returns the full row (including any DB-side defaults).
+ */
 export async function createRecord(
   config: CmsConfig,
   slug: string,
@@ -81,6 +109,11 @@ export async function createRecord(
   return rows[0];
 }
 
+/**
+ * Update an existing row by id. Only columns present in `data` are touched;
+ * `updated_at` is always refreshed. Returns the updated row, or null if the
+ * id didn't match.
+ */
 export async function updateRecord(
   config: CmsConfig,
   slug: string,
@@ -94,6 +127,7 @@ export async function updateRecord(
   const sanitized = castInputs(data, resource);
   const keys = Object.keys(sanitized);
   if (!keys.length) {
+    // No field updates — just bump updated_at so audit logs reflect the touch.
     const rows = await query<ResourceRecord>(
       `UPDATE ${ident(resource.collection)} SET updated_at=$1 WHERE id=$2 RETURNING *`,
       [new Date().toISOString(), id],
@@ -112,6 +146,10 @@ export async function updateRecord(
   return rows[0] ?? null;
 }
 
+/**
+ * Hard-delete a row by id. Returns true if a row was removed, false if not found.
+ * Consider soft-delete (e.g. an `is_deleted` flag) if you need recovery.
+ */
 export async function deleteRecord(
   config: CmsConfig,
   slug: string,

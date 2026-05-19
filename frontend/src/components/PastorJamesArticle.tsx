@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module PastorJamesArticle
+ * Static editorial page featuring Pastor James' Voyage MIA magazine
+ * profile (linked from /about).
+ */
+
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';

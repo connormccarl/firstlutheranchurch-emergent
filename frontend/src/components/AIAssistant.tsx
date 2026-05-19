@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module AIAssistant
+ * AI Spiritual Assistant page. Hosts the conversational UI that calls
+ * `/api/ai/chat` (Emergent LLM key) for faith-based Q&A with session memory.
+ */
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User, Clock, BookOpen, Heart, MessageCircle, Lightbulb } from 'lucide-react';
 import { Button } from './ui/button';

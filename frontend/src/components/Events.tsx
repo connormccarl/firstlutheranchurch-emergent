@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module Events
+ * Public `/events` page. Lists upcoming events from `/api/events`
+ * (admin-managed) and lets visitors register via `/api/event-registrations`.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, Plus, Upload, Filter, Search, UserPlus, Users, CheckCircle, Edit, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';

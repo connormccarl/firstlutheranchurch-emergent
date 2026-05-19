@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module Footer
+ * Global site footer. Church contact info, quick links, service times,
+ * leadership cards (Pastor James, Dr. Tingting, John Riley), social icons.
+ */
+
 import Link from 'next/link';
 
 import React from 'react';

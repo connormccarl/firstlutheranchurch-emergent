@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module Schedule
+ * Public `/schedule` page. Embeds Calendly so visitors can book
+ * 1:1 time with Pastor James.
+ */
+
 import React, { useState } from 'react';
 import { InlineWidget } from 'react-calendly';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';

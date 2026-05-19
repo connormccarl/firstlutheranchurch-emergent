@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module Media
+ * Public `/media` page. Curated YouTube video grid; thumbnails route
+ * to in-app `/video/[videoId]` rather than redirecting to youtube.com.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Play, Upload, Filter, Search, Video, Music, Image as ImageIcon, Calendar, User } from 'lucide-react';
 import { Button } from './ui/button';

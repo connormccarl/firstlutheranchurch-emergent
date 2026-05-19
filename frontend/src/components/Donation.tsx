@@ -1,5 +1,13 @@
 'use client';
 
+/**
+ * @module Donation
+ * Donation modal (PayPal Hosted Buttons + Zeffy fallback). Multi-step
+ * flow: amount → donor info → method → payment → success. Reads PayPal
+ * client/button IDs from `NEXT_PUBLIC_PAYPAL_*` env vars and logs every
+ * completed donation to `/api/donations`.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';

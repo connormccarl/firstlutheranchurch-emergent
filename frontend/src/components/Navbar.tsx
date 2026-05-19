@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * @module Navbar
+ * Sticky top navigation with logo, primary links, the global Donate
+ * modal trigger, and a Google-Translate-powered language switcher (English,
+ * Mandarin, Spanish, Creole/French, Italian, Japanese).
+ */
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 

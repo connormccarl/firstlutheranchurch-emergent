@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * @module About
+ * Public `/about` page. Renders church history, special programs
+ * (piano, tech tutoring), board/leadership, FLC Constitution download, and
+ * deep links to magazine features.
+ */
+
 import Link from 'next/link';
 
 import React from 'react';

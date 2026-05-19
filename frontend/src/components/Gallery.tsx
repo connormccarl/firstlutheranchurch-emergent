@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module Gallery
+ * Public `/gallery` page. Renders a lightbox-style photo grid of
+ * community photos plus a leadership/board section.
+ */
+
 import Link from 'next/link';
 
 import React, { useState } from 'react';

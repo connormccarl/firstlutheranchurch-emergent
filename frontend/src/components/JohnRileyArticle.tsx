@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module JohnRileyArticle
+ * Static editorial page featuring John Riley's Miami Herald profile
+ * (linked from /about).
+ */
+
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';

@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module DrTingtingArticle
+ * Static editorial page featuring Dr. Tingting Wu's Bold Journey
+ * magazine profile (linked from /about).
+ */
+
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';

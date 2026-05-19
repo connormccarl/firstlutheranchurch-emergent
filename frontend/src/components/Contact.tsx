@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * @module Contact
+ * Public `/contact` page. Submits the contact form to `/api/contact`
+ * which logs the submission to Postgres AND emails the pastor via Zoho Mail.
+ */
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';

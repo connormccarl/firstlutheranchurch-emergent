@@ -1,11 +1,26 @@
 """
-Transparent API proxy: forwards every request under /api/* to the Next.js
-dev server on http://localhost:3000. All actual backend logic now lives in
-the Next.js application (`/app/frontend/src/app/api/...`).
+Transparent /api proxy — Emergent preview ONLY.
 
-This proxy exists ONLY because the Kubernetes ingress is hard-wired to send
-/api/* traffic to port 8001. In production the proxy can be removed and
-the Next.js server can serve /api/* directly.
+This FastAPI server exists for a single reason: the Emergent Kubernetes
+ingress is hard-wired to forward every request matching `/api/*` to port
+8001. The actual application is a Next.js 15 App Router project living in
+/app/frontend (port 3000), and ALL backend logic — database access, auth,
+sessions, CSRF, password reset, Zoho mail, CMS CRUD — has been migrated
+into Next.js API route handlers under `/app/frontend/src/app/api/`.
+
+So in the preview environment we run this minimal proxy that forwards
+`/api/*` from :8001 → :3000.
+
+# PRODUCTION (Vercel)
+This file is NOT deployed. Vercel runs `next start` (or serverless) and
+serves `/api/*` directly with no proxy. The `/app/backend` folder is
+outside Vercel's project root (`/app/frontend`) so it's excluded by
+default. See `/app/frontend/.vercelignore` for the explicit exclusion list.
+
+# PRESERVED env keys (DO NOT REMOVE)
+`/app/backend/.env` still contains `MONGO_URL` and `DB_NAME` because the
+Emergent platform's protected-variable rules require these keys to exist
+even when unused. The proxy itself never reads them.
 """
 
 from fastapi import FastAPI, Request, Response
@@ -13,6 +28,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import httpx
 import logging
 
+# Where the Next.js app is listening inside the same pod.
 NEXT_ORIGIN = "http://localhost:3000"
 
 app = FastAPI()

@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * @module Home
+ * Landing page. Hero with logo + Sunday's date, service times, church
+ * photos, special programs (languages / piano / tech tutoring) and a
+ * pastor contact section.
+ */
+
 import Link from 'next/link';
 
 import React from 'react';

@@ -1,5 +1,10 @@
 'use client';
 
+/**
+ * @module PastorJamesVideo
+ * Standalone video page for Pastor James' Localposh testimonial.
+ */
+
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
