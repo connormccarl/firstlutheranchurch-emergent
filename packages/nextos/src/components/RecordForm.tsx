@@ -1,4 +1,12 @@
 "use client";
+
+/**
+ * @module RecordForm
+ *
+ * Auto-generated create/edit form for any CMS resource. Renders one
+ * input per `FieldDef`, coerces values to the declared type on submit,
+ * and posts to the matching `/api/admin/[slug]` endpoint.
+ */
 import React, { useState, useEffect } from "react";
 import { X, Loader2 } from "lucide-react";
 import type { ResourceDef, ResourceRecord } from "../cms/types.js";

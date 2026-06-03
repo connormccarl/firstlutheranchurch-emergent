@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * @module admin/[slug]
+ *
+ * Generic CMS resource page. Renders the list+create+edit UI for any
+ * resource declared in `cms.config.ts`. URL slug must match a
+ * resource's `slug` field — unknown slugs return 404.
+ */
+
 import { use, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import { ResourcePage } from "@connormccarl/nextos";

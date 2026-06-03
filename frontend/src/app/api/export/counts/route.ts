@@ -1,3 +1,11 @@
+/**
+ * @module api/export/counts
+ *
+ * Admin dashboard summary metrics.
+ * Returns row counts for events, registrations, contacts, donations.
+ * Role gate: editor+.
+ */
+
 import { NextResponse } from "next/server";
 import { query } from "@connormccarl/nextos/server";
 

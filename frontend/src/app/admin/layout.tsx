@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * @module admin/layout
+ *
+ * Shared chrome for every `/admin/*` page: sidebar, top bar, logout
+ * control, session gate. Redirects unauthenticated visitors to /admin
+ * (which renders the LoginForm).
+ */
+
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { AdminShell, LoginForm } from "@connormccarl/nextos";

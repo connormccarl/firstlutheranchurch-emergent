@@ -1,4 +1,12 @@
 "use client";
+
+/**
+ * @module DataTable
+ *
+ * Auto-generated list view for any CMS resource. Reads field defs
+ * off the resource and renders one column per `tableColumns` entry
+ * (or first 5 fields). Provides edit + delete row actions.
+ */
 import React from "react";
 import { Pencil, Trash2 } from "lucide-react";
 import type { ResourceDef, ResourceRecord } from "../cms/types.js";

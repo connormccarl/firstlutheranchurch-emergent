@@ -1,3 +1,11 @@
+/**
+ * @module api/export/excel
+ *
+ * Admin Excel export. Streams an .xlsx workbook with every CMS table
+ * as its own sheet (events, registrations, contact_forms, donations,
+ * users). Role gate: editor+.
+ */
+
 import { NextResponse } from "next/server";
 import ExcelJS from "exceljs";
 import { query } from "@connormccarl/nextos/server";

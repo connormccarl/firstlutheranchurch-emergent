@@ -1,4 +1,12 @@
 "use client";
+
+/**
+ * @module LoginForm
+ *
+ * Drop-in login UI. Posts to `/api/auth/login`, persists nothing in
+ * localStorage (session cookies are HttpOnly), and calls `onSuccess`
+ * on a successful authentication.
+ */
 import React, { useState } from "react";
 import { LockKeyhole, Loader2 } from "lucide-react";
 

@@ -1,3 +1,14 @@
+/**
+ * @module api/event-registrations
+ *
+ * Public event-registration submission.
+ * 
+ *   POST /api/event-registrations
+ *     body: { name, email, phone?, notes?, event_title }
+ * 
+ * Persists to `event_registrations` and emails the pastor.
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { query, sendEmail } from "@connormccarl/nextos/server";

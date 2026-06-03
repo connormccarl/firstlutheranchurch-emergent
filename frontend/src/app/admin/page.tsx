@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * @module admin/index
+ *
+ * Admin landing page. If the visitor isn't logged in, shows the
+ * LoginForm from @connormccarl/nextos; otherwise renders a quick
+ * dashboard with CMS resource counts and links.
+ */
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";

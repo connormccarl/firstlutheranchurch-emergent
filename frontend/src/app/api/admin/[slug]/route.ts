@@ -1,3 +1,14 @@
+/**
+ * @module api/admin/[slug]
+ *
+ * Generic CMS list + create endpoint.
+ * 
+ *   GET  /api/admin/{slug}  → returns all rows for the resource
+ *   POST /api/admin/{slug}  → creates a new row (CSRF required)
+ * 
+ * Resource definitions come from `cms.config.ts`. Role gate: editor+.
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import {
   cmsListRecords,

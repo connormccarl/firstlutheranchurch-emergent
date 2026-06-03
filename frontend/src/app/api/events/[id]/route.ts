@@ -1,3 +1,10 @@
+/**
+ * @module api/events/[id]
+ *
+ * Public single-event lookup.
+ *   GET /api/events/{id} → one event by id.
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { query } from "@connormccarl/nextos/server";
 

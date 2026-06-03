@@ -1,4 +1,11 @@
 "use client";
+
+/**
+ * @module ResourcePage
+ *
+ * High-level wrapper that glues DataTable + RecordForm together for
+ * a single CMS resource. Used by `/admin/[slug]/page.tsx`.
+ */
 import React, { useEffect, useState, useCallback } from "react";
 import { Plus, Loader2, RefreshCw } from "lucide-react";
 import type { ResourceDef, ResourceRecord } from "../cms/types.js";

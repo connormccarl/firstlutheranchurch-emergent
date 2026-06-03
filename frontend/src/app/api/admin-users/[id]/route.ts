@@ -1,3 +1,12 @@
+/**
+ * @module api/admin-users/[id]
+ *
+ * Admin-only single-user management. Role gate: admin.
+ * 
+ *   PUT    /api/admin-users/{id}  → update profile / role / active flag
+ *   DELETE /api/admin-users/{id}  → remove a user (cascades sessions)
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import {
   setUserRole,

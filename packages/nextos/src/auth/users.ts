@@ -254,8 +254,11 @@ export async function updateUserProfile(
 }
 
 export async function deleteUser(userId: string): Promise<boolean> {
-  const result = await withClient(async (c) => c.query("DELETE FROM users WHERE id = $1", [userId]));
-  return (result.rowCount ?? 0) > 0;
+  // `$executeRawUnsafe` returns the number of rows affected.
+  const affected = await withClient((c) =>
+    c.$executeRawUnsafe("DELETE FROM users WHERE id = $1", userId),
+  );
+  return affected > 0;
 }
 
 /* ---------- Brute-force protection ---------- */

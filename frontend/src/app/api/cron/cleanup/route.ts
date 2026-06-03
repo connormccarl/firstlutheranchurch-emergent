@@ -1,4 +1,11 @@
 /**
+ * @module api/cron/cleanup
+ *
+ * Daily housekeeping. Triggered by Vercel cron via `vercel.json`
+ * (schedule: 0 3 * * * UTC). Currently purges expired sessions.
+ */
+
+/**
  * Daily cron endpoint to purge expired sessions and stale login attempts.
  * Protect with CRON_SECRET if exposed publicly:
  *   curl -H "Authorization: Bearer $CRON_SECRET" https://site.com/api/cron/cleanup

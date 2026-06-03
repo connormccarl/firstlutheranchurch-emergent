@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * @module admin/export
+ *
+ * Excel export page. One-click download of the entire CMS dataset
+ * as a multi-sheet .xlsx workbook via /api/export/excel. Shows live
+ * row-count summary cards via /api/export/counts.
+ */
+
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

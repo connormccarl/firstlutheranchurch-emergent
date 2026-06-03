@@ -1,3 +1,10 @@
+/**
+ * @module api/events
+ *
+ * Public events index.
+ *   GET /api/events → all upcoming events (used by the public /events page).
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { query } from "@connormccarl/nextos/server";

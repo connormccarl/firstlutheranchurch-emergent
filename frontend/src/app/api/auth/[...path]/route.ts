@@ -1,4 +1,12 @@
 /**
+ * @module api/auth/[...path]
+ *
+ * Auth surface mounted via @connormccarl/nextos `authHandlers()`:
+ *   login, logout, /me, register (disabled), request-reset, reset.
+ * Reset URL origin is resolved per request inside the package.
+ */
+
+/**
  * Auth API surface — login, logout, /me, request-reset, reset.
  *
  * Implementation lives in `@connormccarl/nextos/server`. We pass a *relative*

@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * @module admin/users
+ *
+ * Admin user management page. Lists every user, supports creating new
+ * users, editing profile fields (first_name, last_name, phone, title),
+ * rotating role, and deactivating accounts. Role gate: admin.
+ */
+
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, Loader2, Trash2, Pencil, X } from "lucide-react";

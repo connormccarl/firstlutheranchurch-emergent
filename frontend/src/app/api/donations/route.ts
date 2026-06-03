@@ -1,3 +1,15 @@
+/**
+ * @module api/donations
+ *
+ * Public donation logger.
+ * 
+ *   POST /api/donations
+ *     body: { amount, donor_name, donor_email, message, payment_method }
+ * 
+ * Records the donation in `donations` for the admin dashboard.
+ * The actual payment was already collected by PayPal / Zeffy on the client.
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { query } from "@connormccarl/nextos/server";

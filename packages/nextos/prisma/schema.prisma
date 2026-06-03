@@ -1,0 +1,105 @@
+// schema.prisma — single source of truth for the @connormccarl/nextos data model.
+//
+// Authored directly from `src/schema.sql` (the legacy DDL that NextOS used to
+// apply at boot). We deliberately model only the four well-known auth tables:
+//
+//   - User             authentication identity + profile fields
+//   - Session          opaque session tokens + CSRF state
+//   - PasswordReset    one-shot reset tokens
+//   - LoginAttempt     brute-force lockout journal
+//
+// CMS resource tables (events, gallery, contact_forms, donations, site_content,
+// media, …) are intentionally NOT modelled here. They're access by NextOS via
+// `prisma.$queryRawUnsafe()` with a strict identifier-safety guard so downstream
+// apps can define their own CMS resources without forking the package or
+// regenerating the Prisma client.
+//
+// Migrations workflow:
+//   - Initial baseline: `prisma migrate diff --from-empty --to-schema-datamodel
+//     prisma/schema.prisma --script > prisma/migrations/0_init/migration.sql`
+//     then `prisma migrate resolve --applied 0_init`.
+//   - Subsequent changes: edit this file, then `prisma migrate dev --name <name>`.
+//   - Production deploys: `prisma migrate deploy`.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  // Emit only ESM so tsup can bundle the package as a pure-ESM library.
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Authentication identity + profile fields.
+/// `password_hash` stores a bcrypt hash (cost configurable via BCRYPT_COST).
+model User {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email           String    @unique
+  password_hash   String
+  name            String?
+  first_name      String?
+  last_name       String?
+  phone           String?
+  title           String?
+  role            String    @default("viewer")
+  is_active       Boolean   @default(true)
+  email_verified  Boolean   @default(false)
+  created_at      DateTime  @default(now())   @db.Timestamptz(6)
+  updated_at      DateTime  @default(now())   @db.Timestamptz(6)
+  last_login_at   DateTime? @db.Timestamptz(6)
+  metadata        Json      @default("{}")
+
+  sessions        Session[]
+  password_resets PasswordReset[]
+
+  @@index([email], map: "idx_users_email_lower")
+  @@map("users")
+}
+
+/// Opaque session token (only the SHA-256 hash is persisted) + CSRF state.
+model Session {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id       String    @db.Uuid
+  token_hash    String    @unique
+  csrf_token    String
+  user_agent    String?
+  ip_address    String?
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  last_seen_at  DateTime  @default(now()) @db.Timestamptz(6)
+  expires_at    DateTime  @db.Timestamptz(6)
+
+  user          User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id],    map: "idx_sessions_user")
+  @@index([expires_at], map: "idx_sessions_expires")
+  @@map("sessions")
+}
+
+/// One-shot password-reset token (consumed on first use).
+model PasswordReset {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id     String    @db.Uuid
+  token_hash  String    @unique
+  expires_at  DateTime  @db.Timestamptz(6)
+  used_at     DateTime? @db.Timestamptz(6)
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+
+  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id], map: "idx_password_resets_user")
+  @@map("password_resets")
+}
+
+/// Brute-force lockout journal: one row per login attempt.
+model LoginAttempt {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  identifier    String
+  succeeded     Boolean
+  ip_address    String?
+  attempted_at  DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([identifier, attempted_at(sort: Desc)], map: "idx_login_attempts_identifier")
+  @@map("login_attempts")
+}

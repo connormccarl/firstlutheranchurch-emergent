@@ -1,4 +1,12 @@
 "use client";
+
+/**
+ * @module Sidebar
+ *
+ * Admin sidebar nav. Builds links from a CmsConfig and a list of
+ * extra static links (e.g. Users, Export). Highlights the active
+ * resource based on the current path.
+ */
 import React from "react";
 import {
   LayoutDashboard, Calendar, Image as ImageIcon, Film, FileText,

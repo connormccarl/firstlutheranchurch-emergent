@@ -1,3 +1,14 @@
+/**
+ * @module api/contact
+ *
+ * Public contact-form submission.
+ * 
+ *   POST /api/contact
+ *     body: { name, email, phone?, message }
+ * 
+ * Persists to `contact_forms` and emails the pastor via Zoho Mail.
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { query, sendEmail } from "@connormccarl/nextos/server";

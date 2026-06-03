@@ -1,3 +1,14 @@
+/**
+ * @module api/admin/[slug]/[id]
+ *
+ * Generic CMS update + delete endpoint.
+ * 
+ *   PUT    /api/admin/{slug}/{id}  → partial update (CSRF required)
+ *   DELETE /api/admin/{slug}/{id}  → hard delete (CSRF required)
+ * 
+ * Role gate: editor+.
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import {
   cmsUpdateRecord,

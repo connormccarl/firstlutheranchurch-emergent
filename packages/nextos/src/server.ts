@@ -8,7 +8,7 @@
  */
 
 /* ---------- DB ---------- */
-export { createPool, getPool, query, withClient } from "./db/pg.js";
+export { createPool, getPool, getPrisma, query, withClient, assertSafeIdentifier } from "./db/pg.js";
 export type { DbConfig } from "./db/pg.js";
 export { migrate } from "./db/migrate.js";
 

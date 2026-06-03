@@ -1,3 +1,12 @@
+/**
+ * @module api/admin-users
+ *
+ * Admin-only user management. Role gate: admin.
+ * 
+ *   GET  /api/admin-users  → list every user (no passwords)
+ *   POST /api/admin-users  → create a new user (CSRF required)
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import {
   listUsers,

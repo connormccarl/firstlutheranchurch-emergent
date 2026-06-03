@@ -1,3 +1,12 @@
+/**
+ * @module cms.config
+ *
+ * NextOS CMS configuration — declares every resource that should
+ * appear in the admin dashboard, mapping URL slugs to Postgres tables
+ * and to renderable form fields. See @connormccarl/nextos types.ts
+ * (`defineCmsConfig`, `ResourceDef`, `FieldDef`) for the shape.
+ */
+
 import { defineCmsConfig } from "@connormccarl/nextos";
 
 export const cms = defineCmsConfig({

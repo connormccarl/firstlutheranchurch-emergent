@@ -1,4 +1,12 @@
 "use client";
+
+/**
+ * @module AdminShell
+ *
+ * Top-level admin layout. Renders the sidebar + page content with a
+ * fixed-width brand header and an optional logout button. Consumed
+ * via `import { AdminShell } from '@connormccarl/nextos'`.
+ */
 import React from "react";
 import type { CmsConfig } from "../cms/types.js";
 import { Sidebar } from "./Sidebar.js";
