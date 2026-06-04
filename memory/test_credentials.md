@@ -26,7 +26,8 @@
 - **Endpoint**: `GET/POST /api/cron/cleanup` (Vercel cron daily at 03:00 UTC via `vercel.json`)
 
 ## PostgreSQL
-- `DATABASE_URL=postgresql://firstlutheranchurch:xRkokVfKiAKW@74.208.24.75:1691/firstlutheranchurch`
+- `DATABASE_URL=postgresql://flc:xRkokVfKiAKW@74.208.24.75:1691/firstlutheranchurch`
+- Schema applied via Prisma migration `prisma/migrations/0_init/migration.sql` (Feb 19 2026)
 
 ## Roles
 - `admin` — full access (CRUD on resources, manage users)
