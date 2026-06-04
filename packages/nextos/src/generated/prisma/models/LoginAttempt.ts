@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model LoginAttempt
- * Brute-force lockout journal: one row per login attempt.
+ * Brute-force lockout journal: one row per login attempt. Read by the
+ * Credentials `authorize()` to enforce 5-failures / 15-min lockout.
  */
 export type LoginAttemptModel = runtime.Types.Result.DefaultSelection<Prisma.$LoginAttemptPayload>
 

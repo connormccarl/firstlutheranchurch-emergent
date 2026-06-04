@@ -14,7 +14,9 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model PasswordReset
- * One-shot password-reset token (consumed on first use).
+ * One-shot password-reset token (consumed on first use). NOT an Auth.js
+ * table — used by our custom /forgot-password and /reset-password routes
+ * since Auth.js's built-in email flow is magic-link-only.
  */
 export type PasswordResetModel = runtime.Types.Result.DefaultSelection<Prisma.$PasswordResetPayload>
 

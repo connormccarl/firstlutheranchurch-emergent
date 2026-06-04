@@ -19,22 +19,40 @@ export * as $Enums from './enums'
 export * from './enums';
 /**
  * Model User
- * Authentication identity + profile fields.
- * `password_hash` stores a bcrypt hash (cost configurable via BCRYPT_COST).
+ * Authentication identity + Auth.js base fields + NextOS profile fields.
+ * `password_hash` is used by the Credentials provider's `authorize()`.
  */
 export type User = Prisma.UserModel
 /**
+ * Model Account
+ * Auth.js Account model — links a provider account (Google, GitHub, etc.)
+ * to a User. Populated by the Prisma adapter when OAuth providers sign in.
+ * Empty while we only use Credentials.
+ */
+export type Account = Prisma.AccountModel
+/**
  * Model Session
- * Opaque session token (only the SHA-256 hash is persisted) + CSRF state.
+ * Auth.js Session model — used when the consuming app switches to
+ * database sessions (OAuth providers). Credentials + JWT mode leaves this
+ * table empty, but the adapter still expects the model to exist.
  */
 export type Session = Prisma.SessionModel
 /**
+ * Model VerificationToken
+ * Auth.js VerificationToken — magic-link / email-verification tokens.
+ * Empty in Credentials-only setup.
+ */
+export type VerificationToken = Prisma.VerificationTokenModel
+/**
  * Model PasswordReset
- * One-shot password-reset token (consumed on first use).
+ * One-shot password-reset token (consumed on first use). NOT an Auth.js
+ * table — used by our custom /forgot-password and /reset-password routes
+ * since Auth.js's built-in email flow is magic-link-only.
  */
 export type PasswordReset = Prisma.PasswordResetModel
 /**
  * Model LoginAttempt
- * Brute-force lockout journal: one row per login attempt.
+ * Brute-force lockout journal: one row per login attempt. Read by the
+ * Credentials `authorize()` to enforce 5-failures / 15-min lockout.
  */
 export type LoginAttempt = Prisma.LoginAttemptModel

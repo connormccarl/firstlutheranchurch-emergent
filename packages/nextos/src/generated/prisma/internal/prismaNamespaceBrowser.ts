@@ -52,7 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Account: 'Account',
   Session: 'Session',
+  VerificationToken: 'VerificationToken',
   PasswordReset: 'PasswordReset',
   LoginAttempt: 'LoginAttempt'
 } as const
@@ -76,15 +78,17 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  emailVerified: 'emailVerified',
+  image: 'image',
   password_hash: 'password_hash',
+  role: 'role',
+  is_active: 'is_active',
+  email_verified: 'email_verified',
   name: 'name',
   first_name: 'first_name',
   last_name: 'last_name',
   phone: 'phone',
   title: 'title',
-  role: 'role',
-  is_active: 'is_active',
-  email_verified: 'email_verified',
   created_at: 'created_at',
   updated_at: 'updated_at',
   last_login_at: 'last_login_at',
@@ -94,19 +98,41 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
 export const SessionScalarFieldEnum = {
   id: 'id',
-  user_id: 'user_id',
-  token_hash: 'token_hash',
-  csrf_token: 'csrf_token',
-  user_agent: 'user_agent',
-  ip_address: 'ip_address',
-  created_at: 'created_at',
-  last_seen_at: 'last_seen_at',
-  expires_at: 'expires_at'
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires'
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
+} as const
+
+export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
 export const PasswordResetScalarFieldEnum = {

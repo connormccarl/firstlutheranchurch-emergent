@@ -82,6 +82,17 @@ async def proxy(path: str, request: Request) -> Response:
 
     body = await request.body()
     headers = _filter_headers(request.headers)
+    # Auth.js consults `x-forwarded-host` / `x-forwarded-proto` to build the
+    # callback URL it returns in 302 Location headers. Ingress already sets
+    # these for inbound HTTP traffic, but FastAPI strips them when we
+    # re-emit. Restore them explicitly so the upstream sees the *public*
+    # host (e.g. miami-lutheran-app.preview.emergentagent.com), not the
+    # internal `0.0.0.0:3000`.
+    public_host = request.headers.get("x-forwarded-host") or request.headers.get("host")
+    if public_host:
+        headers["x-forwarded-host"] = public_host
+    public_proto = request.headers.get("x-forwarded-proto") or "https"
+    headers["x-forwarded-proto"] = public_proto
 
     try:
         upstream = await _client.request(
@@ -98,13 +109,23 @@ async def proxy(path: str, request: Request) -> Response:
             media_type="application/json",
         )
 
-    response_headers = _filter_headers(upstream.headers)
-    return Response(
+    # Preserve every header — including multiple Set-Cookie entries — by
+    # writing the raw header list directly onto the FastAPI Response. A
+    # plain dict would collapse repeated Set-Cookie headers into a single
+    # comma-joined string, which breaks Auth.js (it sets the csrf-token,
+    # callback-url, AND session-token cookies in a single response).
+    response = Response(
         content=upstream.content,
         status_code=upstream.status_code,
-        headers=response_headers,
         media_type=upstream.headers.get("content-type"),
     )
+    raw_headers = []
+    for key, value in upstream.headers.multi_items():
+        if key.lower() in HOP_BY_HOP:
+            continue
+        raw_headers.append((key.encode("latin-1"), value.encode("latin-1")))
+    response.raw_headers = raw_headers
+    return response
 
 
 @app.get("/")

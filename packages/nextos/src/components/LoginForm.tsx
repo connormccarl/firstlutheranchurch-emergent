@@ -3,28 +3,32 @@
 /**
  * @module LoginForm
  *
- * Drop-in login UI. Posts to `/api/auth/login`, persists nothing in
- * localStorage (session cookies are HttpOnly), and calls `onSuccess`
- * on a successful authentication.
+ * Drop-in login UI for Auth.js v5 Credentials provider. Calls the
+ * canonical Auth.js endpoint `/api/auth/callback/credentials` with a
+ * `redirect: false` flag so the form can show inline errors instead of
+ * forcing a full page navigation.
+ *
+ * `onSuccess` is invoked after a successful sign-in. The session cookie
+ * is set by Auth.js itself — this component persists nothing on the client.
  */
 import React, { useState } from "react";
 import { LockKeyhole, Loader2 } from "lucide-react";
 
 export interface LoginFormProps {
-  /** Defaults to /api/auth/login */
+  /** Where to redirect after success. Optional — defaults to no redirect. */
+  onSuccess?: () => void;
+  /** Optional override for the Auth.js callback endpoint. Almost never needed. */
   endpoint?: string;
-  /** Where to redirect after success. Defaults to reloading the page. */
-  onSuccess?: (user: { id: string; email: string; role: string }) => void;
   title?: string;
   subtitle?: string;
-  /** Show "Forgot password?" link to this URL */
+  /** Show "Forgot password?" link to this URL. */
   forgotHref?: string;
-  /** Show "Sign up" link to this URL */
+  /** Show "Sign up" link to this URL. */
   registerHref?: string;
 }
 
 export function LoginForm({
-  endpoint = "/api/auth/login",
+  endpoint = "/api/auth/callback/credentials",
   onSuccess,
   title = "Sign in",
   subtitle = "Use your account credentials.",
@@ -41,15 +45,52 @@ export function LoginForm({
     setLoading(true);
     setError(null);
     try {
+      // Auth.js POST flow:
+      // 1. Fetch a CSRF token (Auth.js double-submits this).
+      // 2. POST credentials + csrfToken as form-urlencoded with redirect=false.
+      // 3. Auth.js sets `authjs.session-token` cookie on success.
+      const csrfRes = await fetch("/api/auth/csrf", { credentials: "include" });
+      const { csrfToken } = (await csrfRes.json()) as { csrfToken: string };
+
+      const body = new URLSearchParams({
+        csrfToken,
+        email,
+        password,
+        redirect: "false",
+        callbackUrl: "/admin",
+        json: "true",
+      });
+
       const res = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
       });
+
+      // Auth.js returns { url } on success and { error, url } on failure
+      // (with the error in the URL's `?error=` query param too).
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data?.detail || "Login failed");
-      onSuccess?.(data.user);
+      if (!res.ok || (data && data.error)) {
+        // Auth.js wraps server errors as "CredentialsSignin" by default.
+        // Our authorize() throws a friendlier Error message — but Auth.js
+        // hides it in production for safety, so we surface a generic
+        // message client-side.
+        throw new Error(
+          data?.error === "CredentialsSignin"
+            ? "Invalid email or password"
+            : data?.error || "Login failed",
+        );
+      }
+      // Force a full navigation so the freshly set HttpOnly session cookie
+      // is sent with the next request. Calling `onSuccess()` and refetching
+      // /api/auth/session via the same React render cycle can race the
+      // cookie being committed to the browser jar.
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        window.location.assign("/admin");
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {

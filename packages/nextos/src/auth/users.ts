@@ -5,6 +5,8 @@ import { query, withClient } from "../db/pg.js";
 import { hashPassword, verifyPassword } from "./password.js";
 import type { User } from "./session.js";
 
+export type { User } from "./session.js";
+
 export type Role = "admin" | "editor" | "viewer" | string;
 
 /**
@@ -71,6 +73,22 @@ function normalizeEmail(email: string): string {
 export async function findUserByEmail(email: string): Promise<User | null> {
   const rows = await query<User>(
     `SELECT ${USER_COLS} FROM users WHERE LOWER(email) = $1`,
+    [normalizeEmail(email)],
+  );
+  return rows[0] ?? null;
+}
+
+/**
+ * Internal lookup that includes the bcrypt hash. Used by the Credentials
+ * `authorize()` callback — DO NOT expose `password_hash` past the auth
+ * boundary; the returned object should be discarded immediately after the
+ * compare.
+ */
+export async function findUserByEmailWithPassword(
+  email: string,
+): Promise<(User & { password_hash: string }) | null> {
+  const rows = await query<User & { password_hash: string }>(
+    `SELECT ${USER_COLS}, password_hash FROM users WHERE LOWER(email) = $1`,
     [normalizeEmail(email)],
   );
   return rows[0] ?? null;
@@ -262,6 +280,18 @@ export async function deleteUser(userId: string): Promise<boolean> {
 }
 
 /* ---------- Brute-force protection ---------- */
+
+/**
+ * Public version of `logLoginAttempt` exported so the NextAuth Credentials
+ * provider can journal both successes and failures from `authorize()`.
+ */
+export async function recordLoginAttempt(
+  identifier: string,
+  succeeded: boolean,
+  ipAddress?: string,
+): Promise<void> {
+  return logLoginAttempt(identifier, succeeded, ipAddress);
+}
 
 async function logLoginAttempt(
   identifier: string,

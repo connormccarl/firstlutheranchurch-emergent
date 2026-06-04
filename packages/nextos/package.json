@@ -51,15 +51,21 @@
     "next": ">=14",
     "pg": ">=8",
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "@prisma/client": ">=7",
+    "@prisma/adapter-pg": ">=7",
+    "next-auth": ">=5.0.0-beta",
+    "@auth/prisma-adapter": ">=2"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.2",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^17.4.2",
     "jsonwebtoken": "^9.0.2",
-    "lucide-react": "^0.507.0"
+    "lucide-react": "^0.507.0",
+    "next-auth": "^5.0.0-beta.31"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

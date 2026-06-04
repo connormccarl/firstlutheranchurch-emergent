@@ -4,18 +4,18 @@
  * @module admin/layout
  *
  * Shared chrome for every `/admin/*` page: sidebar, top bar, logout
- * control, session gate. Redirects unauthenticated visitors to /admin
- * (which renders the LoginForm).
+ * control, session gate. Reads the Auth.js JWT-backed session via
+ * `/api/auth/session`. Redirects unauthenticated visitors to the
+ * embedded LoginForm.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { AdminShell, LoginForm } from "@connormccarl/nextos";
 import { cms } from "@/cms.config";
 
 type Me = {
   user: { id: string; email: string; name: string | null; role: string };
-  csrfToken: string;
 } | null;
 
 export default function AdminLayout({
@@ -27,25 +27,42 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [me, setMe] = useState<Me | "checking">("checking");
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     try {
-      const res = await fetch("/api/auth/me", { credentials: "include" });
-      if (!res.ok) throw new Error("not authenticated");
-      const data = await res.json();
-      setMe({ user: data.user, csrfToken: data.csrfToken });
+      // Auth.js exposes the session at /api/auth/session. Shape:
+      //   {} when signed out, { user: { id, email, name, role } } when signed in.
+      const res = await fetch("/api/auth/session", { credentials: "include" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.user?.id) {
+        setMe(null);
+        return;
+      }
+      setMe({
+        user: {
+          id: data.user.id,
+          email: data.user.email,
+          name: data.user.name ?? null,
+          role: data.user.role ?? "viewer",
+        },
+      });
     } catch {
       setMe(null);
     }
-  };
+  }, []);
 
   useEffect(() => {
     refresh();
-  }, []);
+  }, [refresh]);
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", {
+    // Auth.js logout is a POST with a CSRF token.
+    const csrfRes = await fetch("/api/auth/csrf", { credentials: "include" });
+    const { csrfToken } = await csrfRes.json();
+    await fetch("/api/auth/signout", {
       method: "POST",
       credentials: "include",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ csrfToken, callbackUrl: "/admin", json: "true" }),
     });
     setMe(null);
     router.push("/admin");
@@ -65,7 +82,9 @@ export default function AdminLayout({
         title="First Lutheran Miami — CMS"
         subtitle="Pastor & staff access only"
         forgotHref="/forgot-password"
-        onSuccess={refresh}
+        // Hard-navigate so the session cookie is included in the next request.
+        // (React state refresh races the browser's cookie commit.)
+        onSuccess={() => window.location.assign("/admin")}
       />
     );
   }
@@ -73,7 +92,6 @@ export default function AdminLayout({
   const segment = pathname.replace(/^\/admin\/?/, "").split("/")[0];
   const active = segment || "dashboard";
 
-  // Expose CSRF token globally so child server-bound fetches can pick it up
   return (
     <AdminShell
       config={cms}
@@ -85,21 +103,7 @@ export default function AdminLayout({
         { slug: "export", label: "Export", icon: "download", href: "/admin/export" },
       ]}
     >
-      <CsrfProvider token={me.csrfToken}>{children}</CsrfProvider>
+      {children}
     </AdminShell>
   );
-}
-
-// Tiny client-only provider to share CSRF via window
-function CsrfProvider({
-  token,
-  children,
-}: {
-  token: string;
-  children: React.ReactNode;
-}) {
-  useEffect(() => {
-    (window as unknown as { __NEXTOS_CSRF__: string }).__NEXTOS_CSRF__ = token;
-  }, [token]);
-  return <>{children}</>;
 }

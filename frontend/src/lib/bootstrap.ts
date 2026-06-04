@@ -24,13 +24,11 @@ export function ensureBootstrap(): Promise<void> {
     initialized = (async () => {
       // 1. Create the shared Prisma client (also caches the pg pool).
       createPool();
-      // 2. Apply the legacy idempotent schema. This is a defensive no-op
-      //    on a Prisma-managed database (use `prisma migrate deploy` in CI).
-      try {
-        await migrate();
-      } catch (e) {
-        console.error("[bootstrap] migrate failed:", e);
-      }
+      // 2. The legacy `migrate()` (bundled schema.sql) is no longer called
+      //    here — Prisma migrations (`prisma migrate deploy`) are now the
+      //    authoritative schema source. We still import it from the package
+      //    in case CI/tools want to invoke it manually for first-run DBs.
+      void migrate;
       // 3. Seed / rotate the admin user from env. Skips silently if
       //    ADMIN_EMAIL or ADMIN_PASSWORD is unset.
       try {

@@ -1,30 +1,29 @@
 // schema.prisma — single source of truth for the @connormccarl/nextos data model.
 //
-// Authored directly from `src/schema.sql` (the legacy DDL that NextOS used to
-// apply at boot). We deliberately model only the four well-known auth tables:
+// Auth.js v5 (NextAuth.js) + Prisma adapter compatible schema. The four
+// standard Auth.js models (User, Account, Session, VerificationToken) coexist
+// with our custom tables for brute-force lockout and password reset.
 //
-//   - User             authentication identity + profile fields
-//   - Session          opaque session tokens + CSRF state
-//   - PasswordReset    one-shot reset tokens
-//   - LoginAttempt     brute-force lockout journal
+//   Auth.js standard models:
+//     - User                 identity (Auth.js requires: email, emailVerified, image)
+//     - Account              OAuth account linking (unused in Credentials-only setup,
+//                            but populated automatically if we add Google/etc. later)
+//     - Session              database sessions (unused in Credentials + JWT mode,
+//                            but populated by Auth.js once an OAuth provider is added)
+//     - VerificationToken    email verification / magic-link tokens (currently unused)
 //
-// CMS resource tables (events, gallery, contact_forms, donations, site_content,
-// media, …) are intentionally NOT modelled here. They're access by NextOS via
-// `prisma.$queryRawUnsafe()` with a strict identifier-safety guard so downstream
-// apps can define their own CMS resources without forking the package or
-// regenerating the Prisma client.
+//   Custom NextOS models (Credentials-flow only):
+//     - PasswordReset        one-shot reset tokens used by our /reset-password route
+//     - LoginAttempt         brute-force lockout journal hit from authorize()
 //
-// Migrations workflow:
-//   - Initial baseline: `prisma migrate diff --from-empty --to-schema-datamodel
-//     prisma/schema.prisma --script > prisma/migrations/0_init/migration.sql`
-//     then `prisma migrate resolve --applied 0_init`.
-//   - Subsequent changes: edit this file, then `prisma migrate dev --name <name>`.
-//   - Production deploys: `prisma migrate deploy`.
+// CMS resource tables (events, gallery, contact_forms, …) are intentionally NOT
+// modelled here — NextOS reaches them via `prisma.$queryRawUnsafe()` with an
+// identifier-safety guard so downstream apps can declare their own CMS
+// resources without forking the package or regenerating Prisma.
 
 generator client {
   provider     = "prisma-client"
   output       = "../src/generated/prisma"
-  // Emit only ESM so tsup can bundle the package as a pure-ESM library.
   moduleFormat = "esm"
 }
 
@@ -32,52 +31,95 @@ datasource db {
   provider = "postgresql"
 }
 
-/// Authentication identity + profile fields.
-/// `password_hash` stores a bcrypt hash (cost configurable via BCRYPT_COST).
+/// Authentication identity + Auth.js base fields + NextOS profile fields.
+/// `password_hash` is used by the Credentials provider's `authorize()`.
 model User {
-  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email           String    @unique
-  password_hash   String
-  name            String?
-  first_name      String?
-  last_name       String?
-  phone           String?
-  title           String?
-  role            String    @default("viewer")
-  is_active       Boolean   @default(true)
-  email_verified  Boolean   @default(false)
-  created_at      DateTime  @default(now())   @db.Timestamptz(6)
-  updated_at      DateTime  @default(now())   @db.Timestamptz(6)
-  last_login_at   DateTime? @db.Timestamptz(6)
-  metadata        Json      @default("{}")
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  // ---- Auth.js required fields ----
+  email          String    @unique
+  emailVerified  DateTime? @db.Timestamptz(6)
+  image          String?
 
-  sessions        Session[]
+  // ---- NextOS auth fields ----
+  password_hash  String
+  role           String    @default("viewer")
+  is_active      Boolean   @default(true)
+  // legacy boolean (kept for backwards-compat; superseded by emailVerified)
+  email_verified Boolean   @default(false)
+
+  // ---- NextOS profile fields ----
+  name           String?
+  first_name     String?
+  last_name      String?
+  phone          String?
+  title          String?
+
+  // ---- Timestamps ----
+  created_at     DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime  @default(now()) @db.Timestamptz(6)
+  last_login_at  DateTime? @db.Timestamptz(6)
+
+  metadata       Json      @default("{}")
+
+  // ---- Relations ----
+  accounts       Account[]
+  sessions       Session[]
   password_resets PasswordReset[]
 
-  @@index([email], map: "idx_users_email_lower")
   @@map("users")
 }
 
-/// Opaque session token (only the SHA-256 hash is persisted) + CSRF state.
+/// Auth.js Account model — links a provider account (Google, GitHub, etc.)
+/// to a User. Populated by the Prisma adapter when OAuth providers sign in.
+/// Empty while we only use Credentials.
+model Account {
+  id                String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId            String  @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+/// Auth.js Session model — used when the consuming app switches to
+/// database sessions (OAuth providers). Credentials + JWT mode leaves this
+/// table empty, but the adapter still expects the model to exist.
 model Session {
-  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id       String    @db.Uuid
-  token_hash    String    @unique
-  csrf_token    String
-  user_agent    String?
-  ip_address    String?
-  created_at    DateTime  @default(now()) @db.Timestamptz(6)
-  last_seen_at  DateTime  @default(now()) @db.Timestamptz(6)
-  expires_at    DateTime  @db.Timestamptz(6)
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sessionToken String   @unique
+  userId       String   @db.Uuid
+  expires      DateTime @db.Timestamptz(6)
 
-  user          User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([user_id],    map: "idx_sessions_user")
-  @@index([expires_at], map: "idx_sessions_expires")
   @@map("sessions")
 }
 
-/// One-shot password-reset token (consumed on first use).
+/// Auth.js VerificationToken — magic-link / email-verification tokens.
+/// Empty in Credentials-only setup.
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime @db.Timestamptz(6)
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+/// One-shot password-reset token (consumed on first use). NOT an Auth.js
+/// table — used by our custom /forgot-password and /reset-password routes
+/// since Auth.js's built-in email flow is magic-link-only.
 model PasswordReset {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_id     String    @db.Uuid
@@ -92,7 +134,8 @@ model PasswordReset {
   @@map("password_resets")
 }
 
-/// Brute-force lockout journal: one row per login attempt.
+/// Brute-force lockout journal: one row per login attempt. Read by the
+/// Credentials `authorize()` to enforce 5-failures / 15-min lockout.
 model LoginAttempt {
   id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   identifier    String

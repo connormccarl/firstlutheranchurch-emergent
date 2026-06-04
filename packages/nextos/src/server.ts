@@ -55,9 +55,21 @@ export type { User, Session, CookieOptions, CreateSessionInput, CreateSessionRes
 /* ---------- Auth: password reset ---------- */
 export { requestPasswordReset, consumePasswordResetToken } from "./auth/reset.js";
 
-/* ---------- Auth: route handlers ---------- */
-export { authHandlers, getCurrentUser, requireSession, assertCsrf } from "./auth/handlers.js";
+/* ---------- Auth: route handlers (LEGACY — kept temporarily for backwards compat) ---------- */
+export { authHandlers } from "./auth/handlers.js";
 export type { AuthHandlerOptions } from "./auth/handlers.js";
+
+/* ---------- Auth: NextAuth (Auth.js v5) — the current canonical surface ---------- */
+export {
+  handlers,        // GET/POST for /api/auth/[...nextauth]/route.ts
+  auth,            // await auth() — server-side session reader
+  signIn,          // programmatic sign-in
+  signOut,         // programmatic sign-out
+  authConfig,      // exported in case the consumer wants to extend with more providers
+  getCurrentUser,  // NextOS-flavoured wrapper around await auth()
+  requireSession,  // role-gated wrapper; throws on missing/insufficient session
+  assertCsrf,      // compatibility no-op (see source for the security note)
+} from "./auth/nextauth.js";
 
 /* ---------- Auth: seeding ---------- */
 export { seedAdmin } from "./auth/seed.js";
